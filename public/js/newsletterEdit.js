@@ -32,20 +32,82 @@ $(document).ready(function(){
         sidebar.fill();
     };
 
+    sidebar.sortData = function(data){
+        var dataObject = new Object();
+
+            $.each(data, function(index, snippet){
+                var title = snippet.title;
+
+                if(title.match(/^section_.*?_.*?$/) != null){
+                    // get section mame
+                    var section = title.match(/^section_(.*?)_(.*?)$/)[1];
+                    var sectionTitle = title.match(/^section_(.*?)_(.*?)$/)[2];
+
+                    // check it doesn't already exists
+                    if (dataObject.hasOwnProperty(section) == false) {
+                        // create separate object for each section
+                        dataObject[section] = new Object();
+                    };
+
+                    dataObject[section][sectionTitle] = snippet.id;
+
+                } else {
+                    // doesn't have section attached
+                    dataObject[title] = snippet.id;
+                }
+
+            });
+    
+        return dataObject;
+
+    };
+
     sidebar.fill = function(){
         sidebar.config.loading.show();
         $.get(sidebar.config.getAllUrl, function(data){
-            sidebar.createUl(data);
+            var sorted = sidebar.sortData(data); // gets back object with all data
+            sidebar.createList(sorted);
         });
     };
 
-    sidebar.createUl = function(data){
+    sidebar.createList = function(data){
         var list = document.createDocumentFragment();
-        $.each(data, function(index, snippet){
-            var item = sidebar.createLi(snippet.attributes);
-            $(list).append(item);
+
+        $.each(data, function(title, value){
+            if(typeof value == "object"){
+                var ul = sidebar.createFromObject(title, value);
+                $(list).append(ul);
+            } else {
+                var li = sidebar.createFromString(title,value);
+                $(list).append(li);
+            }
         });
-        sidebar.attach(list);
+
+        console.log(list);
+
+    };
+
+    sidebar.createFromObject = function(title, data){
+        var ul = document.createDocumentFragment();
+
+        // do the list
+        var list = document.createDocumentFragment();
+            $.each(data, function(title, id){
+                var data = {title: title, id: id};
+                var li = sidebar.createLi(data);
+                $(list).append(li);
+            });
+
+        console.log(ul.innerHTML);
+        // $(ul).append('<ul>' + list.innerHTML + '</ul>');
+        return ul;
+
+    };
+
+    sidebar.createFromString = function(title, value){
+        var data = {id: value, title: title};
+        var html = sidebar.createLi(data);
+        return html;
     };
 
     sidebar.createLi = function(snippet){

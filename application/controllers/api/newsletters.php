@@ -96,7 +96,18 @@ class Api_Newsletters_Controller extends Base_Controller {
     {
         $newsletter = Newsletter::find($id);
         $snippets = $newsletter->Snippet()->get(array('id', 'title'));
-        return Response::json($snippets);
+        
+        $output = array();
+        foreach ($snippets as $snippet) {
+            $single_snippet = array(
+                "id" => $snippet->id,
+                "title" => $snippet->title,
+                "value" => $snippet->value,
+            );
+            array_push($output, $single_snippet);
+        }
+
+        return Response::json($output);
     }
 
     public function get_html($id)
