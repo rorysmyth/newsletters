@@ -28,7 +28,10 @@ class Site_Newsletters_Controller extends Site_Controller
     public function action_index()
     {
         Asset::container('footer')->add('custom', 'js/newsletterList.js');
-        $newsletters = DB::table('newsletters')->order_by('created_at', 'desc')->get();
+
+        $per_page    = 20;
+        $newsletters = DB::table('newsletters')->paginate($per_page, array('id', 'title', 'created_at') );
+        
         return View::make('site.newsletters.index')
             ->with('newsletters', $newsletters);
     }

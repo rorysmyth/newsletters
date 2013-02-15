@@ -58,6 +58,18 @@ class Api_Newsletters_Controller extends Base_Controller {
         }
     }
 
+    public function get_search()
+    {
+        $query = Input::get('query');
+
+        // $matches = Newsletter::where('title', 'LIKE', Input::get('query') );
+        $matches = DB::table('newsletters')
+            ->where('title', 'LIKE', '%'.$query.'%')
+            ->get(array('title', 'id'));
+
+        return Response::json($matches);
+    }
+
     public function post_duplicate($id)
     {
         // get all values from current template

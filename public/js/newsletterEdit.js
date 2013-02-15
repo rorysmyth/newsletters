@@ -98,7 +98,6 @@ $(document).ready(function(){
             });
 
         $(list).prepend('<li class="nav-header">'+title+'</li>');
-        /*$(list).wrapInner('<ul class="nav nav-list">');*/
         $(list).append('<li class="divider"></li>');
         
         return list;
@@ -112,9 +111,13 @@ $(document).ready(function(){
     };
 
     sidebar.createLi = function(snippet){
+        var data = {
+            id: snippet.id,
+            title: snippet.title.replace('_', ' ')
+        }
         var src      = sidebar.config.liTemplate;
         var template = Handlebars.compile(src);
-        var html     = template(snippet);
+        var html     = template(data);
         return html;
     };
 

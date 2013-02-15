@@ -1,9 +1,11 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
+
   	<div class="row-fluid fluid-nav">
     <a class="brand" href="{{URL::to_route('newsletters_all')}}">Newsletters</a>
-    <ul class="nav">
-      
+    
+    {{-- ------------------------   Main Nav   ------------------------ --}}
+    <ul class="nav">  
       <li class="dropdown">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">
           Newsletters
@@ -15,7 +17,6 @@
           </ul>
         </a>
       </li>
-
       <li class="dropdown">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">
           Templates
@@ -27,8 +28,16 @@
           </ul>
         </a>
       </li>
-
     </ul>
+    {{-- ------------------------   Main Nav   ------------------------ --}}
+    
+    <form class="navbar-search pull-left">
+      <input id="type" type="text" class="search-query" data-provide="typeahead">
+    </form>
+
+
     </div>
+
+
   </div>
 </div>

@@ -9,7 +9,7 @@
 	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}
-		<div class="span5">
+		<div class="span4">
 			<table class=" table table-hover">
 				<thead>
 					<tr>
@@ -20,7 +20,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($newsletters as $newsletter)
+					@foreach($newsletters->results as $newsletter)
 					<tr
 						data-id="{{$newsletter->id}}"
 						data-preview-url="{{URL::to_route('api_get_template_code', $newsletter->id)}}"
@@ -41,10 +41,15 @@
 					@endforeach
 				</tbody>
 			</table>	
+
+			<div>
+				{{$newsletters->links()}}
+			</div>
+
 		</div>
 
 		{{-- ------------------------		RHS		------------------------ --}}
-		<div class="span7" id="preview_pane">
+		<div class="span8" id="preview_pane">
 			<iframe src="" width="100%" frameborder="0"></iframe>
 		</div>
 

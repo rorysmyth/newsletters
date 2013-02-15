@@ -38,9 +38,14 @@ Route::get('newsletters/new', array(
 | API Routes
 |--------------------------------------------------------------------------
 */
-Route::any('/api/newsletters/(:num?)', array(
+Route::any('/api/newsletters/(:num)', array(
     'as' => 'api_newsletter',
     'uses' => 'api.newsletters@index'
+));
+
+Route::get('/api/newsletters/search', array(
+    'as' => 'api_newsletter_search',
+    'uses' => 'api.newsletters@search'
 ));
 
 Route::any('/api/newsletters/(:num?)/snippets', array(
@@ -68,9 +73,13 @@ Route::any('/api/snippets/(:num?)', array(
 	'uses' => 'api.snippets@index'
 ));
 
-View::composer(array('global.nav'), function($view){
-	/*$sites = Site::all();
-	$view->with('sites', $sites);*/
+View::composer(array('site.partials.nav'), function($view){
+    // $newsletters = Newsletter::get('title');
+    // $results = array();
+    // foreach ($newsletters as $newsletter) {
+    //     array_push($results, $newsletter->title);
+    // }
+    // $view->with('newsletters', json_encode($results));
 });
 
 /*
