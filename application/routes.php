@@ -6,12 +6,6 @@
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function(){
-    $cf = Ioc::resolve('cloudfiles');
-    $containers = $cf->list_public_containers();
-    dd($containers);
-});
-
 Route::get('newsletters', array(
     'as'   => 'newsletters_all',
     'uses' => 'site.newsletters@index'
@@ -38,7 +32,7 @@ Route::get('newsletters/new', array(
 | API Routes
 |--------------------------------------------------------------------------
 */
-Route::any('/api/newsletters/(:num)', array(
+Route::any('/api/newsletters/(:num?)', array(
     'as' => 'api_newsletter',
     'uses' => 'api.newsletters@index'
 ));
