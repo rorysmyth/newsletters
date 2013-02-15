@@ -17,7 +17,7 @@
                 type: 'GET',
                 data: {query: query},
                 dataType: 'json',
-                success: function(data){
+                success: function(results){
 
                     var data = new Array();
                     for (var i = results.length - 1; i >= 0; i--) {
