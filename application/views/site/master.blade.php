@@ -12,9 +12,10 @@
 	
 	<div class="row-fluid">
 		<div class="span12">
-			<h2>@yield('title')</h2>
+			<h4>@yield('title')</h4>
 		</div>
 	</div>
+	<hr>
 
 	<!-- main content -->
 	@yield('main')

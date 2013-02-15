@@ -1,5 +1,9 @@
 @layout('site.master')
 
+@section('title')
+{{$newsletter->title}}
+@endsection
+
 @section('main')
 
 <div
@@ -17,8 +21,6 @@
 
 	{{-- ------------------------		LHS		------------------------ --}}
 	<div id="snippets" class="span2">
-
-		<h4>{{$newsletter->title}}</h4>
 
 		<div class="btn-group bottom20">
 		  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
