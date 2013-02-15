@@ -12,8 +12,8 @@ body {
 	width: 400px;
 }
 
-#snippets {
-  margin-top:40px;
+.bottom20 {
+  margin-bottom:20px;
 }
 
 #snippet_add_button {

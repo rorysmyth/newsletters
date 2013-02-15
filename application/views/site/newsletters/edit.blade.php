@@ -1,17 +1,6 @@
 @layout('site.master')
 
-@section('title')
-	{{$newsletter->title}}
-@endsection
-
 @section('main')
-
-<div class="row-fluid">
-	<div class="btn-group">
-	  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
-	  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
-	</div>
-</div>
 
 <div
         class="row-fluid"
@@ -28,6 +17,14 @@
 
 	{{-- ------------------------		LHS		------------------------ --}}
 	<div id="snippets" class="span2">
+
+		<h4>{{$newsletter->title}}</h4>
+
+		<div class="btn-group bottom20">
+		  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
+		  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
+		</div>
+
 		<div class="loading"></div>
 		<div class="well">
 			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i>  new</a>

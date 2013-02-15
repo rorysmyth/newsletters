@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
   	<div class="row-fluid fluid-nav">
     <a class="brand" href="#">Newsletters</a>
