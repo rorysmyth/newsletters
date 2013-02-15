@@ -83,24 +83,25 @@ $(document).ready(function(){
             }
         });
 
-        console.log(list);
+        sidebar.attach(list);
 
     };
 
     sidebar.createFromObject = function(title, data){
-        var ul = document.createDocumentFragment();
-
+        
         // do the list
-        var list = document.createDocumentFragment();
+        var list = document.createDocumentFragment('div');
             $.each(data, function(title, id){
                 var data = {title: title, id: id};
                 var li = sidebar.createLi(data);
                 $(list).append(li);
             });
 
-        console.log(ul.innerHTML);
-        // $(ul).append('<ul>' + list.innerHTML + '</ul>');
-        return ul;
+        $(list).prepend('<li class="nav-header">'+title+'</li>');
+        /*$(list).wrapInner('<ul class="nav nav-list">');*/
+        $(list).append('<li class="divider"></li>');
+        
+        return list;
 
     };
 

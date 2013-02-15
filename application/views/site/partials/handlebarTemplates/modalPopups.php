@@ -68,7 +68,5 @@
 </script>
 
 <script type="text/x-handlebars-template" id="hb_sidebar_snippet_li">
-	<li>
-		<a data-id="{{id}}" href="#"><i class="icon-chevron-right"></i> {{title}}</a>
-		</li>
+	<li><a data-id="{{id}}" href="#">{{title}}</a></li>
 </script>

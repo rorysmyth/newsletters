@@ -27,18 +27,18 @@
 
 
 	{{-- ------------------------		LHS		------------------------ --}}
-	<div id="snippets" class="span3">
+	<div id="snippets" class="span2">
 		<div class="loading"></div>
-		<div class="bs-docs-sidebar">
-			<ul class="nav nav-list bs-docs-sidenav"></ul>
+		<div class="well">
+			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i>  new</a>
+			<ul class="nav nav-list"></ul>
 		</div>
-		<a id="snippet_add_button" data-action="add-new-snippet" = href="#" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>  new</a>
 	</div>
 
 
 
 	{{-- ------------------------		RHS		------------------------ --}}
-	<div class="span9">
+	<div class="span10">
 	
 		<div class="row-fluid">
 			
