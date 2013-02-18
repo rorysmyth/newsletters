@@ -7,9 +7,7 @@ class Site_Controller extends Base_Controller
     {
         Asset::container('footer')
             ->add('jquery','js/jquery.js')
-            ->add('prettify_js','js/lang-css.js')
-            ->add('prettify_js','js/prettify.js')
-            ->add('bootstrap_js','js/bootstrap.min.js',array('jquery'))
+            ->add('bootstrap_js','js/bootstrap.min.js')
             ->add('handlebars','js/handlebars.js')
             ->add('scripts','js/scripts.js');
 

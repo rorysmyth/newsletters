@@ -31,7 +31,8 @@
 		<div class="well">
 			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i>  new</a>
 			<ul class="nav nav-list"></ul>
-		</div>
+		</div> 	
+
 	</div>
 
 

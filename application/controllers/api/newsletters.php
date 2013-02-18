@@ -4,14 +4,11 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public $restful = true;
 
+    // api/newsletters/1
     public function get_index($id)
     {
-        $newsletter = Newsletter::find($id);
-        $out = array(
-            'title' => $newsletter->title,
-            'template' => $newsletter->template
-        );
-        return Response::json($out);
+        $newsletter = Newsletter::where('id', '=', $id)->get(array('title', 'template'));
+        return Response::eloquent($newsletter);
     }
 
     public function put_index($id)
@@ -62,7 +59,6 @@ class Api_Newsletters_Controller extends Base_Controller {
     {
         $query = Input::get('query');
 
-        // $matches = Newsletter::where('title', 'LIKE', Input::get('query') );
         $matches = DB::table('newsletters')
             ->where('title', 'LIKE', '%'.$query.'%')
             ->get(array('title', 'id'));
@@ -135,7 +131,6 @@ class Api_Newsletters_Controller extends Base_Controller {
     public function get_template($id)
     {
         return Response::json(Newsletter::find($id));
-
     }
 
 }

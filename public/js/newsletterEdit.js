@@ -200,14 +200,42 @@ $(document).ready(function(){
             url: sidebar.config.singleSnippetUrl,
             data: data,
             success: function(xhr, response){
-                $('#snippet_new_modal').modal('toggle');
+                if(!xhr.status)
+                {
+                    error.modal(xhr.message);
+                } else {
+                    $('#snippet_new_modal').modal('toggle');
+                    sidebar.fill();
+                }
             }
         });
-        request.complete(function(){
-            sidebar.fill();
-        });
+
     };
 
+    
+    /*=================================================
+
+    Errors
+
+    =================================================*/
+    var error = error || {};
+
+    error.modal = function(data){
+        var messages = document.createDocumentFragment();
+        $.each(data, function(index, val) {
+             var html = error.single(data);
+             $(messages).append(html);
+        });
+        $('.modal_error_container').html(messages);
+    }
+
+    error.single = function(message){
+        var data = {message: message};
+        var src = $('#alert_template').html();
+        var template = Handlebars.compile(src);
+        var html = template(data);
+        return html;
+    }
 
 
     /*=================================================
@@ -246,8 +274,17 @@ $(document).ready(function(){
             data: data,
             url: url,
             success: function(xhr, response){
-                $('#snippet_edit_modal').modal('toggle');           
+                if(!xhr.status)
+                {
+                    error.modal(xhr.message);
+                } else {
+                    $('#snippet_edit_modal').modal('toggle');
+                    code.request();
+                    preview.refresh();
+                }
             }
+
+
         });
     };
 
@@ -318,9 +355,8 @@ $(document).ready(function(){
     };
 
     code.populate = function(html){
-        code.config.codeBox.html(html);
+        // code.config.codeBox.html(html);
         code.config.rawCodeBox.html(html);
-        prettyPrint();
         code.config.loader.hide();
     };
 
