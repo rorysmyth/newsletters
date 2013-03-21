@@ -15,11 +15,13 @@ $('document').ready(function(){
     preview.listeners = function()
     {
     	$('body').on('click', '*[data-action="preview"]', function(e){
-      		preview.populate(this);
+      		$.blockUI();
+            preview.populate(this);
             e.preventDefault();
         });
          preview.config.el.on('load', function(){
             preview.setHeight();
+            $.unblockUI();
         });
     }
 
@@ -71,5 +73,6 @@ $('document').ready(function(){
 
     nlDelete.init();
     preview.init();
+
 
 });

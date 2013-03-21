@@ -21,6 +21,11 @@
 			</p>
 
 			<p>
+				{{Form::label('template_id', 'Template')}}
+				{{Form::select('template_id', $templates )}}
+			</p>
+
+			<p>
 				{{Form::label('template', 'Template Code')}}
 				{{Form::textarea('template', '', array('class' => 'input-block-level'))}}
 			</p>

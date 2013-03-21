@@ -26,6 +26,10 @@ Route::get('newsletters/new', array(
     'uses' => 'site.newsletters@new'
 ));
 
+Route::get('templates/new', array(
+    'as' => 'templates_new',
+    'uses' => 'site.templates@index'
+));
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +69,11 @@ Route::any('/api/newsletters/(:num?)/html', array(
 Route::any('/api/snippets/(:num?)', array(
 	'as' => 'api_get_single_snippet',
 	'uses' => 'api.snippets@index'
+));
+
+Route::any('/api/templates/(:num?)', array(
+    'as' => 'api_template',
+    'uses' => 'api.templates@index'
 ));
 
 View::composer(array('site.partials.nav'), function($view){

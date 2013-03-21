@@ -27,6 +27,7 @@ class Site_Newsletters_Controller extends Site_Controller
 
     public function action_index()
     {
+
         Asset::container('footer')->add('custom', 'js/newsletterList.js');
 
         $per_page    = 20;
@@ -39,7 +40,9 @@ class Site_Newsletters_Controller extends Site_Controller
     public function action_new()
     {
         $sites = Site::lists('title', 'id');
+        $templates = Template::lists('title', 'id');
         return View::make('site.newsletters.new')
+            ->with('templates', $templates)
             ->with('sites', $sites);
     }
 	

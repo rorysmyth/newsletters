@@ -9,9 +9,12 @@ class Create_Initial_Tables_And_Relationships {
 	 */
 	public function up()
 	{
-			/*
+
+
+
+			/********************************************
 			*	Sites
-			*/
+			********************************************/
 			Schema::create('sites', function($table)
 			{
 				$table->engine = 'InnoDB';
@@ -19,10 +22,32 @@ class Create_Initial_Tables_And_Relationships {
 					$table->string('title');
 				$table->timestamps();
 			});
+			/********************************************
+			*	/Sites
+			********************************************/
 
-			/*
-			*	Newsletter
-			*/
+
+			/********************************************
+			*	Templates
+			********************************************/
+			Schema::create('templates', function($table)
+			{
+				$table->engine = 'InnoDB';
+				$table->increments('id');
+					$table->string('title');
+					$table->blob('code');
+					$table->integer('site_id')->unsigned();
+					$table->foreign('site_id')->references('id')->on('sites');
+				$table->timestamps();
+			});
+			/********************************************
+			*	/Templates
+			********************************************/
+
+
+			/********************************************
+			*	Newsletters
+			********************************************/
 			Schema::create('newsletters', function($table)
 			{
 				$table->engine = 'InnoDB';
@@ -31,12 +56,18 @@ class Create_Initial_Tables_And_Relationships {
 					$table->text('template');
 					$table->integer('site_id')->unsigned();
 					$table->foreign('site_id')->references('id')->on('sites');
+					$table->integer('template_id')->unsigned()->nullable();
+					$table->foreign('template_id')->references('id')->on('templates');
 				$table->timestamps();
 			});
+			/********************************************
+			*	/Newsletters
+			********************************************/
 
-			/*
+
+			/********************************************
 			*	Snippets
-			*/
+			********************************************/
 			Schema::create('snippets', function($table)
 			{
 				$table->engine = 'InnoDB';
@@ -48,9 +79,13 @@ class Create_Initial_Tables_And_Relationships {
 					$table->foreign('newsletter_id')->references('id')->on('newsletters')->on_delete('cascade');
 				$table->timestamps();
 			});
+			/********************************************
+			*	/Snippets
+			********************************************/
+
 
 			/********************************************
-			*	Data
+			*	Sites data
 			********************************************/
 			DB::table('sites')->insert(
 				array(
@@ -62,34 +97,36 @@ class Create_Initial_Tables_And_Relationships {
 					)
 				)
 			);
+			/********************************************
+			*	/Sites data
+			********************************************/
 
+
+			/********************************************
+			*	Newsletters data
+			********************************************/
 			DB::table('newsletters')->insert(
 				array(
 					array(
 						'title'    => 'Hostelworld Monthly',
 						'site_id'  => 1,
-						'template' => '<!doctype html>
-<html>
-	<head>
-		<title>Newsletter</title>
-	</head>
-
-	<body>
-		<h1>{{title}}</h1>
-		<p>{{blurb}}</p>
-		<a href="{{url}}">{{cta}}</a>
-	</body>
-	
-</html>'
+						'template' => 'template'
 					),
 					array(
 						'title'    => 'Hostels.com Monthly',
 						'site_id'  => 2,
-						'template' => '<h1>{{title}}</h1><p>{{blurb}}</p><a href="{{url}}">{{cta}}</a>'
+						'template' => 'template'
 					)
 				)
 			);
+			/********************************************
+			*	/Newsletters data
+			********************************************/
 
+
+			/********************************************
+			*	Snippets data
+			********************************************/
 			DB::table('snippets')->insert(
 				array(
 					array(
@@ -118,6 +155,31 @@ class Create_Initial_Tables_And_Relationships {
 					)
 				)
 			);
+			/********************************************
+			*	/Snippets data
+			********************************************/
+
+			/********************************************
+			*	Template data
+			********************************************/
+			DB::table('templates')->insert(
+				array(
+					array(
+						'title'    => 'Hostelworld Monthly',
+						'site_id'  => 1,
+						'code' => '<h1>Title</h1>'
+					),
+					array(
+						'title'    => 'Hostels.com Monthly',
+						'site_id'  => 2,
+						'code' => '<h1>Title</h1>'
+					)
+				)
+			);
+			/********************************************
+			*	/Template data
+			********************************************/
+
 
 	}
 
@@ -130,6 +192,7 @@ class Create_Initial_Tables_And_Relationships {
 	{
 		Schema::drop('snippets');
 		Schema::drop('newsletters');
+		Schema::drop('templates');
 		Schema::drop('sites');
 	}
 

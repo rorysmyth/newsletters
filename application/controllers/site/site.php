@@ -9,7 +9,8 @@ class Site_Controller extends Base_Controller
             ->add('jquery','js/jquery.js')
             ->add('bootstrap_js','js/bootstrap.min.js')
             ->add('handlebars','js/handlebars.js')
-            ->add('scripts','js/scripts.js');
+            ->add('scripts','js/scripts.js')
+            ->add('blockui','js/blockui.js');
 
         Asset::container('header')
             ->add('prettify_css','css/prettify.css')

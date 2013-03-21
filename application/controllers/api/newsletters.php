@@ -22,6 +22,7 @@ class Api_Newsletters_Controller extends Base_Controller {
     public function delete_index($id){
         $newsletter = Newsletter::find($id);
         $newsletter->delete();
+        Newsletters::deleteDir($newsletter->id);
         return "deleted!";
     }
     
@@ -51,6 +52,7 @@ class Api_Newsletters_Controller extends Base_Controller {
             $newsletter->save();
             $snippets = Helpers::templateSnippets($data['template']);
             $newsletter->snippet()->save($snippets);
+            Newsletters::makeDir($newsletter->id);
             return Redirect::to_route('newsletters', $newsletter->id);
         }
     }

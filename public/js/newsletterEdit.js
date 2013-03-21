@@ -143,6 +143,7 @@ $(document).ready(function(){
         });
         
         $('body').on('click', '#snippets ul li a', function(e){
+            $.blockUI();
             sidebar.snippet.edit(this);
             e.preventDefault();
         });
@@ -263,6 +264,7 @@ $(document).ready(function(){
         var template = Handlebars.compile(src);
         var html     = template(data);
         common.config.modalContainer.html(html);
+        $.unblockUI();
         $('#snippet_edit_modal').modal('toggle');
     };
 
@@ -400,7 +402,7 @@ $(document).ready(function(){
             type: 'GET',
             url: template.config.url,
             success: function(xhr, response){
-                template.edit(xhr);
+                template.edit(xhr[0]);
             }
         });
     };
