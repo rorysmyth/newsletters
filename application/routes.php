@@ -16,9 +16,19 @@ Route::get('newsletters/(:num)', array(
     'uses' => 'site.newsletters@edit'
 ));
 
+Route::get('newsletters/(:num)', array(
+    'as'   => 'newsletters',
+    'uses' => 'site.newsletters@edit'
+));
+
 Route::get('newsletters/(:num)/duplicate', array(
     'as'   => 'newsletters_duplicate',
     'uses' => 'site.newsletters@duplicate'
+));
+
+Route::get('newsletters/(:num)/variation', array(
+    'as'   => 'newsletters_variation',
+    'uses' => 'site.newsletters@variation'
 ));
 
 Route::get('newsletters/new', array(
@@ -28,7 +38,17 @@ Route::get('newsletters/new', array(
 
 Route::get('templates/new', array(
     'as' => 'templates_new',
+    'uses' => 'site.templates@new'
+));
+
+Route::get('templates', array(
+    'as' => 'templates_all',
     'uses' => 'site.templates@index'
+));
+
+Route::get('templates/(:num)', array(
+    'as'   => 'templates',
+    'uses' => 'site.templates@edit'
 ));
 
 /*
@@ -54,6 +74,11 @@ Route::any('/api/newsletters/(:num?)/snippets', array(
 Route::any('/api/newsletters/(:num)/duplicate', array(
     'as' => 'api_newsletter_duplicate',
     'uses' => 'api.newsletters@duplicate'
+));
+
+Route::any('/api/newsletters/(:num)/variation', array(
+    'as' => 'api_newsletter_variation',
+    'uses' => 'api.newsletters@variation'
 ));
 
 Route::any('/api/newsletters/(:num?)/code', array(
