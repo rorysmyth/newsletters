@@ -21,6 +21,7 @@
 
 <script  id="snippet_new_modal_template" type="text/x-handlebars-template">
 	<div id="snippet_new_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel">{{title}}</h3>

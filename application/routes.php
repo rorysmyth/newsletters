@@ -11,12 +11,7 @@ Route::get('newsletters', array(
     'uses' => 'site.newsletters@index'
 ));
 
-Route::get('newsletters/(:num)', array(
-    'as'   => 'newsletters',
-    'uses' => 'site.newsletters@edit'
-));
-
-Route::get('newsletters/(:num)', array(
+Route::get('newsletters/(:num)/(:any?)', array(
     'as'   => 'newsletters',
     'uses' => 'site.newsletters@edit'
 ));
@@ -26,7 +21,7 @@ Route::get('newsletters/(:num)/duplicate', array(
     'uses' => 'site.newsletters@duplicate'
 ));
 
-Route::get('newsletters/(:num)/variation', array(
+Route::get('newsletters/action/(:num)/variation', array(
     'as'   => 'newsletters_variation',
     'uses' => 'site.newsletters@variation'
 ));
@@ -66,7 +61,7 @@ Route::get('/api/newsletters/search', array(
     'uses' => 'api.newsletters@search'
 ));
 
-Route::any('/api/newsletters/(:num?)/snippets', array(
+Route::any('/api/newsletters/(:num?)/snippets/(:any?)', array(
     'as' => 'api_get_all_snippets',
     'uses' => 'api.newsletters@snippets'
 ));
@@ -81,14 +76,16 @@ Route::any('/api/newsletters/(:num)/variation', array(
     'uses' => 'api.newsletters@variation'
 ));
 
-Route::any('/api/newsletters/(:num?)/code', array(
-    'as' => 'api_get_template_code',
-    'uses' => 'api.newsletters@code'
-));
-
-Route::any('/api/newsletters/(:num?)/html', array(
+// preview tab
+Route::any('/api/newsletters/(:num?)/html/(:any?)', array(
     'as' => 'api_get_template_html',
     'uses' => 'api.newsletters@html'
+));
+
+// code tab
+Route::any('/api/newsletters/(:num?)/code/(:any?)', array(
+    'as' => 'api_get_template_code',
+    'uses' => 'api.newsletters@code'
 ));
 
 Route::any('/api/snippets/(:num?)', array(
@@ -133,6 +130,11 @@ Event::listen('404', function()
 Event::listen('500', function()
 {
 	return Response::error('500');
+});
+
+Event::listen('test', function()
+{
+    return Redirect::to_route('newsletters');
 });
 
 /*

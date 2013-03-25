@@ -24,7 +24,6 @@ $(document).ready(function(){
         addNewButton: $('#snippets > a.btn'),
         singleSnippetUrl: common.config.dataContainer.data('single-snippet'),
         snippetEditTemplate: $('#snippet_edit_modal_template'),
-        loading: $('#snippets .loading')
     };
 
     sidebar.init = function(){
@@ -63,7 +62,7 @@ $(document).ready(function(){
     };
 
     sidebar.fill = function(){
-        sidebar.config.loading.show();
+        $.blockUI();
         $.get(sidebar.config.getAllUrl, function(data){
             var sorted = sidebar.sortData(data); // gets back object with all data
             sidebar.createList(sorted);
@@ -123,7 +122,7 @@ $(document).ready(function(){
 
     sidebar.attach = function(html){
        sidebar.config.list.html(html);
-       sidebar.config.loading.hide();
+       $.unblockUI();
     };
 
 
@@ -187,9 +186,10 @@ $(document).ready(function(){
     };
 
     sidebar.snippet.new.populate = function(){
-        var src      = $('#snippet_new_modal_template').html();
-        var template = Handlebars.compile(src);
-        var html     = template({title: 'New Snippet', id: common.config.templateId});
+        var variation = common.config.dataContainer.data('variation');
+        var src       = $('#snippet_new_modal_template').html();
+        var template  = Handlebars.compile(src);
+        var html      = template({title: 'New Snippet', id: common.config.templateId});
         common.config.modalContainer.html(html);
         $('#snippet_new_modal').modal('toggle');
     };
@@ -324,7 +324,6 @@ $(document).ready(function(){
     code.config = {
         container   : $('#template_code'),
         url         : common.config.dataContainer.data('template-html'),
-        loader      : $('#template_code').siblings('.loading'),
         codeBox     : $('#code'),
         rawCodeBox  : $('#raw_code')
     };
@@ -340,7 +339,7 @@ $(document).ready(function(){
     };
 
     code.request = function(){
-        code.config.loader.show();
+        $.blockUI();
 
         var request = $.ajax({
             type: 'GET',
@@ -359,7 +358,7 @@ $(document).ready(function(){
     code.populate = function(html){
         // code.config.codeBox.html(html);
         code.config.rawCodeBox.html(html);
-        code.config.loader.hide();
+        $.unblockUI();
     };
 
 

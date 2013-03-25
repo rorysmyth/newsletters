@@ -17,7 +17,6 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function post_index()
     {
-        $snippet                = new Snippet();
         
         $new = array(
             'title'         => Input::get('title'),
@@ -40,14 +39,40 @@ class Api_Snippets_Controller extends Base_Controller
             );
             return Response::json($data);
         } else {
+
+            // insert the snippet to default variation
+            $snippet                = new Snippet();
             $snippet->title         = Input::get('title');
             $snippet->value         = Input::get('value');
             $snippet->newsletter_id = Input::get('newsletter_id');
             $snippet->save();
-            $data = array(
-                'status'  => true
-            );
-            return Response::json($data);
+
+            // get all variations
+            $newsletter = Newsletter::find(Input::get('newsletter_id'));
+            $snippets = $newsletter->snippet()->get('variation');
+
+            // if there are variations
+            $all_variations = Helpers::otherVariations(Input::get('newsletter_id'));
+
+            if($all_variations != false)
+            {
+                foreach ($all_variations as $variation) {
+                $snippet                = new Snippet();
+                    $snippet->title         = Input::get('title');
+                    $snippet->value         = Input::get('value');
+                    $snippet->newsletter_id = Input::get('newsletter_id');
+                    $snippet->variation     = $variation;
+                $snippet->save();  
+            }
+
+        }
+        
+        $data = array(
+            'status'  => true
+        );
+
+        return Response::json($data);
+
         }
 
     }

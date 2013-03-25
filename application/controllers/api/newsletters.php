@@ -133,7 +133,7 @@ class Api_Newsletters_Controller extends Base_Controller {
                 $new_snippet->title = $snippet->title;
                 $new_snippet->value = $snippet->value;
                 $new_snippet->newsletter_id = $snippet->newsletter_id;
-                $new_snippet->variation = Input::get('variation');
+                $new_snippet->variation = Str::slug(Input::get('variation'));
                 $new_snippet->save();
             }
             return Redirect::to_route('newsletters', $id)
@@ -142,10 +142,10 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     }
 
-    public function get_snippets($id)
+    public function get_snippets($id, $variation = 'default')
     {
         $newsletter = Newsletter::find($id);
-        $snippets = $newsletter->Snippet()->get(array('id', 'title'));
+        $snippets = $newsletter->Snippet()->where('variation', '=', $variation)->get(array('id', 'title'));
         
         $output = array();
         foreach ($snippets as $snippet) {
@@ -160,14 +160,16 @@ class Api_Newsletters_Controller extends Base_Controller {
         return Response::json($output);
     }
 
-    public function get_html($id)
+    // handles the preview tab
+    public function get_html($id, $variation)
     {
-        return(htmlentities(Helpers::renderTemplate($id)));
+        return(htmlentities(Helpers::renderTemplate($id, $variation)));
     }
 
-    public function get_code($id)
+    // handles the code tab
+    public function get_code($id, $variation)
     {
-        return Helpers::renderTemplate($id);
+        return Helpers::renderTemplate($id, $variation);
     }
 
     public function get_template($id)

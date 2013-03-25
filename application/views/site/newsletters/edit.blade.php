@@ -2,33 +2,46 @@
 
 @section('title')
 {{$newsletter->title}}
+
+<div class="btn-group" style="margin-left:20px;">
+  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
+  <a href="{{URL::to_route('newsletters_variation', $newsletter->id)}}" class="btn btn-mini"><i class="icon-plus"></i> variation</a>
+  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
+</div>
+
 @endsection
 
 @section('main')
 
 <div
-        class="row-fluid"
         id="data_container"
         data-id="{{$newsletter->id}}"
         data-base-url="{{URL::to_route('newsletters_all')}}"
         data-template="{{URL::to_route('api_newsletter', $newsletter->id)}}"
-        data-template-code="{{URL::to_route('api_get_template_code', $newsletter->id)}}"
-        data-template-html="{{URL::to_route('api_get_template_html', $newsletter->id)}}"
-        data-template-snippets="{{URL::to_route('api_get_all_snippets', $newsletter->id)}}"
+        data-template-code="{{URL::to_route('api_get_template_code', array($newsletter->id, $variation) )}}"
+        data-template-html="{{URL::to_route('api_get_template_html', array($newsletter->id, $variation))}}"
+        data-template-snippets="{{URL::to_route('api_get_all_snippets', array($newsletter->id, $variation))}}"
         data-single-snippet="{{URL::to_route('api_get_single_snippet')}}/"
+        data-variation="{{$variation}}"
 >
 
 
+	{{-- ------------------------		Variations		------------------------ --}}
+	<div id="variations" class="span1">
+
+		<ul class="nav nav-list">
+			<li class="nav-header">Variations</li>
+			@foreach($variation_list as $variant)
+				<li {{ URI::segment(3) == $variant ? 'class="active"' : '' }} >
+				<a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">{{$variant}}</a></li>
+			@endforeach
+		</ul>
+
+	</div>
+
 	{{-- ------------------------		LHS		------------------------ --}}
-	<div id="snippets" class="span2">
+	<div id="snippets" class="span3">
 
-		<div class="btn-group bottom20">
-		  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
-		  <a href="{{URL::to_route('newsletters_variation', $newsletter->id)}}" class="btn btn-mini"><i class="icon-plus"></i> variation</a>
-		  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
-		</div>
-
-		<div class="loading"></div>
 		<div class="well">
 			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary btn-block"><i class="icon-plus-sign icon-white"></i>  new</a>
 			<ul class="nav nav-list"></ul>
@@ -39,7 +52,7 @@
 
 
 	{{-- ------------------------		RHS		------------------------ --}}
-	<div class="span10">
+	<div class="span8">
 	
 		<div class="row-fluid">
 			
@@ -56,10 +69,8 @@
 
 			<div class="tab-content">
 
-				<div class="loading"></div>
-
 				<div class="tab-pane active" id="template_preview">
-					<iframe id="Frame" width="100%" src="{{URL::to_route('api_get_template_code', $newsletter->id)}}" frameborder="0"></iframe>
+					<iframe id="Frame" width="100%" src="{{URL::to_route('api_get_template_code', array($newsletter->id, $variation))}}" frameborder="0"></iframe>
 				</div>
 				
 				<div class="tab-pane" id="template_code">

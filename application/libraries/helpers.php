@@ -26,7 +26,7 @@ class Helpers {
 		return $arr;
 	}
 
-	public static function renderTemplate($id)
+	public static function renderTemplate($id, $variation)
 	{
 			// get the newsletter id we're working with
 			$newsletter = Newsletter::find($id);
@@ -35,7 +35,7 @@ class Helpers {
 			$template = $newsletter->template;
 
 				// get the related snippet fields
-				$snippets = $newsletter->snippet()->get();
+				$snippets = $newsletter->snippet()->where('variation','=', $variation)->get();
 
 			// identify variables in the template
 			// wil look for {{variables}}
@@ -63,6 +63,53 @@ class Helpers {
 			}
 
 			return $template;
+	}
+
+	public static function allVariations($id)
+	{
+		$newsletter = Newsletter::find($id);
+		$snippets   = $newsletter->snippet()->get('variation');
+
+			if(!empty($snippets))
+			{
+				$single_snippet = array_map(function($object){
+					return $object->to_array();
+				}, $snippets);
+
+				$all_variations = array();
+				foreach ($single_snippet as $snippet) {
+					if(!in_array($snippet['variation'], $all_variations))
+					{
+						array_push($all_variations, $snippet['variation']);
+					}
+				}
+
+				return $all_variations;
+			}
+	}
+
+	public static function otherVariations($id)
+	{
+		$newsletter = Newsletter::find($id);
+		$snippets   = $newsletter->snippet()->get('variation');
+
+			if(!empty($snippets))
+			{
+				$single_snippet = array_map(function($object){
+					return $object->to_array();
+				}, $snippets);
+
+				$all_variations = array();
+				foreach ($single_snippet as $snippet) {
+					if(!in_array($snippet['variation'], $all_variations) && $snippet['variation'] != 'default')
+					{
+						array_push($all_variations, $snippet['variation']);
+					}
+				}
+
+				return $all_variations;
+			}
+			return false;
 	}
 
 	public static function templateSnippets($template)
