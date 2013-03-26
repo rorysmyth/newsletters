@@ -16,7 +16,7 @@ Route::get('newsletters/(:num)/(:any?)', array(
     'uses' => 'site.newsletters@edit'
 ));
 
-Route::get('newsletters/(:num)/duplicate', array(
+Route::get('newsletters/action/(:num)/duplicate', array(
     'as'   => 'newsletters_duplicate',
     'uses' => 'site.newsletters@duplicate'
 ));
