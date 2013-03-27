@@ -31,11 +31,18 @@ class Helpers {
 			// get the newsletter id we're working with
 			$newsletter = Newsletter::find($id);
 
-			// get the template
-			$template = $newsletter->template;
+			$override = $newsletter->template_override;
 
-				// get the related snippet fields
-				$snippets = $newsletter->snippet()->where('variation','=', $variation)->get();
+			// get the template
+			if($override == 1){
+				$static_template = Template::find($newsletter->template_id);
+				$template = $static_template->code;
+			} else {
+				$template = $newsletter->template;
+			}
+
+			// get the related snippet fields
+			$snippets = $newsletter->snippet()->where('variation','=', $variation)->get();
 
 			// identify variables in the template
 			// wil look for {{variables}}

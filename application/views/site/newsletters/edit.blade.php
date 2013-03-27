@@ -62,7 +62,7 @@
 				{{Form::hidden('id', $newsletter->id )}}
 				{{Form::select('template_id', $templates, $newsletter->template_id )}}
 				{{Form::label('template_override', 'Template Override')}}
-					{{Form::checkbox('template_override', 1, $newsletter->template_override );}}
+					{{Form::checkbox('template_override', '1', $newsletter->template_override );}}
 				
 				<span id="quick_template_alert" class="alert alert-success">updated</span>
 			{{Form::close()}}

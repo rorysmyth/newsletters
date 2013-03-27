@@ -25,6 +25,8 @@ class Api_Newsletters_Controller extends Base_Controller {
 
             if(Input::has('template_override')):
                 $newsletter->template_override = Input::get('template_override');
+            else:
+                $newsletter->template_override = 0;
             endif;
 
             if(Input::has('template_id')):
