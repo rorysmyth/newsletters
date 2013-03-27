@@ -41,3 +41,7 @@ table .date {
 h2 {
   line-height: 60px;
 }
+
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.6
+}

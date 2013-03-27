@@ -27,7 +27,7 @@
 						data-newsletter-url="{{URL::to_route('api_newsletter', $newsletter->id)}}"
 					>
 						<td>
-							<button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-remove icon-white"></i></button>
+							<button data-loading-text="deleting" data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-remove icon-white"></i></button>
 						</td>
 						<td> <a href="#" data-action="preview">{{$newsletter->title}}</a></td>
 						<td class="date">{{Helpers::niceDate($newsletter->created_at)}}</td>

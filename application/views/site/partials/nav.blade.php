@@ -22,9 +22,9 @@
           Templates
           <b class="caret"></b>
           <ul class="dropdown-menu">
-            <li><a href="/bricks">View All</a></li>
+            <li><a href="/templates">View All</a></li>
             <li class="divider"></li>
-            <li><a href="/bricks/new">Add New</a></li>
+            <li><a href="/templates/new">Add New</a></li>
           </ul>
         </a>
       </li>
@@ -32,7 +32,7 @@
     {{-- ------------------------   Main Nav   ------------------------ --}}
     
     <form class="navbar-search pull-left">
-      <input id="type" type="text" class="search-query" data-provide="typeahead">
+      <input id="type" type="text" class="search-query input-xxlarge" data-provide="typeahead">
     </form>
 
 

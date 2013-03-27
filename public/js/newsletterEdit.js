@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     // is it used by more than one module?!
     var common = common || {};
     common.config = {
@@ -313,7 +312,6 @@ $(document).ready(function(){
 
 
 
-
     /*=================================================
 
     code view
@@ -361,6 +359,53 @@ $(document).ready(function(){
         $.unblockUI();
     };
 
+
+
+    /*=================================================
+
+    quick template settings
+
+    =================================================*/
+    var quickTemplate = quickTemplate || {};
+
+    quickTemplate.config = {
+        formId : '#quick_template',
+        alert  : '#quick_template_alert'
+    };
+
+
+    quickTemplate.listeners = function(){
+
+        $(quickTemplate.config.alert).hide();
+
+        $('body').on('change', '#quick_template', function(e){
+            quickTemplate.doForm(this);
+            e.preventDefault();
+        });
+
+        $('body').on('submit', '#quick_template', function(e){
+            e.preventDefault();
+        });
+
+    };
+
+    quickTemplate.doForm = function(ele) {
+        var data    = $(ele).serialize();
+        var request = $.ajax({
+            type: 'PUT',
+            url: $('#data_container').data('template'),
+            data: data,
+            success: function(xhr, response){
+                $(quickTemplate.config.alert).fadeIn().delay(1000).fadeOut();
+            }
+        });
+    }
+
+    quickTemplate.init = function(){
+        quickTemplate.listeners();
+    }
+
+    quickTemplate.init();
 
     /*=================================================
 

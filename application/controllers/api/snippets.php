@@ -25,7 +25,7 @@ class Api_Snippets_Controller extends Base_Controller
         );
 
         $rules = array(
-            'title'         => 'required',
+            'title'         => 'required|unique:snippets,title',
             'value'         => 'required'
         );
 
@@ -107,8 +107,11 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function delete_index($id)
     {
-        $snippet = Snippet::find($id);
-        $snippet->delete();
+        $related = Snippets::related($id);
+        foreach ($related as $snippet) {
+            $single_snippet = Snippet::find($snippet->id);
+            $single_snippet->delete();
+        }
     }
 
 }

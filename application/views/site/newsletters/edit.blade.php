@@ -31,10 +31,12 @@
 
 		<ul class="nav nav-list">
 			<li class="nav-header">Variations</li>
-			@foreach($variation_list as $variant)
-				<li {{ URI::segment(3) == $variant ? 'class="active"' : '' }} >
-				<a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">{{$variant}}</a></li>
-			@endforeach
+			@if(isset($variation_list))
+				@foreach($variation_list as $variant)
+					<li {{ URI::segment(3) == $variant ? 'class="active"' : '' }} >
+					<a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">{{$variant}}</a></li>
+				@endforeach
+			@endif
 		</ul>
 
 	</div>
@@ -56,6 +58,15 @@
 	
 		<div class="row-fluid">
 			
+			{{Form::open(URL::to_route('newsletters'), 'PUT', array('id'=>'quick_template', 'class' => 'form-inline') )}}
+				{{Form::hidden('id', $newsletter->id )}}
+				{{Form::select('template_id', $templates, $newsletter->template_id )}}
+				{{Form::label('template_override', 'Template Override')}}
+					{{Form::checkbox('template_override', 1, $newsletter->template_override );}}
+				
+				<span id="quick_template_alert" class="alert alert-success">updated</span>
+			{{Form::close()}}
+
 			<div id="editor_buttons" class="btn-group pull-right">
 			  <button data-action="template-edit" class="btn"><i class="icon-edit"></i> edit</button>
 			  <button data-action="code-refresh" class="btn"><i class="icon-refresh"></i> refresh</button>

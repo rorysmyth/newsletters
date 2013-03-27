@@ -14,12 +14,14 @@ class Site_Newsletters_Controller extends Site_Controller
     public function action_edit($id, $variation = 'default')
     {
         $variation_list = Helpers::allVariations($id);
+        $templates = Template::lists('title', 'id');
 
         $newsletter = Newsletter::find($id);
         Asset::container('footer')->add('custom', 'js/newsletterEdit.js');
         return View::make('site.newsletters.edit')->with('newsletter', $newsletter)
             ->with('variation', $variation)
-            ->with('variation_list', $variation_list);
+            ->with('variation_list', $variation_list)
+            ->with('templates', $templates);
     }
 
     public function action_duplicate($id)

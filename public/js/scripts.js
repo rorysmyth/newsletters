@@ -48,4 +48,27 @@
 
     });
 
+    /*=================================================
+
+    Disabled button action
+
+    =================================================*/
+    $('body').on('click', 'button[data-loading-text]', function(e){
+        $(this).button('loading');
+    });
+
+
+    /*=================================================
+
+    Block UI customization
+
+    =================================================*/
+    $.blockUI.defaults.css.backgroundColor = 'none';
+    $.blockUI.defaults.css.border = 'none';
+    $.blockUI.defaults.css.color = '#fff';
+    $.blockUI.defaults.message = '<h3>loading...</h3>';
+    $.blockUI.defaults.overlayCSS.opacity = 0.7;
+
+
 });
+

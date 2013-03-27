@@ -14,8 +14,23 @@ class Api_Newsletters_Controller extends Base_Controller {
     public function put_index($id)
     {
         $newsletter = Newsletter::find($id);
-            $newsletter->template = Input::get('template');
-            $newsletter->title = Input::get('title');
+
+            if(Input::has('template')):
+                $newsletter->template = Input::get('template');
+            endif;
+
+            if(Input::has('title')):
+                $newsletter->title = Input::get('title');
+            endif;
+
+            if(Input::has('template_override')):
+                $newsletter->template_override = Input::get('template_override');
+            endif;
+
+            if(Input::has('template_id')):
+                $newsletter->template_id = Input::get('template_id');
+            endif;
+
         $newsletter->save();
     }
 
@@ -90,8 +105,9 @@ class Api_Newsletters_Controller extends Base_Controller {
         foreach($snippets as $snippet)
         {
             $clone_snippet_data = array(
-                'title' => $snippet->title,
-                'value' => $snippet->value
+                'title'     => $snippet->title,
+                'value'     => $snippet->value,
+                'variation' => $snippet->variation
             );
             array_push($cloned_snippets, $clone_snippet_data);
         }
@@ -153,6 +169,7 @@ class Api_Newsletters_Controller extends Base_Controller {
                 "id" => $snippet->id,
                 "title" => $snippet->title,
                 "value" => $snippet->value,
+                "variation" => $snippet->variation,
             );
             array_push($output, $single_snippet);
         }
@@ -167,7 +184,7 @@ class Api_Newsletters_Controller extends Base_Controller {
     }
 
     // handles the code tab
-    public function get_code($id, $variation)
+    public function get_code($id, $variation = 'default')
     {
         return Helpers::renderTemplate($id, $variation);
     }

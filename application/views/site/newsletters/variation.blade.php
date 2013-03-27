@@ -24,7 +24,7 @@
 				{{Form::text('variation', '', array('placeholder' => 'variation name'))}}
 			</p>
 
-			<p>{{Form::submit('Create Variation', array('class' => 'btn btn-standard'))}}</p>
+			<p>{{Form::submit('Create Variation', array('class' => 'btn btn-standard', 'data-loading-text' => 'creating variation'))}}</p>
 
 		{{Form::close()}}
 
