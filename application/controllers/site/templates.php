@@ -33,7 +33,7 @@ class Site_Templates_Controller extends Site_Controller
 
     public function action_edit($id)
     {
-    	$template = Newsletter::find($id);
+    	$template = Template::find($id);
         Asset::container('footer')->add('custom', 'js/templateEdit.js');
     	return View::make('site.templates.edit')->with('template', $template);
     }

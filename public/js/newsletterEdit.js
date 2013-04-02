@@ -389,6 +389,8 @@ $(document).ready(function(){
 
     };
 
+    quickTemplate
+
     quickTemplate.doForm = function(ele) {
         var data    = $(ele).serialize();
         var request = $.ajax({
@@ -543,10 +545,12 @@ $(document).ready(function(){
     };
 
 
+
     nlDelete.init();
     sidebar.init();
     code.init();
     template.init();
     preview.init();
+    variations.init();
 
 });

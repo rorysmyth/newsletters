@@ -7,4 +7,9 @@ class Snippet extends Eloquent
 		return $this->belongs_to('Newsletter');
 	}
 
+	public function variation()
+	{
+		return $this->belongs_to('Variation');
+	}
+
 }

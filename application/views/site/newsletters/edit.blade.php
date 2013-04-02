@@ -23,6 +23,8 @@
         data-template-snippets="{{URL::to_route('api_get_all_snippets', array($newsletter->id, $variation))}}"
         data-single-snippet="{{URL::to_route('api_get_single_snippet')}}/"
         data-variation="{{$variation}}"
+        data-variations-all="{{URL::to_route('api_newsletter_variation', $newsletter->id)}}"
+
 >
 
 

@@ -42,4 +42,13 @@ class Api_Templates_Controller extends Base_Controller
 
     }
 
+    public function put_index($id)
+    {
+        $code = Input::get('code');
+        $template = Template::find($id);
+        $template->code = $code;
+        $template->save();
+        return "saved";
+    }
+
 }

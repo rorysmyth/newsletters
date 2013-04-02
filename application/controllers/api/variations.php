@@ -32,7 +32,7 @@ class Api_Variations_Controller extends Base_Controller {
         {
             Session::flash('alert', 'Already exists');
             return Redirect::to_route('newsletters_variation', $id)
-                ->with('test', 'well the test is set')
+            ->with('test', 'well the test is set')
                 ->with_input();
         }
 
@@ -62,6 +62,12 @@ class Api_Variations_Controller extends Base_Controller {
                 ->with('alert', 'Added ' . $data['variation'] . "!" );
         }
 
+    }
+
+    public function get_index($id)
+    {
+        $variations = Helpers::allVariations($id);
+        return Response::json($variations);
     }
 
 }

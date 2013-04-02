@@ -34,12 +34,12 @@ class Site_Newsletters_Controller extends Site_Controller
             ->with('clone', $newsletter);
     }
 
-    public function action_variation($id)
-    {
-        $newsletter = Newsletter::find($id);
-        return View::make('site.newsletters.variation')
-            ->with('clone', $newsletter);
-    }
+    // public function action_variation($id)
+    // {
+    //     $newsletter = Newsletter::find($id);
+    //     return View::make('site.variations.new')
+    //         ->with('clone', $newsletter);
+    // }
 
     public function action_index()
     {

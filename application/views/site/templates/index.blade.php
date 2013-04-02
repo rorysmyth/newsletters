@@ -32,7 +32,7 @@
 						<td>
 							<div class="btn-group">
 						  		<button data-action="template-preview" class="btn btn-mini"><i class="icon-eye-open"></i></button>
-								<a href="#" class="btn btn-mini"><i class="icon-pencil"></i></a>
+								<a href="{{URL::to_route('templates', $template->id)}}" class="btn btn-mini"><i class="icon-pencil"></i></a>
 							</div>
 						</td>
 					</tr>

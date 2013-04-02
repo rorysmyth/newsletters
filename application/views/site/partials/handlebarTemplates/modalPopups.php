@@ -86,3 +86,18 @@
 	</div>
 </script>
 
+<script type="text/x-handlebars-template" id="variations_li">
+	<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			{{title}}
+		<span class="caret"></span>
+		</a>
+
+		<ul class="dropdown-menu">
+		<li><a href="#">view</a></li>
+		<li class="divider"></li>
+		<li><a href="#">delete</a></li>
+		</ul>
+	</div>
+</script>
+

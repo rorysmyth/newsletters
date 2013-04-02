@@ -23,8 +23,18 @@ Route::get('newsletters/action/(:num)/duplicate', array(
 
 Route::get('newsletters/action/(:num)/variation', array(
     'as'   => 'newsletters_variation',
-    'uses' => 'site.newsletters@variation'
+    'uses' => 'site.variations@index'
 ));
+
+Route::get('newsletters/action/(:num)/variation/(:any)/delete', array(
+    'as'   => 'newsletters_variation',
+    'uses' => 'site.variations@delete'
+));
+
+// Route::get('newsletters/action/(:num)/variation/delete', array(
+//     'as'   => 'newsletters_variation_delete',
+//     'uses' => 'site.variations@delete'
+// ));
 
 Route::get('newsletters/new', array(
     'as'   => 'newsletters_new',
@@ -71,7 +81,7 @@ Route::any('/api/newsletters/(:num)/duplicate', array(
     'uses' => 'api.newsletters@duplicate'
 ));
 
-Route::any('/api/newsletters/(:num)/variation', array(
+Route::any('/api/newsletters/(:num)/variations', array(
     'as' => 'api_newsletter_variation',
     'uses' => 'api.variations@index'
 ));

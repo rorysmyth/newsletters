@@ -41,7 +41,12 @@
 				</div>
 
 				<div class="tab-pane" id="raw">
-					<textarea class="input-block-level" id="raw_code" cols="30" rows="10">curde</textarea>
+					
+					{{Form::open( URL::to_route('api_template', $template->id), 'PUT' )}}
+						{{Form::textarea('code', $template->code , array('class' => 'input-block-level', 'id' => 'raw_code')) }}
+						{{Form::submit('update template')}}
+					{{Form::close()}}
+
 				</div>
 
 			</div>
