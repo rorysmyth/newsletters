@@ -1,0 +1,36 @@
+API:
+ ☐ Clean up all API calls to use eloquent() to sort the models instead of using loops and building them manually
+
+Site Features:
+ ☐ Some sort of way to manage the snippets better
+ ☐ Add authentation system
+ ☐ Add validation to all queries
+ ☐ Handle error returns
+ ☐ Move away from bootstrap and use custom interface/or custom bootstrap
+
+Api Design:
+
+  newsletter:
+  /api/newsletter/{id}/{variation}/
+  -> get
+  -> post
+  -> put
+  -> delete
+
+  /api/newsletter/{id}/{variation}/snippets/all/
+  -> get
+
+  /api/newsletter/{id}/{variation}/snippets/{id}/
+  -> get
+  -> post
+  -> put
+  -> delete
+
+  /api/newsletter/{id}/duplicate/{new_title}/
+  -> post
+
+  /api/newsletter/{id}/variation/
+  -> get
+  -> post
+  -> put
+  -> delete

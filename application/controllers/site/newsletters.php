@@ -13,6 +13,9 @@ class Site_Newsletters_Controller extends Site_Controller
 
     public function action_edit($id, $variation = 'default')
     {
+        if(URI::segment(3) == "" ){
+            return Redirect::to_route('newsletters', array($id, 'default'));
+        }
         $variation_list = Helpers::allVariations($id);
         $templates = Template::lists('title', 'id');
 

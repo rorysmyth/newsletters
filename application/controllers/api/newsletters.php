@@ -120,46 +120,6 @@ class Api_Newsletters_Controller extends Base_Controller {
         return Redirect::to_route('newsletters', $clone->id);
     }
 
-    public function post_variation($id)
-    {
-        // get the newsletter
-        $newsletter = Newsletter::find($id);
-        // get the fields the newsletter uses
-        $snippets = $newsletter->snippet()->where('variation', '=', 'default')->get();
-        // get the variation name
-        
-        $data = array(
-            'variation' => Input::get('variation')
-        );
-
-        $rules = array(
-            'variation' => 'required|unique:snippets,variation'
-        );
-
-        $validation = Validator::make($data, $rules);
-
-        if($validation->fails())
-        {
-            return Redirect::to_route('newsletters_variation', $id)
-                ->with_input()
-                ->with_errors($validation->errors);
-
-        } else {
-            // duplicate the fields (names and values) for the newsletter using the variation name in the variation field
-            foreach ($snippets as $snippet) {
-                $new_snippet = new Snippet();
-                $new_snippet->title = $snippet->title;
-                $new_snippet->value = $snippet->value;
-                $new_snippet->newsletter_id = $snippet->newsletter_id;
-                $new_snippet->variation = Str::slug(Input::get('variation'));
-                $new_snippet->save();
-            }
-            return Redirect::to_route('newsletters', $id)
-                ->with('alert', 'Added ' . $data['variation'] . "!" );
-        }
-
-    }
-
     public function get_snippets($id, $variation = 'default')
     {
         $newsletter = Newsletter::find($id);

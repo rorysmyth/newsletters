@@ -25,7 +25,7 @@ class Api_Snippets_Controller extends Base_Controller
         );
 
         $rules = array(
-            'title'         => 'required|unique:snippets,title',
+            'title'         => 'required',
             'value'         => 'required'
         );
 
@@ -112,6 +112,24 @@ class Api_Snippets_Controller extends Base_Controller
             $single_snippet = Snippet::find($snippet->id);
             $single_snippet->delete();
         }
+    }
+
+    public function delete_variation($newsletter_id, $variation_name)
+    {
+        // get the newsletter id
+        $newsletter = Newsletter::find($newsletter_id);
+
+        // find all snippets with the variation name
+        $variation = Snippet::where('variation', '=', $variation_name )->get('id');
+
+        // delete them all
+        foreach ($variation as $snippet) {
+            $snippet = Snippet::find($snippet->id);
+            $snippet->delete();
+        }
+
+        // redirect back to the page
+        return Redirect::to_route('newsletters', $newsletter_id);
     }
 
 }

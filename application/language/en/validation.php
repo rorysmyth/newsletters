@@ -66,6 +66,7 @@ return array(
 	),
 	"unique"         => "The :attribute has already been taken.",
 	"url"            => "The :attribute format is invalid.",
+	"unique_variation" => ":attribute already exists",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -82,7 +83,9 @@ return array(
 	|
 	*/
 
-	'custom' => array(),
+	'custom' => array(
+		
+	),
 
 	/*
 	|--------------------------------------------------------------------------

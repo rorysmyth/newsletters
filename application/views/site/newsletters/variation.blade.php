@@ -14,14 +14,26 @@
 		</div>
 	   @endforeach
 	</div>
-	@endif	
+	@endif
+
+	@if( Session::has('alert')  )
+	<div class="row-fluid">
+		<div class="span12 alert">
+		    {{ Session::get('alert') }}
+		</div>
+	</div>
+	@endif
+
+	@if( Session::has('test') )
+	<p>Test has been set</p>
+	@endif
 
 	<div class="row-fluid">
 		
 		{{Form::open( URL::to_route('api_newsletter_variation', $clone->id) ) }}
 
 			<p>
-				{{Form::text('variation', '', array('placeholder' => 'variation name'))}}
+				{{Form::text('variation', Input::old('variation'), array('placeholder' => 'variation name'))}}
 			</p>
 
 			<p>{{Form::submit('Create Variation', array('class' => 'btn btn-standard', 'data-loading-text' => 'creating variation'))}}</p>

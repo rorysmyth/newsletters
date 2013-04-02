@@ -29,15 +29,22 @@
 	{{-- ------------------------		Variations		------------------------ --}}
 	<div id="variations" class="span1">
 
-		<ul class="nav nav-list">
-			<li class="nav-header">Variations</li>
 			@if(isset($variation_list))
 				@foreach($variation_list as $variant)
-					<li {{ URI::segment(3) == $variant ? 'class="active"' : '' }} >
-					<a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">{{$variant}}</a></li>
+				<div class="btn-group">
+					<a class="btn dropdown-toggle {{ URI::segment(3) == $variant ? 'btn-primary' : '' }}" data-toggle="dropdown" href="#">
+					{{$variant}}
+					<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">view</a></li>
+						<li class="divider"></li>
+						<li><a href="{{URL::to_route('api_variation_delete', array($newsletter->id, $variant))}}">delete</a></li>
+					</ul>
+				</div>
 				@endforeach
 			@endif
-		</ul>
+
 
 	</div>
 

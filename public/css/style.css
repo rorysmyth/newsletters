@@ -45,3 +45,7 @@ h2 {
 .modal-backdrop, .modal-backdrop.fade.in {
     opacity: 0.6
 }
+
+.btn-group+.btn-group {
+  margin:10px 0 0 0; 
+}

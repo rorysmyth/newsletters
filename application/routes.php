@@ -73,7 +73,7 @@ Route::any('/api/newsletters/(:num)/duplicate', array(
 
 Route::any('/api/newsletters/(:num)/variation', array(
     'as' => 'api_newsletter_variation',
-    'uses' => 'api.newsletters@variation'
+    'uses' => 'api.variations@index'
 ));
 
 // preview tab
@@ -96,6 +96,11 @@ Route::any('/api/snippets/(:num?)', array(
 Route::any('/api/templates/(:num?)', array(
     'as' => 'api_template',
     'uses' => 'api.templates@index'
+));
+
+Route::delete('/api/snippets/variation/(:num)/(:any)', array(
+    'as' => 'api_variation_delete',
+    'uses' => 'api.snippets@variation'
 ));
 
 View::composer(array('site.partials.nav'), function($view){
