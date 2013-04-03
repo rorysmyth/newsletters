@@ -15,6 +15,7 @@
 
 <div
         id="data_container"
+        data-site-base = "{{URL::base()}}"
         data-id="{{$newsletter->id}}"
         data-base-url="{{URL::to_route('newsletters_all')}}"
         data-template="{{URL::to_route('api_newsletter', $newsletter->id)}}"

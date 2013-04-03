@@ -95,7 +95,7 @@ $(document).ready(function(){
                 $(list).append(li);
             });
 
-        $(list).prepend('<li class="nav-header">'+title+'</li>');
+        $(list).prepend('<li class="nav-header"><a href="#" data-action="edit-section-group">'+title+'</a></li>');
         $(list).append('<li class="divider"></li>');
         
         return list;
@@ -140,7 +140,7 @@ $(document).ready(function(){
             e.preventDefault();
         });
         
-        $('body').on('click', '#snippets ul li a', function(e){
+        $('body').on('click', '#snippets ul li.single_snippet a', function(e){
             $.blockUI();
             sidebar.snippet.edit(this);
             e.preventDefault();
@@ -171,8 +171,108 @@ $(document).ready(function(){
             e.preventDefault();
         });
 
+        $('body').on('click', 'a[data-action="edit-section-group"]', function(e){
+            sidebar.sectionGroup.request(this);
+            e.preventDefault();
+        });
+
+        $('body').on('click', '#template_section_submit', function(e){
+            $('#section_update').submit();
+            e.preventDefault();
+        });
+
+        $('body').on('submit', '#section_update', function(e){
+            sidebar.sectionGroup.parse(this);
+            e.preventDefault();
+        });
+
     };
 
+
+    /*=================================================
+
+     Edit group section
+
+     =================================================*/
+     sidebar.sectionGroup = sidebar.sectionGroup || {};
+
+     sidebar.sectionGroup.config = {
+        baseUrl : common.config.dataContainer.data('siteBase'),
+        templateSection: '#template_edit_section',
+        templateSectionSnippet: '#template_edit_section_snippet',
+        tempalteSectionModal: '#template_edit_section_modal'
+     };
+
+     sidebar.sectionGroup.request = function(ele){
+        $.blockUI();
+        var sectionName = $(ele).html();
+        var url         = sidebar.sectionGroup.config.baseUrl + '/api/snippets/section/' + common.config.templateId + '/' + sectionName;
+        $.get(url, function(data){
+            sidebar.sectionGroup.createForm(data);
+        });
+     }
+
+     sidebar.sectionGroup.parse = function(ele){
+        var snippets = $(ele).find('textarea');
+        $.each(snippets, function(index, val) {
+            var data = {
+                id      :$(val).attr('name'),
+                value   :$(val).val()
+            }
+            sidebar.sectionGroup.update(data);
+        });
+        $(sidebar.sectionGroup.config.tempalteSectionModal).modal('toggle');
+        code.request();
+        preview.refresh();
+     }
+
+     sidebar.sectionGroup.update = function(data){
+        console.log(sidebar.config.singleSnippetUrl + data.id);
+        var request = $.ajax({
+            type: 'PUT',
+            data: data,
+            url: sidebar.config.singleSnippetUrl + data.id,
+            success: function(xhr, response){
+                if(!xhr.status)
+                {
+                    error.modal(xhr.message);
+                } else {
+                    
+                }
+            }
+        });
+     }
+
+     sidebar.sectionGroup.createForm = function(data){
+        
+        var snippetInput = document.createDocumentFragment();
+
+        $.each(data, function(index, val) {
+             
+             var cleanTitle = val.title.match(/^section_(.*?)_(.*?)$/)[2];
+
+             var data = ({
+                title:  cleanTitle,
+                id:     val.id,
+                value:  val.value
+             });
+             var src      = $(sidebar.sectionGroup.config.templateSectionSnippet).html();
+             var template = Handlebars.compile(src);
+             var html     = template(data);
+             $(snippetInput).append(html);
+        });
+
+        var completeForm = $('<div>').html(snippetInput).html();
+
+        var formHtmlsrc      = $(sidebar.sectionGroup.config.templateSection).html();
+        var formHtmlTemplate = Handlebars.compile(formHtmlsrc);
+        var formHtmlHtml     = formHtmlTemplate({form: completeForm});
+
+        common.config.modalContainer.html(formHtmlHtml);
+        $(sidebar.sectionGroup.config.tempalteSectionModal).modal('toggle');
+
+        $.unblockUI();
+     }
 
 
     /*=================================================
@@ -284,8 +384,6 @@ $(document).ready(function(){
                     preview.refresh();
                 }
             }
-
-
         });
     };
 
@@ -551,6 +649,5 @@ $(document).ready(function(){
     code.init();
     template.init();
     preview.init();
-    variations.init();
 
 });

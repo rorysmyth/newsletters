@@ -113,6 +113,16 @@ Route::delete('/api/snippets/variation/(:num)/(:any)', array(
     'uses' => 'api.snippets@variation'
 ));
 
+Route::get('/api/snippets/section/(:num)/(:any)', array(
+    'as' => 'api_section_group',
+    'uses' => 'api.sections@group'
+));
+
+Route::put('/api/snippets/section', array(
+    'as' => 'api_section_group_update',
+    'uses' => 'api.sections@group_update'
+));
+
 View::composer(array('site.partials.nav'), function($view){
     // $newsletters = Newsletter::get('title');
     // $results = array();

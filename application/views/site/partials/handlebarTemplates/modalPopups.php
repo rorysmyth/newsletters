@@ -75,8 +75,47 @@
 	</div>
 </script>
 
+<script id="template_edit_section" type="text/x-handlebars-template">
+		
+	<div id="template_edit_section_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Update Section</h3>
+		</div>
+
+		<div class="modal-body">
+		<div class="modal_error_container"></div>
+			<form id="section_update" method="POST" action="<?php echo URL::to_route('api_section_group_update'); ?>">
+				
+				{{{form}}}
+
+				<input type="hidden" name="_method" value="PUT" />
+			</form>
+		</div>
+
+		<div class="modal-footer">
+			<a class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+			<button id="template_section_submit" class="btn btn-primary">Update</button>
+		</div>
+
+	</div>
+
+</script>
+
+<script id="template_edit_section_snippet" type="text/x-handlebars-template">
+
+	<p>
+		<label for="{{title}}">{{title}}</label>
+	</p>
+	<p>
+		<textarea name="{{id}}" class="input-block-level">{{value}}</textarea>
+	</p>
+
+</script>
+
 <script type="text/x-handlebars-template" id="hb_sidebar_snippet_li">
-	<li><a data-id="{{id}}" href="#">{{title}}</a></li>
+	<li class="single_snippet"><a data-id="{{id}}" href="#">{{title}}</a></li>
 </script>
 
 <script type="text/x-handlebars-template" id="alert_template">
