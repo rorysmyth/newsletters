@@ -118,6 +118,11 @@ Route::get('/api/snippets/section/(:num)/(:any)', array(
     'uses' => 'api.sections@group'
 ));
 
+Route::get('/api/snippets/section/(:num)/(:any)/(:any)', array(
+    'as' => 'api_section_group',
+    'uses' => 'api.sections@group'
+));
+
 Route::put('/api/snippets/section', array(
     'as' => 'api_section_group_update',
     'uses' => 'api.sections@group_update'

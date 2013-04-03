@@ -206,7 +206,7 @@ $(document).ready(function(){
      sidebar.sectionGroup.request = function(ele){
         $.blockUI();
         var sectionName = $(ele).html();
-        var url         = sidebar.sectionGroup.config.baseUrl + '/api/snippets/section/' + common.config.templateId + '/' + sectionName;
+        var url         = sidebar.sectionGroup.config.baseUrl + '/api/snippets/section/' + common.config.templateId + '/' + sectionName + '/' + common.config.dataContainer.data('variation');
         $.get(url, function(data){
             sidebar.sectionGroup.createForm(data);
         });
