@@ -3,9 +3,9 @@ $(document).ready(function(){
     // is it used by more than one module?!
     var common = common || {};
     common.config = {
-        dataContainer: $('#data_container'),
+        dataContainer : $('#data_container'),
         modalContainer: $('#modal_container'),
-        templateId: (function(){return $('#data_container').data('id');})()
+        templateId    : (function(){return $('#data_container').data('id');})()
     };
 
     /*=================================================
@@ -16,12 +16,12 @@ $(document).ready(function(){
     var sidebar = sidebar || {};
 
     sidebar.config = {
-        el : $('#snippets'),
-        list: $('#snippets').find('ul'),
-        getAllUrl: common.config.dataContainer.data('template-snippets'),
-        liTemplate: $('#hb_sidebar_snippet_li').html(),
-        addNewButton: $('#snippets > a.btn'),
-        singleSnippetUrl: common.config.dataContainer.data('single-snippet'),
+        el                 : $('#snippets'),
+        list               : $('#snippets').find('ul'),
+        getAllUrl          : common.config.dataContainer.data('template-snippets'),
+        liTemplate         : $('#hb_sidebar_snippet_li').html(),
+        addNewButton       : $('#snippets > a.btn'),
+        singleSnippetUrl   : common.config.dataContainer.data('single-snippet'),
         snippetEditTemplate: $('#snippet_edit_modal_template'),
     };
 
@@ -38,7 +38,7 @@ $(document).ready(function(){
 
                 if(title.match(/^section_.*?_.*?$/) != null){
                     // get section mame
-                    var section = title.match(/^section_(.*?)_(.*?)$/)[1];
+                    var section      = title.match(/^section_(.*?)_(.*?)$/)[1];
                     var sectionTitle = title.match(/^section_(.*?)_(.*?)$/)[2];
 
                     // check it doesn't already exists
@@ -91,7 +91,7 @@ $(document).ready(function(){
         var list = document.createDocumentFragment('div');
             $.each(data, function(title, id){
                 var data = {title: title, id: id};
-                var li = sidebar.createLi(data);
+                var li   = sidebar.createLi(data);
                 $(list).append(li);
             });
 
@@ -147,8 +147,11 @@ $(document).ready(function(){
         });
         
         $('body').on('click', '#snippet_delete_submit', function(e){
-            sidebar.snippet.delete(this);
-            e.preventDefault();
+            var confirmDelete = confirm("sure you want to delete?");
+            if(confirmDelete = false){
+                sidebar.snippet.delete(this);
+                e.preventDefault();
+            }
         });
 
         $('body').on('click', '#snippet_new_submit', function(e){
@@ -197,10 +200,10 @@ $(document).ready(function(){
      sidebar.sectionGroup = sidebar.sectionGroup || {};
 
      sidebar.sectionGroup.config = {
-        baseUrl : common.config.dataContainer.data('siteBase'),
-        templateSection: '#template_edit_section',
+        baseUrl               : common.config.dataContainer.data('siteBase'),
+        templateSection       : '#template_edit_section',
         templateSectionSnippet: '#template_edit_section_snippet',
-        tempalteSectionModal: '#template_edit_section_modal'
+        tempalteSectionModal  : '#template_edit_section_modal'
      };
 
      sidebar.sectionGroup.request = function(ele){
@@ -216,8 +219,8 @@ $(document).ready(function(){
         var snippets = $(ele).find('textarea');
         $.each(snippets, function(index, val) {
             var data = {
-                id      :$(val).attr('name'),
-                value   :$(val).val()
+                id   :$(val).attr('name'),
+                value:$(val).val()
             }
             sidebar.sectionGroup.update(data);
         });
@@ -231,7 +234,7 @@ $(document).ready(function(){
         var request = $.ajax({
             type: 'PUT',
             data: data,
-            url: sidebar.config.singleSnippetUrl + data.id,
+            url : sidebar.config.singleSnippetUrl + data.id,
             success: function(xhr, response){
                 if(!xhr.status)
                 {
@@ -252,9 +255,9 @@ $(document).ready(function(){
              var cleanTitle = val.title.match(/^section_(.*?)_(.*?)$/)[2];
 
              var data = ({
-                title:  cleanTitle,
-                id:     val.id,
-                value:  val.value
+                title: cleanTitle,
+                id   : val.id,
+                value: val.value
              });
              var src      = $(sidebar.sectionGroup.config.templateSectionSnippet).html();
              var template = Handlebars.compile(src);
@@ -262,8 +265,7 @@ $(document).ready(function(){
              $(snippetInput).append(html);
         });
 
-        var completeForm = $('<div>').html(snippetInput).html();
-
+        var completeForm     = $('<div>').html(snippetInput).html();
         var formHtmlsrc      = $(sidebar.sectionGroup.config.templateSection).html();
         var formHtmlTemplate = Handlebars.compile(formHtmlsrc);
         var formHtmlHtml     = formHtmlTemplate({form: completeForm});
@@ -297,7 +299,7 @@ $(document).ready(function(){
         var data    = $(ele).serialize();
         var request = $.ajax({
             type:'POST',
-            url: sidebar.config.singleSnippetUrl,
+            url : sidebar.config.singleSnippetUrl,
             data: data,
             success: function(xhr, response){
                 if(!xhr.status)
@@ -330,10 +332,10 @@ $(document).ready(function(){
     }
 
     error.single = function(message){
-        var data = {message: message};
-        var src = $('#alert_template').html();
+        var data     = {message: message};
+        var src      = $('#alert_template').html();
         var template = Handlebars.compile(src);
-        var html = template(data);
+        var html     = template(data);
         return html;
     }
 
@@ -373,7 +375,7 @@ $(document).ready(function(){
         var request = $.ajax({
             type: 'PUT',
             data: data,
-            url: url,
+            url : url,
             success: function(xhr, response){
                 if(!xhr.status)
                 {
@@ -397,7 +399,7 @@ $(document).ready(function(){
     sidebar.snippet.delete = function(ele){
         var id      = $(ele).data('id');
         var request = $.ajax({
-            url: sidebar.config.singleSnippetUrl + id,
+            url : sidebar.config.singleSnippetUrl + id,
             type: 'DELETE',
             success: function(){
                 $('#snippet_edit_modal').modal('toggle');
@@ -439,7 +441,7 @@ $(document).ready(function(){
 
         var request = $.ajax({
             type: 'GET',
-            url: code.config.url,
+            url : code.config.url,
         });
         request.complete(function(xhr, response){
             code.populate(xhr.responseText);
@@ -467,8 +469,8 @@ $(document).ready(function(){
     var quickTemplate = quickTemplate || {};
 
     quickTemplate.config = {
-        formId : '#quick_template',
-        alert  : '#quick_template_alert'
+        formId: '#quick_template',
+        alert : '#quick_template_alert'
     };
 
 
@@ -493,7 +495,7 @@ $(document).ready(function(){
         var data    = $(ele).serialize();
         var request = $.ajax({
             type: 'PUT',
-            url: $('#data_container').data('template'),
+            url : $('#data_container').data('template'),
             data: data,
             success: function(xhr, response){
                 $(quickTemplate.config.alert).fadeIn().delay(1000).fadeOut();
@@ -544,7 +546,7 @@ $(document).ready(function(){
     template.request = function(){
         var request = $.ajax({
             type: 'GET',
-            url: template.config.url,
+            url : template.config.url,
             success: function(xhr, response){
                 template.edit(xhr[0]);
             }
@@ -569,7 +571,7 @@ $(document).ready(function(){
         var data    = $(ele).serialize();
         var request = $.ajax({
             type: 'PUT',
-            url: $('#data_container').data('template'),
+            url : $('#data_container').data('template'),
             data: data,
             success: function(xhr, response){
             }
@@ -622,8 +624,11 @@ $(document).ready(function(){
 
     nlDelete.listeners = function(){
         $('body').on('click', 'button[data-action="newsletter-delete"]', function(e){
-            nlDelete.do();
-            e.preventDefault();
+            var confirmDelete = confirm("sure you want to delete?");
+            if(confirmDelete = false){
+                nlDelete.do();
+                e.preventDefault();
+            }
         });
     };
 
@@ -631,7 +636,7 @@ $(document).ready(function(){
         var url = nlDelete.config.url;
         $.ajax({
             type: 'DELETE',
-            url: url,
+            url : url,
             success: function(xhr, response){
                 window.location = nlDelete.config.base;
             }
@@ -641,7 +646,6 @@ $(document).ready(function(){
     nlDelete.init = function(){
         nlDelete.listeners();
     };
-
 
 
     nlDelete.init();
