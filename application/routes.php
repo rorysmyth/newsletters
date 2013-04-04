@@ -56,9 +56,10 @@ Route::get('templates/(:num)', array(
     'uses' => 'site.templates@edit'
 ));
 
+
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Newsletter API
 |--------------------------------------------------------------------------
 */
 Route::any('/api/newsletters/(:num?)', array(
@@ -68,15 +69,15 @@ Route::any('/api/newsletters/(:num?)', array(
 
 Route::get('/api/newsletters/search', array(
     'as' => 'api_newsletter_search',
-    'uses' => 'api.newsletters@search'
+    'uses' => 'api.search@newsletter'
 ));
 
-Route::any('/api/newsletters/(:num?)/snippets/(:any?)', array(
-    'as' => 'api_get_all_snippets',
+Route::get('/api/newsletters/(:num?)/snippets/(:any?)', array(
+    'as' => 'api_get_all_newsletter_snippets',
     'uses' => 'api.newsletters@snippets'
 ));
 
-Route::any('/api/newsletters/(:num)/duplicate', array(
+Route::post('/api/newsletters/(:num)/duplicate', array(
     'as' => 'api_newsletter_duplicate',
     'uses' => 'api.newsletters@duplicate'
 ));
@@ -86,18 +87,28 @@ Route::any('/api/newsletters/(:num)/variations', array(
     'uses' => 'api.variations@index'
 ));
 
-// preview tab
-Route::any('/api/newsletters/(:num?)/html/(:any?)', array(
+
+/*
+|--------------------------------------------------------------------------
+| Rendering API
+|--------------------------------------------------------------------------
+*/
+Route::get('/api/newsletters/(:num?)/html/(:any?)', array(
     'as' => 'api_get_template_html',
-    'uses' => 'api.newsletters@html'
+    'uses' => 'api.render@full'
 ));
 
-// code tab
 Route::any('/api/newsletters/(:num?)/code/(:any?)', array(
     'as' => 'api_get_template_code',
-    'uses' => 'api.newsletters@code'
+    'uses' => 'api.render@code'
 ));
 
+
+/*
+|--------------------------------------------------------------------------
+| Snippets API
+|--------------------------------------------------------------------------
+*/
 Route::any('/api/snippets/(:num?)', array(
 	'as' => 'api_get_single_snippet',
 	'uses' => 'api.snippets@index'
@@ -108,7 +119,7 @@ Route::any('/api/templates/(:num?)', array(
     'uses' => 'api.templates@index'
 ));
 
-Route::delete('/api/snippets/variation/(:num)/(:any)', array(
+Route::delete('/api/variation/(:num)/(:any)', array(
     'as' => 'api_variation_delete',
     'uses' => 'api.snippets@variation'
 ));

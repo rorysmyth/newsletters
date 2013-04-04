@@ -1,6 +1,7 @@
 @layout('site.master')
 
 @section('title')
+
 {{$newsletter->title}}
 
 <div class="btn-group" style="margin-left:20px;">
@@ -21,7 +22,7 @@
         data-template="{{URL::to_route('api_newsletter', $newsletter->id)}}"
         data-template-code="{{URL::to_route('api_get_template_code', array($newsletter->id, $variation) )}}"
         data-template-html="{{URL::to_route('api_get_template_html', array($newsletter->id, $variation))}}"
-        data-template-snippets="{{URL::to_route('api_get_all_snippets', array($newsletter->id, $variation))}}"
+        data-template-snippets="{{URL::to_route('api_get_all_newsletter_snippets', array($newsletter->id, $variation))}}"
         data-single-snippet="{{URL::to_route('api_get_single_snippet')}}/"
         data-variation="{{$variation}}"
         data-variations-all="{{URL::to_route('api_newsletter_variation', $newsletter->id)}}"

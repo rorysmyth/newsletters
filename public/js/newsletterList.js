@@ -48,13 +48,8 @@ $('document').ready(function(){
 
     nlDelete.listeners = function(){
         $('body').on('click', 'button[data-action="newsletter-delete"]', function(e){
-            var confirmDelete = confirm("sure you want to delete?");
-            if(confirmDelete = false){
-                nlDelete.do();
-                e.preventDefault();
-            } else {
-                $(this).button('reset')
-            }
+            nlDelete.do(this);
+            e.preventDefault();
         });
     };
 

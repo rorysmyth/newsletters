@@ -1,7 +1,7 @@
 <?php
 class Snippet extends Eloquent
 {
-	
+
 	public function newsletter()
 	{
 		return $this->belongs_to('Newsletter');
@@ -20,6 +20,27 @@ class Snippet extends Eloquent
 			->where('title', 'like', '%'.$section_title.'%')
 			->get(array('id','title', 'value'));
 		return $snippets;
+	}
+
+	public static function add_new_snippet($data)
+	{
+		$snippet = new Snippet($data);
+        $snippet->save();
+        return $snippet;
+	}
+
+	public static function update_snippet($id, $data)
+	{
+		$snippet = Snippet::find($id);
+		$snippet->fill($data);
+		$snippet->save();
+		return $snippet;
+	}
+
+	public static function delete_snippet($id)
+	{
+		$snippet = Snippet::find($id);
+		$snippet->delete();
 	}
 
 }

@@ -8,6 +8,7 @@ $(document).ready(function(){
         templateId    : (function(){return $('#data_container').data('id');})()
     };
 
+
     /*=================================================
 
     Fill Sidebar
@@ -128,6 +129,30 @@ $(document).ready(function(){
 
     /*=================================================
 
+    Delete Variation
+
+    =================================================*/
+    var variation = variations || {};
+
+    variation.listeners = function(){
+        $('body').on('click', 'a[data-action="delete-variation"]', function(e){
+            variation.delete.new();
+            e.preventDefault();
+        });
+    }
+
+    variation.delete = function(){
+
+    }
+
+    variation.init = function(){
+        variation.listeners();
+    }
+
+
+
+    /*=================================================
+
      Snippets
 
      =================================================*/
@@ -147,11 +172,8 @@ $(document).ready(function(){
         });
         
         $('body').on('click', '#snippet_delete_submit', function(e){
-            var confirmDelete = confirm("sure you want to delete?");
-            if(confirmDelete = false){
-                sidebar.snippet.delete(this);
-                e.preventDefault();
-            }
+            sidebar.snippet.delete(this);
+            e.preventDefault();
         });
 
         $('body').on('click', '#snippet_new_submit', function(e){
@@ -230,7 +252,6 @@ $(document).ready(function(){
      }
 
      sidebar.sectionGroup.update = function(data){
-        console.log(sidebar.config.singleSnippetUrl + data.id);
         var request = $.ajax({
             type: 'PUT',
             data: data,
@@ -279,7 +300,7 @@ $(document).ready(function(){
 
     /*=================================================
 
-     Add New Snippet
+     Add Snippet
 
      =================================================*/
     sidebar.snippet.new = function(){
@@ -624,11 +645,8 @@ $(document).ready(function(){
 
     nlDelete.listeners = function(){
         $('body').on('click', 'button[data-action="newsletter-delete"]', function(e){
-            var confirmDelete = confirm("sure you want to delete?");
-            if(confirmDelete = false){
-                nlDelete.do();
-                e.preventDefault();
-            }
+            nlDelete.do();
+            e.preventDefault();
         });
     };
 
@@ -653,5 +671,6 @@ $(document).ready(function(){
     code.init();
     template.init();
     preview.init();
+    variations.init();
 
 });

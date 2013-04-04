@@ -4,15 +4,10 @@ class Api_Snippets_Controller extends Base_Controller
 {
     public $restful = true;
 
-    public function get_index($id = null)
+    public function get_index($id)
     {
-        $result = Snippet::find($id);
-        $snippet = array(
-            'id'    => $id = $result->id,
-            'title' => $result->title,
-            'value' => $result->value
-        );    
-        return Response::json($snippet);
+        $snippet = Snippet::find($id);
+        return Response::eloquent($snippet);
     }
 
     public function post_index()
@@ -40,29 +35,21 @@ class Api_Snippets_Controller extends Base_Controller
             return Response::json($data);
         } else {
 
-            // insert the snippet to default variation
-            $snippet                = new Snippet();
-            $snippet->title         = Input::get('title');
-            $snippet->value         = Input::get('value');
-            $snippet->newsletter_id = Input::get('newsletter_id');
-            $snippet->save();
+             // insert the snippet to default variation
+            $snippet = Snippet::add_new_snippet($new);
 
             // get all variations
-            $newsletter = Newsletter::find(Input::get('newsletter_id'));
-            $snippets = $newsletter->snippet()->get('variation');
+            $newsletter = Newsletter::get_single_newsletter($new['newsletter_id']);
+            $snippets   = $newsletter->snippet()->get('variation');
 
             // if there are variations
-            $all_variations = Helpers::otherVariations(Input::get('newsletter_id'));
+            $all_variations = Helpers::otherVariations($new['newsletter_id']);
 
             if($all_variations != false)
             {
                 foreach ($all_variations as $variation) {
-                $snippet                = new Snippet();
-                    $snippet->title         = Input::get('title');
-                    $snippet->value         = Input::get('value');
-                    $snippet->newsletter_id = Input::get('newsletter_id');
-                    $snippet->variation     = $variation;
-                $snippet->save();  
+                    $new['variation'] = $variation;
+                    Snippet::add_new_snippet($new);
             }
 
         }
@@ -70,7 +57,6 @@ class Api_Snippets_Controller extends Base_Controller
         $data = array(
             'status'  => true
         );
-
         return Response::json($data);
 
         }
@@ -79,7 +65,7 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function put_index($id)
     {
-        $snippet = Snippet::find($id);
+        // $snippet = Snippet::find($id);
         
         $new = array(
             'value' => Input::get('value')
@@ -92,11 +78,13 @@ class Api_Snippets_Controller extends Base_Controller
 
         if($validation->fails())
         {
-            $data = array('status' => false, 'message' => $validation->errors->all() );
+            $data = array(
+                'status' => false,
+                'message' => $validation->errors->all()
+            );
             return Response::json($data);
         } else {
-            $snippet->value = Input::get('value');
-            $snippet->save();
+            $snippet = Snippet::update_snippet($id, $new);
             $data = array(
                 'status'  => true
             );
@@ -109,8 +97,7 @@ class Api_Snippets_Controller extends Base_Controller
     {
         $related = Snippets::related($id);
         foreach ($related as $snippet) {
-            $single_snippet = Snippet::find($snippet->id);
-            $single_snippet->delete();
+            Snippet::delete_snippet($snippet->id);
         }
     }
 
@@ -124,12 +111,11 @@ class Api_Snippets_Controller extends Base_Controller
 
         // delete them all
         foreach ($variation as $snippet) {
-            $snippet = Snippet::find($snippet->id);
-            $snippet->delete();
+            Snippet::delete_snippet($snippet->id);
         }
 
         // redirect back to the page
-        return Redirect::to_route('newsletters', $newsletter_id);
+        return Redirect::to_route('newsletters');
     }
 
 }
