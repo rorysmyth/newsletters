@@ -36,7 +36,7 @@ class Create_Initial_Tables_And_Relationships {
 				$table->increments('id');
 					$table->string('title');
 					$table->blob('code');
-					$table->integer('site_id')->unsigned();
+					$table->integer('site_id')->unsigned()->nullable();;
 					$table->foreign('site_id')->references('id')->on('sites');
 				$table->timestamps();
 			});
@@ -75,7 +75,7 @@ class Create_Initial_Tables_And_Relationships {
 					$table->string('title');
 					$table->text('value');
 					$table->string('type')->default('text');
-					$table->integer('newsletter_id')->unsigned();
+					$table->integer('newsletter_id')->unsigned()->nullable();;
 					$table->foreign('newsletter_id')->references('id')->on('newsletters')->on_delete('cascade');
 				$table->timestamps();
 			});
@@ -87,16 +87,16 @@ class Create_Initial_Tables_And_Relationships {
 			/********************************************
 			*	Sites data
 			********************************************/
-			DB::table('sites')->insert(
-				array(
-					array(
-						'title' => 'Hostelworld'
-					),
-					array(
-						'title' => 'Hostels.com'
-					)
-				)
-			);
+			// DB::table('sites')->insert(
+			// 	array(
+			// 		array(
+			// 			'title' => 'Hostelworld'
+			// 		),
+			// 		array(
+			// 			'title' => 'Hostels.com'
+			// 		)
+			// 	)
+			// );
 			/********************************************
 			*	/Sites data
 			********************************************/
@@ -105,20 +105,20 @@ class Create_Initial_Tables_And_Relationships {
 			/********************************************
 			*	Newsletters data
 			********************************************/
-			DB::table('newsletters')->insert(
-				array(
-					array(
-						'title'    => 'Hostelworld Monthly',
-						'site_id'  => 1,
-						'template' => 'template'
-					),
-					array(
-						'title'    => 'Hostels.com Monthly',
-						'site_id'  => 2,
-						'template' => 'template'
-					)
-				)
-			);
+			// DB::table('newsletters')->insert(
+			// 	array(
+			// 		array(
+			// 			'title'    => 'Hostelworld Monthly',
+			// 			'site_id'  => 1,
+			// 			'template' => 'template'
+			// 		),
+			// 		array(
+			// 			'title'    => 'Hostels.com Monthly',
+			// 			'site_id'  => 2,
+			// 			'template' => 'template'
+			// 		)
+			// 	)
+			// );
 			/********************************************
 			*	/Newsletters data
 			********************************************/
@@ -127,34 +127,34 @@ class Create_Initial_Tables_And_Relationships {
 			/********************************************
 			*	Snippets data
 			********************************************/
-			DB::table('snippets')->insert(
-				array(
-					array(
-						'title'         => 'title',
-						'value'         => 'Book a trip in Rome',
-						'type'          => 'text',
-						'newsletter_id' => 1
-					),
-					array(
-						'title'         => 'blurb',
-						'value'         => 'Rome is an amazing city',
-						'type'          => 'text',
-						'newsletter_id' => 1
-					),
-					array(
-						'title'         => 'cta',
-						'value'         => 'learn more',
-						'type'          => 'text',
-						'newsletter_id' => 1
-					),
-					array(
-						'title'         => 'url',
-						'value'         => 'http://www.hostelworld.com/Rome',
-						'type'          => 'text',
-						'newsletter_id' => 1
-					)
-				)
-			);
+			// DB::table('snippets')->insert(
+			// 	array(
+			// 		array(
+			// 			'title'         => 'title',
+			// 			'value'         => 'Book a trip in Rome',
+			// 			'type'          => 'text',
+			// 			'newsletter_id' => 1
+			// 		),
+			// 		array(
+			// 			'title'         => 'blurb',
+			// 			'value'         => 'Rome is an amazing city',
+			// 			'type'          => 'text',
+			// 			'newsletter_id' => 1
+			// 		),
+			// 		array(
+			// 			'title'         => 'cta',
+			// 			'value'         => 'learn more',
+			// 			'type'          => 'text',
+			// 			'newsletter_id' => 1
+			// 		),
+			// 		array(
+			// 			'title'         => 'url',
+			// 			'value'         => 'http://www.hostelworld.com/Rome',
+			// 			'type'          => 'text',
+			// 			'newsletter_id' => 1
+			// 		)
+			// 	)
+			// );
 			/********************************************
 			*	/Snippets data
 			********************************************/
@@ -162,20 +162,20 @@ class Create_Initial_Tables_And_Relationships {
 			/********************************************
 			*	Template data
 			********************************************/
-			DB::table('templates')->insert(
-				array(
-					array(
-						'title'    => 'Hostelworld Monthly',
-						'site_id'  => 1,
-						'code' => '<h1>Title</h1>'
-					),
-					array(
-						'title'    => 'Hostels.com Monthly',
-						'site_id'  => 2,
-						'code' => '<h1>Title</h1>'
-					)
-				)
-			);
+			// DB::table('templates')->insert(
+			// 	array(
+			// 		array(
+			// 			'title'    => 'Hostelworld Monthly',
+			// 			'site_id'  => 1,
+			// 			'code' => '<h1>Title</h1>'
+			// 		),
+			// 		array(
+			// 			'title'    => 'Hostels.com Monthly',
+			// 			'site_id'  => 2,
+			// 			'code' => '<h1>Title</h1>'
+			// 		)
+			// 	)
+			// );
 			/********************************************
 			*	/Template data
 			********************************************/

@@ -14,7 +14,7 @@ class Create_Table_For_Variatios {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->string('title');
-			$table->integer('newsletter_id')->unsigned();
+			$table->integer('newsletter_id')->unsigned()->nullable();;
 			$table->foreign('newsletter_id')->references('id')->on('newsletters');
 			$table->timestamps();
 

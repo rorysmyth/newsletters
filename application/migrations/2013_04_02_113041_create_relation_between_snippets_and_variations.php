@@ -10,7 +10,7 @@ class Create_Relation_Between_Snippets_And_Variations {
 	public function up()
 	{
 		Schema::table('snippets', function($table){
-			$table->integer('variation_id')->unsigned()->nullable();;
+			$table->integer('variation_id')->unsigned()->nullable();
 			$table->foreign('variation_id')->references('id')->on('variations');
 		});
 	}
