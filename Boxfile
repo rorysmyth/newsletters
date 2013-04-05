@@ -5,7 +5,7 @@ global:
 db1:
   name: newsletters
   type: mysql
-  
+
 web1:
   name: newsletters
   shared_writable_dirs:
@@ -29,3 +29,4 @@ web1:
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*"
+    - "rm -f public/img/newsletters/*"
