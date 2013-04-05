@@ -139,5 +139,16 @@ class Helpers {
 		$date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
 		return $date->format('M dS') . ' at ' . $date->format('H:i');
 	}
+
+	/**
+   * Add files and sub-directories in a folder to zip file.
+   * @param string $folder
+   * @param ZipArchive $zipFile
+   * @param int $exclusiveLength Number of text to be exclusived from the file path.
+   */
+	public static function zipDirectory($path)
+	{
+		return "ok";
+	}
 	
 }

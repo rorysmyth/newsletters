@@ -70,4 +70,9 @@ class Api_Variations_Controller extends Base_Controller {
         return Response::json($variations);
     }
 
+    public function get_generate_files($id)
+    {
+        
+    }
+
 }

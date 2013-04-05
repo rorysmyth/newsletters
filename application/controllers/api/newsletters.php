@@ -19,9 +19,8 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public function delete_index($id)
     {
-        return false; //tmp
+        return true;
         Newsletter::delete_newsletter($id);
-        Newsletters::deleteDir($id);
         return true;
     }
     
@@ -60,7 +59,7 @@ class Api_Newsletters_Controller extends Base_Controller {
             'template' => $original->template,
             'site_id'  => $original->site_id
         );
-        $clone = Newsletter::add_newsletter($blueprint);
+        $clone    = Newsletter::add_newsletter($blueprint);
         $snippets = $original->snippet()->get(array('title', 'value', 'variation'));
         $clone->snippet()->save($snippets);
         return Redirect::to_route('newsletters', $clone->id);
@@ -69,7 +68,7 @@ class Api_Newsletters_Controller extends Base_Controller {
     public function get_snippets($id, $variation = 'default')
     {
         $newsletter = Newsletter::find($id);
-        $snippets = $newsletter->Snippet()
+        $snippets   = $newsletter->Snippet()
             ->where('variation', '=', $variation)
             ->get(array(
                 'id',

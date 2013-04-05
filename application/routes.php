@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Newsletter Web
 |--------------------------------------------------------------------------
 */
 
@@ -30,11 +30,6 @@ Route::get('newsletters/action/(:num)/variation/(:any)/delete', array(
     'as'   => 'newsletters_variation',
     'uses' => 'site.variations@delete'
 ));
-
-// Route::get('newsletters/action/(:num)/variation/delete', array(
-//     'as'   => 'newsletters_variation_delete',
-//     'uses' => 'site.variations@delete'
-// ));
 
 Route::get('newsletters/new', array(
     'as'   => 'newsletters_new',
@@ -101,6 +96,16 @@ Route::get('/api/newsletters/(:num?)/html/(:any?)', array(
 Route::any('/api/newsletters/(:num?)/code/(:any?)', array(
     'as' => 'api_get_template_code',
     'uses' => 'api.render@code'
+));
+
+Route::get('/api/newsletters/(:num)/templates/download', array(
+    'as' => 'api_download_newsletter_templates',
+    'uses' => 'api.render@download_all'
+));
+
+Route::get('/api/newsletters/(:num)/templates/zip', array(
+    'as' => 'api_zip_newsletter_templates',
+    'uses' => 'api.render@zip_all'
 ));
 
 

@@ -65,7 +65,7 @@
 						<input type="text" name="title" value="{{title}}" class="input-block-level" required data-validation-required-message="need a title"/>
 					</p>
 					<input type="hidden" name="_method" value="PUT" />
-					<p><textarea name="template" class="input-block-level">{{template}}</textarea></p>
+					<p><textarea name="template" style="min-height:300px;" class="input-block-level">{{template}}</textarea></p>
 		</form>
 		</div>
 			<div class="modal-footer">

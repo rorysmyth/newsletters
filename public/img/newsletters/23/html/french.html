@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Newsletter</title>
+<style>
+body {
+	font-family: Arial, Helvetica, Sans-Serif;
+	background:#eee;
+	padding: 30px 0;
+}
+.container {
+	background: #fff;
+	border-bottom:1px solid #ccc;
+	padding:30px;
+	width:600px;
+	margin: 0 auto;
+}
+p {
+	color:#555;
+}
+.footer {
+	font-size:12px;
+	color:#777;
+	border-top:1px solid #eee;
+	padding-top:30px;
+	margin-top:20px;
+}
+a {
+	display:inline-block;
+	padding: 8px 12px;
+	font-weight: bold;
+	background:#881407;
+	color:#fff;
+	text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+
+<div class="container">
+	<h1>{{section_header_title}} <small>{{section_header_rating}}</small> </h1>
+
+
+	<p>{{section_header_intro}}</p>
+
+	<a href="{{section_header_url}}">{{section_header_cta}} »</a>
+
+	<p class="footer">{{section_footer_copyright}}</p>
+</div>
+	
+
+</body>
+</html>

@@ -95,7 +95,7 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function delete_index($id)
     {
-        $related = Snippets::related($id);
+        $related = Snippet::snippet_siblings($id);
         foreach ($related as $snippet) {
             Snippet::delete_snippet($snippet->id);
         }

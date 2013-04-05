@@ -43,4 +43,12 @@ class Snippet extends Eloquent
 		$snippet->delete();
 	}
 
+	public static function snippet_siblings($id)
+	{
+		$snippet = Snippet::find($id);
+		$newsletter = Newsletter::find($snippet->newsletter_id);
+		$related = $newsletter->snippet()->where('title', '=', $snippet->title)->get();
+		return $related;
+	}
+
 }

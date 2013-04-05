@@ -47,6 +47,7 @@ class Newsletter extends Eloquent
 	public static function delete_newsletter($id)
 	{
 		$newsletter = Newsletter::find($id);
+		Newsletter::delete_images_folder($id);
 		$newsletter->delete();
 	}
 
@@ -62,8 +63,7 @@ class Newsletter extends Eloquent
 	        $newsletter->snippet()->save($snippets);
         endif;
 
-        // make unique image directory
-        Newsletters::makeDir($newsletter->id);
+        Newsletter::create_images_folder($newsletter->id);
 
         return $newsletter;
 	}
@@ -74,8 +74,62 @@ class Newsletter extends Eloquent
 		return $search_results;
 	}
 
-	public static function duplidate_newsletter($original_id, $new_data)
+	public static function create_images_folder($id)
 	{
+		$dir = path('public') . '/img/newsletters/' . $id;
+		File::mkdir($dir);
+	}
+
+	public static function delete_images_folder($id)
+	{
+		$dir = path('public') . '/img/newsletters/' . $id;
+		File::rmDir($dir);
+	}
+
+	public static function download_template($id, $variation)
+	{
+		if(isset($id) and isset($variation)):
+			$dir  = path('public') . 'img/newsletters/' . $id . '/html/';
+			$file = $variation . '.html';
+			$path = $dir . $file;
+			$html = Helpers::renderTemplate($id, $variation);
+			File::mkdir($dir);
+			File::put($path, $html);
+    	else:
+    		return false;
+    	endif;
+	}
+
+	public static function zip_folder($id)
+	{
+		$dir             = path('public') . 'img/newsletters/' . $id . '/html/';
+		$zip_file        = $dir . 'files.zip';
+		$directory_files = scandir($dir);
+		$excludes        = array("..", '.');
+		$files           = array_diff($directory_files, $excludes);
+
+		// if its already there, delete it
+		if (file_exists($zip_file))
+		{
+			File::delete($zip_file);
+		}
+
+		$zip = new ZipArchive;
+
+		if ($zip->open($zip_file, ZIPARCHIVE::CREATE) !== true ){
+			return "failed to make zip";
+		} else {
+
+			foreach ($files as $file) {
+				$path = $dir . $file;
+				if(is_file($path)){
+					$zip->addFile($path, $file);
+				}
+			}
+
+		}
+
+		$zip->close();
 
 	}
 

@@ -546,6 +546,7 @@ $(document).ready(function(){
     template.listeners = function(){
         
         $('body').on('click', 'button[data-action="template-edit"]', function(e){
+            $.blockUI();
             template.request();
             e.preventDefault();
         });
@@ -569,7 +570,8 @@ $(document).ready(function(){
             type: 'GET',
             url : template.config.url,
             success: function(xhr, response){
-                template.edit(xhr[0]);
+                template.edit(xhr);
+                $.unblockUI();
             }
         });
     };
