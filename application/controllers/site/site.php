@@ -12,6 +12,10 @@ class Site_Controller extends Base_Controller
             ->add('blockui','js/blockui.js')
             ->add('scripts','js/scripts.js');
 
+        Asset::container('admin_footer')
+            ->add('jquery','js/jquery.js')
+            ->add('bootstrap_js','js/bootstrap.min.js');
+
         Asset::container('header')
             ->add('prettify_css','css/prettify.css')
             ->add('bootstrap_css','css/bootstrap.min.css')

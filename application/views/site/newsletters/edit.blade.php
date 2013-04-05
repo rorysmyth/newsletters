@@ -5,6 +5,7 @@
 {{$newsletter->title}}
 
 <div class="btn-group" style="margin-left:20px;">
+  <a href="{{URL::to_route('api_download_newsletter_templates', $newsletter->id)}}" class="btn btn-mini"><i class="icon-download-alt"></i> download</a>
   <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
   <a href="{{URL::to_route('newsletters_variation', $newsletter->id)}}" class="btn btn-mini"><i class="icon-plus"></i> variation</a>
   <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>

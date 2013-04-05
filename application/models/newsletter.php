@@ -102,8 +102,9 @@ class Newsletter extends Eloquent
 
 	public static function zip_folder($id)
 	{
+		$newsletter      = Newsletter::find($id);
 		$dir             = path('public') . 'img/newsletters/' . $id . '/html/';
-		$zip_file        = $dir . 'files.zip';
+		$zip_file        = $dir . $newsletter->title . '.zip';
 		$directory_files = scandir($dir);
 		$excludes        = array("..", '.');
 		$files           = array_diff($directory_files, $excludes);
@@ -130,6 +131,8 @@ class Newsletter extends Eloquent
 		}
 
 		$zip->close();
+
+		return Response::download($zip_file);
 
 	}
 

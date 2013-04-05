@@ -6,50 +6,67 @@
 |--------------------------------------------------------------------------
 */
 
-Route::get('newsletters', array(
-    'as'   => 'newsletters_all',
-    'uses' => 'site.newsletters@index'
+Route::group(array('before' => 'auth'), function()
+{
+
+    Route::get('newsletters', array(
+        'as'   => 'newsletters_all',
+        'uses' => 'site.newsletters@index'
+    ));
+
+    Route::get('newsletters/(:num)/(:any?)', array(
+        'as'   => 'newsletters',
+        'uses' => 'site.newsletters@edit'
+    ));
+
+    Route::get('newsletters/action/(:num)/duplicate', array(
+        'as'   => 'newsletters_duplicate',
+        'uses' => 'site.newsletters@duplicate'
+    ));
+
+    Route::get('newsletters/action/(:num)/variation', array(
+        'as'   => 'newsletters_variation',
+        'uses' => 'site.variations@index'
+    ));
+
+    Route::get('newsletters/action/(:num)/variation/(:any)/delete', array(
+        'as'   => 'newsletters_variation',
+        'uses' => 'site.variations@delete'
+    ));
+
+    Route::get('newsletters/new', array(
+        'as'   => 'newsletters_new',
+        'uses' => 'site.newsletters@new'
+    ));
+
+    Route::get('templates/new', array(
+        'as' => 'templates_new',
+        'uses' => 'site.templates@new'
+    ));
+
+    Route::get('templates', array(
+        'as' => 'templates_all',
+        'uses' => 'site.templates@index'
+    ));
+
+    Route::get('templates/(:num)', array(
+        'as'   => 'templates',
+        'uses' => 'site.templates@edit'
+    ));
+
+});
+
+Route::any('login', array(
+    'as'   => 'login',
+    'uses' => 'site.auth@index'
 ));
 
-Route::get('newsletters/(:num)/(:any?)', array(
-    'as'   => 'newsletters',
-    'uses' => 'site.newsletters@edit'
-));
-
-Route::get('newsletters/action/(:num)/duplicate', array(
-    'as'   => 'newsletters_duplicate',
-    'uses' => 'site.newsletters@duplicate'
-));
-
-Route::get('newsletters/action/(:num)/variation', array(
-    'as'   => 'newsletters_variation',
-    'uses' => 'site.variations@index'
-));
-
-Route::get('newsletters/action/(:num)/variation/(:any)/delete', array(
-    'as'   => 'newsletters_variation',
-    'uses' => 'site.variations@delete'
-));
-
-Route::get('newsletters/new', array(
-    'as'   => 'newsletters_new',
-    'uses' => 'site.newsletters@new'
-));
-
-Route::get('templates/new', array(
-    'as' => 'templates_new',
-    'uses' => 'site.templates@new'
-));
-
-Route::get('templates', array(
-    'as' => 'templates_all',
-    'uses' => 'site.templates@index'
-));
-
-Route::get('templates/(:num)', array(
-    'as'   => 'templates',
-    'uses' => 'site.templates@edit'
-));
+Route::any('logout', function(){
+    Auth::logout();
+    return Redirect::to(URL::to_route('login'))
+        ->with_input()
+        ->with('login_errors', 'logged out!');
+});
 
 
 /*
@@ -57,92 +74,92 @@ Route::get('templates/(:num)', array(
 | Newsletter API
 |--------------------------------------------------------------------------
 */
-Route::any('/api/newsletters/(:num?)', array(
-    'as' => 'api_newsletter',
-    'uses' => 'api.newsletters@index'
-));
 
-Route::get('/api/newsletters/search', array(
-    'as' => 'api_newsletter_search',
-    'uses' => 'api.search@newsletter'
-));
+Route::group(array('before' => 'auth'), function()
+{
 
-Route::get('/api/newsletters/(:num?)/snippets/(:any?)', array(
-    'as' => 'api_get_all_newsletter_snippets',
-    'uses' => 'api.newsletters@snippets'
-));
+    Route::any('/api/newsletters/(:num?)', array(
+        'as' => 'api_newsletter',
+        'uses' => 'api.newsletters@index'
+    ));
 
-Route::post('/api/newsletters/(:num)/duplicate', array(
-    'as' => 'api_newsletter_duplicate',
-    'uses' => 'api.newsletters@duplicate'
-));
+    Route::get('/api/newsletters/search', array(
+        'as' => 'api_newsletter_search',
+        'uses' => 'api.search@newsletter'
+    ));
 
-Route::any('/api/newsletters/(:num)/variations', array(
-    'as' => 'api_newsletter_variation',
-    'uses' => 'api.variations@index'
-));
+    Route::get('/api/newsletters/(:num?)/snippets/(:any?)', array(
+        'as' => 'api_get_all_newsletter_snippets',
+        'uses' => 'api.newsletters@snippets'
+    ));
 
+    Route::post('/api/newsletters/(:num)/duplicate', array(
+        'as' => 'api_newsletter_duplicate',
+        'uses' => 'api.newsletters@duplicate'
+    ));
 
-/*
-|--------------------------------------------------------------------------
-| Rendering API
-|--------------------------------------------------------------------------
-*/
-Route::get('/api/newsletters/(:num?)/html/(:any?)', array(
-    'as' => 'api_get_template_html',
-    'uses' => 'api.render@full'
-));
-
-Route::any('/api/newsletters/(:num?)/code/(:any?)', array(
-    'as' => 'api_get_template_code',
-    'uses' => 'api.render@code'
-));
-
-Route::get('/api/newsletters/(:num)/templates/download', array(
-    'as' => 'api_download_newsletter_templates',
-    'uses' => 'api.render@download_all'
-));
-
-Route::get('/api/newsletters/(:num)/templates/zip', array(
-    'as' => 'api_zip_newsletter_templates',
-    'uses' => 'api.render@zip_all'
-));
+    Route::any('/api/newsletters/(:num)/variations', array(
+        'as' => 'api_newsletter_variation',
+        'uses' => 'api.variations@index'
+    ));
 
 
-/*
-|--------------------------------------------------------------------------
-| Snippets API
-|--------------------------------------------------------------------------
-*/
-Route::any('/api/snippets/(:num?)', array(
-	'as' => 'api_get_single_snippet',
-	'uses' => 'api.snippets@index'
-));
+    /*
+    |--------------------------------------------------------------------------
+    | Rendering API
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/api/newsletters/(:num?)/html/(:any?)', array(
+        'as' => 'api_get_template_html',
+        'uses' => 'api.render@full'
+    ));
 
-Route::any('/api/templates/(:num?)', array(
-    'as' => 'api_template',
-    'uses' => 'api.templates@index'
-));
+    Route::any('/api/newsletters/(:num?)/code/(:any?)', array(
+        'as' => 'api_get_template_code',
+        'uses' => 'api.render@code'
+    ));
 
-Route::delete('/api/variation/(:num)/(:any)', array(
-    'as' => 'api_variation_delete',
-    'uses' => 'api.snippets@variation'
-));
+    Route::get('/api/newsletters/(:num)/templates/download', array(
+        'as' => 'api_download_newsletter_templates',
+        'uses' => 'api.render@download_all'
+    ));
 
-Route::get('/api/snippets/section/(:num)/(:any)', array(
-    'as' => 'api_section_group',
-    'uses' => 'api.sections@group'
-));
+    /*
+    |--------------------------------------------------------------------------
+    | Snippets API
+    |--------------------------------------------------------------------------
+    */
+    Route::any('/api/snippets/(:num?)', array(
+    	'as' => 'api_get_single_snippet',
+    	'uses' => 'api.snippets@index'
+    ));
 
-Route::get('/api/snippets/section/(:num)/(:any)/(:any)', array(
-    'as' => 'api_section_group',
-    'uses' => 'api.sections@group'
-));
+    Route::any('/api/templates/(:num?)', array(
+        'as' => 'api_template',
+        'uses' => 'api.templates@index'
+    ));
 
-Route::put('/api/snippets/section', array(
-    'as' => 'api_section_group_update',
-    'uses' => 'api.sections@group_update'
-));
+    Route::delete('/api/variation/(:num)/(:any)', array(
+        'as' => 'api_variation_delete',
+        'uses' => 'api.snippets@variation'
+    ));
+
+    Route::get('/api/snippets/section/(:num)/(:any)', array(
+        'as' => 'api_section_group',
+        'uses' => 'api.sections@group'
+    ));
+
+    Route::get('/api/snippets/section/(:num)/(:any)/(:any)', array(
+        'as' => 'api_section_group',
+        'uses' => 'api.sections@group'
+    ));
+
+    Route::put('/api/snippets/section', array(
+        'as' => 'api_section_group_update',
+        'uses' => 'api.sections@group_update'
+    ));
+
+});
 
 View::composer(array('site.partials.nav'), function($view){
     // $newsletters = Newsletter::get('title');
