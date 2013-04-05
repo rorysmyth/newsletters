@@ -1,6 +1,11 @@
 global:
   env:
     - LARAVEL_ENV: production
+  
+db1:
+  name: newsletters
+  type: mysql
+  
 web1:
   name: newsletters
   shared_writable_dirs:
