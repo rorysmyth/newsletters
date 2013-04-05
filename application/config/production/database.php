@@ -2,7 +2,7 @@
 
 return array(
     'connections' => array(
-        'production' => array(
+        'mysql' => array(
             'driver'   => 'mysql',
             'host'     => $_SERVER['DB1_HOST'],
             'database' => $_SERVER['DB1_NAME'],
