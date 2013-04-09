@@ -28,6 +28,17 @@
           </ul>
         </a>
       </li>
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+          Sites
+          <b class="caret"></b>
+          <ul class="dropdown-menu">
+            <li><a href="/sites">View All</a></li>
+            <li class="divider"></li>
+            <li><a href="/sites/new">Add New</a></li>
+          </ul>
+        </a>
+      </li>
     </ul>
     {{-- ------------------------   Main Nav   ------------------------ --}}
     

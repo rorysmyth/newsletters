@@ -140,6 +140,12 @@ class Helpers {
 		return $date->format('M dS') . ' at ' . $date->format('H:i');
 	}
 
+	public static function monthYear($date)
+	{
+		$date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+		return $date->format('M dS');
+	}
+
 	/**
    * Add files and sub-directories in a folder to zip file.
    * @param string $folder

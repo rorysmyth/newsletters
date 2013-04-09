@@ -54,6 +54,21 @@ Route::group(array('before' => 'auth'), function()
         'uses' => 'site.templates@edit'
     ));
 
+    Route::get('sites/new', array(
+        'as' => 'site_new',
+        'uses' => 'site.sites@new'
+    ));
+
+    Route::get('sites', array(
+        'as' => 'sites_all',
+        'uses' => 'site.sites@index'
+    ));
+
+    Route::get('sites/(:num)', array(
+        'as'   => 'sites',
+        'uses' => 'site.sites@edit'
+    ));
+
 });
 
 Route::any('login', array(
@@ -157,6 +172,17 @@ Route::group(array('before' => 'auth'), function()
     Route::put('/api/snippets/section', array(
         'as' => 'api_section_group_update',
         'uses' => 'api.sections@group_update'
+    ));
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Templates API
+    |--------------------------------------------------------------------------
+    */
+    Route::any('/api/sites/(:num?)', array(
+        'as'   => 'api_site',
+        'uses' => 'api.sites@index'
     ));
 
 });
