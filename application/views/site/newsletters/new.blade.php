@@ -6,6 +6,16 @@
 
 @section('main')
 
+	@if( $errors->has() )
+	<div class="row-fluid">
+	    @foreach($errors->all() as $message)
+		    <div class="span12 alert">
+		    	{{ $message }}
+		    </div>
+	    @endforeach
+	</div>
+	@endif
+
 	<div class="row-fluid">
 		
 		{{Form::open( URL::to_route('api_newsletter') ) }}
@@ -22,7 +32,7 @@
 
 			<p>
 				{{Form::label('template_id', 'Template')}}
-				{{Form::select('template_id', $templates )}}
+				{{Form::select('template_id', $templates)}}
 			</p>
 
 			<p>

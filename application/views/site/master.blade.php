@@ -14,6 +14,7 @@
 		<div class="span12">
 			<h4>@yield('title')</h4>
 		</div>
+		@yield('actions')
 	</div>
 	<hr>
 

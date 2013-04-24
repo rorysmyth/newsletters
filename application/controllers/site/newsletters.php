@@ -48,8 +48,8 @@ class Site_Newsletters_Controller extends Site_Controller
 
     public function action_new()
     {
-        $sites = Site::lists('title', 'id');
-        $templates = Template::lists('title', 'id');
+        $sites     = Site::lists('title', 'id');
+        $templates = array( '' => 'Choose Template') + Template::lists('title', 'id');
         return View::make('site.newsletters.new')
             ->with('templates', $templates)
             ->with('sites', $sites);

@@ -19,8 +19,10 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public function delete_index($id)
     {
-        return true;
-        Newsletter::delete_newsletter($id);
+        if (isset($_GET['admin'])) {
+            Newsletter::delete_newsletter($id);
+            return "deleted";
+        }
         return true;
     }
     
@@ -29,7 +31,7 @@ class Api_Newsletters_Controller extends Base_Controller {
 
         $rules = array(
             'title'    => 'required',
-            'template' => 'required',
+            // 'template' => 'required',
             'site_id'  => 'required'
         );
 
@@ -43,7 +45,9 @@ class Api_Newsletters_Controller extends Base_Controller {
 
         if($validation->fails())
         {
-            return Redirect::to_route('newsletters_new');
+            return Redirect::to_route('newsletters_new')
+                ->with_input()
+                ->with_errors($validation->errors);
 
         } else {
             $new_newsletter = Newsletter::add_newsletter($data);

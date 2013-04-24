@@ -4,6 +4,12 @@
 	{{$site->title}}
 @endsection
 
+@section('actions')
+	<div class="btn-group">
+	  <button href="{{URL::to_route('api_site', $site->id)}}" data-action="site-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
+	</div>
+@endsection
+
 @section('main')
 
 <div

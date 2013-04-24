@@ -53,7 +53,7 @@ class Create_Initial_Tables_And_Relationships {
 				$table->engine = 'InnoDB';
 				$table->increments('id');
 					$table->string('title');
-					$table->text('template');
+					$table->blob('template');
 					$table->integer('site_id')->unsigned();
 					$table->foreign('site_id')->references('id')->on('sites');
 					$table->integer('template_id')->unsigned()->nullable();

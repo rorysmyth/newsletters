@@ -115,7 +115,8 @@ class Api_Snippets_Controller extends Base_Controller
         }
 
         // redirect back to the page
-        return Redirect::to_route('newsletters');
+        // return Redirect::to_route('newsletters', $newsletter_id);
+        return true;
     }
 
 }

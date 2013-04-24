@@ -12,8 +12,8 @@ Route::group(array('before' => 'auth'), function()
     Route::get('newsletters', array(
         'as'   => 'newsletters_all',
         'uses' => 'site.newsletters@index'
-    ));
-
+    ))
+;
     Route::get('newsletters/(:num)/(:any?)', array(
         'as'   => 'newsletters',
         'uses' => 'site.newsletters@edit'

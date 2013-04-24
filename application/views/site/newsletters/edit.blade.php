@@ -2,14 +2,18 @@
 
 @section('title')
 
-{{$newsletter->title}}
+	{{$newsletter->title}}
 
-<div class="btn-group" style="margin-left:20px;">
-  <a href="{{URL::to_route('api_download_newsletter_templates', $newsletter->id)}}" class="btn btn-mini"><i class="icon-download-alt"></i> download</a>
-  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
-  <a href="{{URL::to_route('newsletters_variation', $newsletter->id)}}" class="btn btn-mini"><i class="icon-plus"></i> variation</a>
-  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
-</div>
+@endsection
+
+@section('actions')
+
+	<div class="btn-group">
+	  <a href="{{URL::to_route('api_download_newsletter_templates', $newsletter->id)}}" class="btn btn-mini"><i class="icon-download-alt"></i> download</a>
+	  <a href="{{URL::to_route('newsletters_duplicate', $newsletter->id)}}" class="btn btn-mini"><i class="icon-random"></i> clone</a>
+	  <a href="{{URL::to_route('newsletters_variation', $newsletter->id)}}" class="btn btn-mini"><i class="icon-plus"></i> variation</a>
+	  <button data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
+	</div>
 
 @endsection
 
@@ -27,6 +31,7 @@
         data-single-snippet="{{URL::to_route('api_get_single_snippet')}}/"
         data-variation="{{$variation}}"
         data-variations-all="{{URL::to_route('api_newsletter_variation', $newsletter->id)}}"
+        data-default="{{URL::to_route('newsletters', $newsletter->id)}}"
 
 >
 
@@ -44,7 +49,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">view</a></li>
 						<li class="divider"></li>
-						<li><a href="{{URL::to_route('api_variation_delete', array($newsletter->id, $variant))}}">delete</a></li>
+						<li><a data-action="delete-variation" href="{{URL::to_route('api_variation_delete', array($newsletter->id, $variant))}}">delete</a></li>
 					</ul>
 				</div>
 				@endforeach

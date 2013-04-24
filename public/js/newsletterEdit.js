@@ -87,7 +87,6 @@ $(document).ready(function(){
     };
 
     sidebar.createFromObject = function(title, data){
-        
         // do the list
         var list = document.createDocumentFragment('div');
             $.each(data, function(title, id){
@@ -136,13 +135,20 @@ $(document).ready(function(){
 
     variation.listeners = function(){
         $('body').on('click', 'a[data-action="delete-variation"]', function(e){
-            variation.delete.new();
+            variation.delete(this);
             e.preventDefault();
         });
     }
 
-    variation.delete = function(){
-
+    variation.delete = function(ele){
+        $.blockUI();
+        $.ajax({
+            url : $(ele).attr('href'),
+            type: 'DELETE',
+            success: function(){
+                window.location = $('#data_container').data('default');
+            }
+        });
     }
 
     variation.init = function(){

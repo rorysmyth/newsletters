@@ -9,6 +9,17 @@ class Api_Sites_Controller extends Base_Controller
         
     }
 
+    public function delete_index($id)
+    {    
+        $site = Site::find($id);
+        $site->delete();
+        $data = array(
+            'status'       => true,
+            'redirect_url' => URL::to_route('sites_all')
+        );
+        return Response::json($data);
+    }
+
     public function post_index()
     {
         $rules = array(
