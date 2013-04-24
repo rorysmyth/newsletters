@@ -2,7 +2,7 @@
   <div class="navbar-inner">
 
   	<div class="row-fluid fluid-nav">
-    <a class="brand" href="{{URL::to_route('newsletters_all')}}">Newsletters</a>
+    <a class="brand" href="{{URL::to_route('newsletters_all')}}">Newsletters (dev)</a>
     
     {{-- ------------------------   Main Nav   ------------------------ --}}
     <ul class="nav">  
