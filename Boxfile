@@ -28,4 +28,3 @@ web1:
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*"
-    - "rm -f public/img/newsletters/*"
