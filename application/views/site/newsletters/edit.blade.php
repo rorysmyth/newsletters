@@ -124,6 +124,6 @@
 @endsection
 
 @section('handlebars')
-    @render('site/partials/handlebartemplates/alertmessages')
-    @render('site/partials/handlebartemplates/modalpopups')
+    @render('site/partials/handlebars/alertmessages')
+    @render('site/partials/handlebars/modalpopups')
 @endsection
