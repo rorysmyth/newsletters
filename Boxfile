@@ -15,7 +15,6 @@ web1:
     - /storage/sessions
     - /storage/views
     - /storage/work
-    - /public/img
   document_root: /public
   php_version: 5.3.8
   php_extensions:
@@ -30,3 +29,4 @@ web1:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*"
     - "rm -f public/img/newsletters/*"
+    - "chmod 0777 public/img/newsletters/*"
