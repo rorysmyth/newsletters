@@ -29,4 +29,3 @@ web1:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*"
     - "rm -f public/img/newsletters/*"
-    - "chmod 0777 public/img/newsletters/*"
