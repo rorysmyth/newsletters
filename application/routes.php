@@ -5,6 +5,9 @@
 | Newsletter Web
 |--------------------------------------------------------------------------
 */
+Route::get('/', function(){
+    return Redirect::to_route('newsletters');
+});
 
 Route::group(array('before' => 'auth'), function()
 {
@@ -12,8 +15,8 @@ Route::group(array('before' => 'auth'), function()
     Route::get('newsletters', array(
         'as'   => 'newsletters_all',
         'uses' => 'site.newsletters@index'
-    ))
-;
+    ));
+
     Route::get('newsletters/(:num)/(:any?)', array(
         'as'   => 'newsletters',
         'uses' => 'site.newsletters@edit'
@@ -75,6 +78,8 @@ Route::any('login', array(
     'as'   => 'login',
     'uses' => 'site.auth@index'
 ));
+
+
 
 Route::any('logout', function(){
     Auth::logout();
