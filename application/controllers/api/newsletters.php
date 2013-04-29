@@ -19,10 +19,7 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public function delete_index($id)
     {
-        if (isset($_GET['admin'])) {
-            Newsletter::delete_newsletter($id);
-            return "deleted";
-        }
+        Newsletter::delete_newsletter($id);
         return true;
     }
     
