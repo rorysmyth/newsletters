@@ -19,14 +19,8 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public function delete_index($id)
     {
-		Newsletter::delete_newsletter($id);
-		return true;
-		
-        # if (isset($_GET['admin'])) {
-        #    Newsletter::delete_newsletter($id);
-        #    return "deleted";
-        #}
-        #return true;
+        Newsletter::delete_newsletter($id);
+        return true;
     }
     
     public function post_index()
