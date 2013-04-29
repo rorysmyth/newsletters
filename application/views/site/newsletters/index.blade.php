@@ -13,7 +13,6 @@
 			<table class=" table table-hover">
 				<thead>
 					<tr>
-						<th></th>
 						<th>title</th>
 						<th>date</th>
 						<th>action</th>
@@ -26,9 +25,6 @@
 						data-preview-url="{{URL::to_route('api_get_template_code', $newsletter->id)}}"
 						data-newsletter-url="{{URL::to_route('api_newsletter', $newsletter->id)}}"
 					>
-						<td>
-							<button data-loading-text="deleting" data-action="newsletter-delete" class="btn btn-mini btn-danger"><i class="icon-remove icon-white"></i></button>
-						</td>
 						<td> <a href="#" data-action="preview">{{$newsletter->title}}</a></td>
 						<td class="date">{{Helpers::niceDate($newsletter->created_at)}}</td>
 						<td>

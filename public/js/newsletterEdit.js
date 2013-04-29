@@ -653,12 +653,18 @@ $(document).ready(function(){
 
     nlDelete.listeners = function(){
         $('body').on('click', 'button[data-action="newsletter-delete"]', function(e){
-            nlDelete.do();
+            if (confirm('Are you sure you want to delete?')) {
+                // Save it!
+                nlDelete.do();
+            } else {
+                // Do nothing!
+            }
             e.preventDefault();
         });
     };
 
     nlDelete.do = function(){
+        $.blockUI();
         var url = nlDelete.config.url;
         $.ajax({
             type: 'DELETE',
