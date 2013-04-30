@@ -25,6 +25,8 @@ web1:
     - memcached
     - curl
     - zip
+    - mbstring
+    - fileinfo
   before_deploy:
     - "php artisan migrate"
   after_deploy:
