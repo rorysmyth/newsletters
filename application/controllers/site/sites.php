@@ -13,8 +13,8 @@ class Site_Sites_Controller extends Site_Controller
 
     public function action_new()
     {
-        echo phpinfo();
-        return View::make('site.sites.new');
+        return View::make('site.sites.new')
+            ->with('cities', $cities);
     }
 
 

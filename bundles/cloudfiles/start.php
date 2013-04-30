@@ -11,11 +11,6 @@ IoC::singleton('cloudfiles', function()
 
 	$config = Config::get('cloudfiles::cloudfiles', array());
 	
-	$auth = new CF_Authentication($config['username'], $config['apikey'], NULL, UK_AUTHURL);
-	$auth->authenticate();
-	$conn = new CF_Connection($auth);
-	return $conn;
-
 	$cf_auth = new CF_Authentication($config['username'],$config['apikey']);
 	$cf_auth->authenticate();
 	$cf_conn = new CF_Connection($cf_auth);

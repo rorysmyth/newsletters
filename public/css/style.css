@@ -53,3 +53,7 @@ h2 {
 .modal-body {
   max-height:100%;
 }
+
+#snippet_new_modal .modal-body {
+  min-height: 260px;
+}

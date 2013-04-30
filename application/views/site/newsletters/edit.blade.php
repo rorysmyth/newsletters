@@ -125,5 +125,5 @@
 
 @section('handlebars')
     @render('site/partials/handlebars/alerts')
-    @render('site/partials/handlebars/modals')
+    @render('site/partials/handlebars/modals', array('cdn_images' => $cdn_images))
 @endsection

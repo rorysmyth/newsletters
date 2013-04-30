@@ -37,9 +37,10 @@
 						<?php echo Form::label('title','Title'); ?>
 						<input type="text" name="title" class="input-block-level" required />
 					</p>
+
 					<p>
 						<?php echo Form::label('value','Value'); ?>
-						<textarea name="value" class="input-block-level"></textarea>
+						<textarea name="value" class="input-block-level" data-provide="typeahead" data-items="3" data-source="<?php echo $cdn_images; ?>"></textarea>
 					</p>
 				</form>
 			</div>

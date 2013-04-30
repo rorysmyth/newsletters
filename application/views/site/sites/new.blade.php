@@ -14,7 +14,19 @@
 		    </div>
 	    @endforeach
 	</div>
+	
 	@endif	
+
+	<div class="row-fluid">
+		<select name="value" >
+			@foreach($cities as $container => $city)
+				<optgroup label="{{$container}}">
+				@foreach($city as $file)
+					<option value="{{$file}}">{{$file}}</option>
+				@endforeach
+			@endforeach
+		</select>
+	</div>
 
 	<div class="row-fluid">
 
