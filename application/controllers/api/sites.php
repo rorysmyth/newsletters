@@ -23,13 +23,15 @@ class Api_Sites_Controller extends Base_Controller
     public function post_index()
     {
         $rules = array(
-            'title' => 'required|unique:sites,title'
+            'title' => 'required|unique:sites,title',
+            'label' => 'required|size:7|unique:sites,label'
         );
 
         $site = new Site();
 
         $new = array(
-            'title'   => Input::get('title')
+            'title'   => Input::get('title'),
+            'label'   => Input::get('label')
         );
 
         $validation = Validator::make($new, $rules);
@@ -41,6 +43,7 @@ class Api_Sites_Controller extends Base_Controller
                 ->with_errors($validation->errors);
         } else {
             $site->title = Input::get('title');
+            $site->label = Input::get('label');
             $site->save();
             return Redirect::to_route('sites_all');
         }
@@ -50,11 +53,38 @@ class Api_Sites_Controller extends Base_Controller
 
     public function put_index($id)
     {
-        $title       = Input::get('title');
-        $site        = Site::find($id);
-        $site->title = $title;
-        $site->save();
-        return Redirect::to_route('sites_all');
+        $site = Site::find($id);
+
+        $data = array(
+            'title' => Input::get('title'),
+            'label' => Input::get('label')
+        );
+
+        $rules = array();
+
+        if(($data['title'] != $site->title)){
+            $rules['title'] = 'required|unique:sites';
+        };
+
+        if(($data['label'] != $site->label)){
+            $rules['label'] = 'required|size:7|unique:sites,label';
+        };
+
+        $validation = Validator::make($data, $rules);
+
+        if($validation->fails())
+        {
+            return Redirect::to_route('sites', $id)
+                ->with_input()
+                ->with_errors($validation->errors);
+        } else {
+            $site->title = $data['title'];
+            $site->label = $data['label'];
+            $site->save();
+            return Redirect::to_route('sites_all')
+                ->with('alert', $site->title . ' updated!');
+        }
+        
     }
 
 }

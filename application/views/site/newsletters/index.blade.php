@@ -9,11 +9,12 @@
 	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}
-		<div class="span4">
+		<div class="span5">
 			<table class=" table table-hover">
 				<thead>
 					<tr>
 						<th>title</th>
+						<th>label</th>
 						<th>date</th>
 						<th>action</th>
 					</tr>
@@ -25,7 +26,8 @@
 						data-preview-url="{{URL::to_route('api_get_template_code', $newsletter->id)}}"
 						data-newsletter-url="{{URL::to_route('api_newsletter', $newsletter->id)}}"
 					>
-						<td> <a href="#" data-action="preview">{{$newsletter->title}}</a></td>
+						<td><a href="#" data-action="preview">{{$newsletter->title}}</a></td>
+						<td><span style="background-color:{{$newsletter->label}}" class="label">{{$newsletter->site_title}}</span></td>
 						<td class="date">{{Helpers::niceDate($newsletter->created_at)}}</td>
 						<td>
 								<div class="btn-group">
@@ -45,7 +47,7 @@
 		</div>
 
 		{{-- ------------------------		RHS		------------------------ --}}
-		<div class="span8" id="preview_pane">
+		<div class="span7" id="preview_pane">
 			<iframe src="" width="100%" frameborder="0"></iframe>
 		</div>
 

@@ -73,7 +73,7 @@
  */
 require_once("cloudfiles_exceptions.php");
 require("cloudfiles_http.php");
-define("DEFAULT_CF_API_VERSION", 1);
+define("DEFAULT_CF_API_VERSION", 2.0);
 define("MAX_CONTAINER_NAME_LEN", 256);
 define("MAX_OBJECT_NAME_LEN", 1024);
 define("MAX_OBJECT_SIZE", 5*1024*1024*1024+1);

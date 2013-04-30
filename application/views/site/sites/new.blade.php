@@ -23,14 +23,21 @@
 			
 			{{Form::open( URL::to_route('api_site') ) }}
 
-			<p>
-				{{Form::label('title', 'Title')}}
-				{{Form::text('title', Input::old('title'))}}
-			</p>
+				<p>
+					{{Form::label('title', 'Title')}}
+					{{Form::text('title', Input::old('title'))}}
+				</p>
 
-			<p>{{Form::submit('Add Site', array('class' => 'btn btn-standard'))}}</p>
+				<p>
+					{{Form::label('label', 'Label')}}
+					{{Form::text('label', Input::old('label'))}}
+				</p>
 
-		{{Form::close()}}
+				<p>
+					{{Form::submit('Add Site', array('class' => 'btn btn-standard'))}}
+				</p>
+
+			{{Form::close()}}
 
 		</div>
 

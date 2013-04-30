@@ -40,8 +40,21 @@ class Site_Newsletters_Controller extends Site_Controller
         Asset::container('footer')->add('custom', 'js/newsletterList.js');
 
         $per_page    = 20;
-        $newsletters = DB::table('newsletters')->paginate($per_page, array('id', 'title', 'created_at') );
+        #$newsletters = DB::table('newsletters')->paginate($per_page, array('id', 'title', 'created_at'));
         
+        $newsletters =  DB::table('sites')
+                        ->join('newsletters', function($join){
+                            $join->on('newsletters.site_id', '=', 'sites.id');
+                        })
+                        ->order_by('newsletters.created_at', 'desc')
+                        ->paginate($per_page, array(
+                            'newsletters.id',
+                            'newsletters.created_at',
+                            'newsletters.title',
+                            'sites.label',
+                            'sites.title as site_title'
+                        ));
+
         return View::make('site.newsletters.index')
             ->with('newsletters', $newsletters);
     }

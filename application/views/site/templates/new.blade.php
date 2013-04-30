@@ -7,17 +7,15 @@
 @section('main')
 
 	@if( $errors->has() )
-	<div class="row-fluid">
-		<div class="span12">
-			<ul>
-			    @foreach($errors->all() as $message)
-				    <li>{{ $message }}</li>
-			    @endforeach
-			</ul>
+	    @foreach($errors->all() as $message)
+		<div class="row-fluid">
+			<div class="span12 alert">
+		    	{{ $message }}
+			</div>
 		</div>
-	</div>
-	@endif	
-
+	   @endforeach
+	@endif
+	
 	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}

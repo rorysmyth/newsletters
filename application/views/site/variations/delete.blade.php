@@ -7,13 +7,13 @@
 @section('main')
 
 	@if( $errors->has() )
-	<div class="row-fluid">
 	    @foreach($errors->all() as $message)
-		<div class="span12 alert">
-		    {{ $message }}
+		<div class="row-fluid">
+			<div class="span12 alert">
+		    	{{ $message }}
+			</div>
 		</div>
 	   @endforeach
-	</div>
 	@endif
 
 	@if( Session::has('alert')  )

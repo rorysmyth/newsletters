@@ -6,6 +6,14 @@
 
 @section('main')
 
+	@if( Session::has('alert')  )
+	<div class="row-fluid">
+		<div class="span12 alert">
+		    {{ Session::get('alert') }}
+		</div>
+	</div>
+	@endif
+
 	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}
@@ -13,7 +21,6 @@
 			<table class=" table table-hover">
 				<thead>
 					<tr>
-						<th></th>
 						<th>title</th>
 						<th>date</th>
 						<th>action</th>
@@ -22,11 +29,6 @@
 				<tbody>
 					@foreach($sites->results as $site)
 					<tr>
-						<td>
-							<button data-action="site-delete" class="btn btn-mini btn-danger">
-							<i class="icon-remove icon-white"></i>
-							</button>
-						</td>
 						<td> <a href="{{URL::to_route('sites', $site->id)}}">{{$site->title}}</a></td>
 						<td class="date">{{Helpers::niceDate($site->created_at)}}</td>
 						<td>

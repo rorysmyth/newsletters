@@ -13,6 +13,7 @@ class Site_Sites_Controller extends Site_Controller
 
     public function action_new()
     {
+        echo phpinfo();
         return View::make('site.sites.new');
     }
 
@@ -22,7 +23,6 @@ class Site_Sites_Controller extends Site_Controller
         $per_page    = 20;
         $sites = DB::table('sites')->paginate($per_page, array('id', 'title', 'created_at') );
         
-
         return View::make('site.sites.index')
             ->with('sites', $sites);
     }

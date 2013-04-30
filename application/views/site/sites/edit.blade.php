@@ -12,18 +12,37 @@
 
 @section('main')
 
-<div
-        class="row-fluid"
-        id="data_container"
->
+@if( $errors->has() )
+    @foreach($errors->all() as $message)
+	<div class="row-fluid">
+		<div class="span12 alert">
+	    	{{ $message }}
+		</div>
+	</div>
+   @endforeach
+@endif
 
+<div class="row-fluid" >
 
 	{{-- ------------------------		LHS		------------------------ --}}
 	<div class="span8">
 				
-		{{Form::open( URL::to_route('api_site', $site->id), 'PUT', array('class'=>'form-inline') )}}
-			{{Form::text('title', $site->title) }}
-			{{Form::submit('update', array('class' => 'btn') )}}
+		{{Form::open( URL::to_route('api_site', $site->id), 'PUT' )}}
+			
+			<p>
+				{{Form::label('title','Title')}}
+				{{Form::text('title', $site->title) }}
+			</p>
+			
+			<p>
+				{{Form::label('label','Colour Label: #000000 format')}}
+				{{Form::text('label', $site->label) }}
+			</p>				
+				
+			<p>
+				{{Form::submit('update', array('class' => 'btn') )}}
+			</p>
+
 		{{Form::close()}}
 
 	</div>
