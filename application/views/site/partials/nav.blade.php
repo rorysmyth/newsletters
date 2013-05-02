@@ -43,7 +43,7 @@
     {{-- ------------------------   Main Nav   ------------------------ --}}
     
     <form class="navbar-search pull-left">
-      <input id="type" type="text" class="search-query input-xxlarge" data-provide="typeahead">
+      <input id="type" type="text" class="search-query" data-provide="typeahead">
     </form>
 
 
@@ -51,8 +51,11 @@
       <ul class="nav pull-right">
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->username }} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                  <li><a href="#"><i class="icon-cog"></i> Preferences</a></li>
-                  <li><a href="#"><i class="icon-envelope"></i> Contact Support</a></li>
+                  <li><a href="#"><i class="icon-question-sign"></i> Help</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">bugs</li>
+                  <li><a href="{{URL::to_route('bugs')}}"><i class="icon-eye-open"></i> View Bugs</a></li>
+                  <li><a href="{{URL::to_route('bug_new')}}"><i class="icon-plus"></i> Report Bug</a></li>
                   <li class="divider"></li>
                   <li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
               </ul>

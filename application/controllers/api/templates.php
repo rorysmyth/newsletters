@@ -39,7 +39,6 @@ class Api_Templates_Controller extends Base_Controller
             return Redirect::to_route('newsletters_all');
         }
 
-
     }
 
     public function put_index($id)

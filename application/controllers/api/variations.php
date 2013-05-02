@@ -32,7 +32,6 @@ class Api_Variations_Controller extends Base_Controller {
         {
             Session::flash('alert', 'Already exists');
             return Redirect::to_route('newsletters_variation', $id)
-            ->with('test', 'well the test is set')
                 ->with_input();
         }
 

@@ -6,13 +6,7 @@
 
 @section('main')
 
-	@if( Session::has('alert')  )
-	<div class="row-fluid">
-		<div class="span12 alert">
-		    {{ Session::get('alert') }}
-		</div>
-	</div>
-	@endif
+	@render('site.partials.alerts')
 
 	<div class="row-fluid">
 

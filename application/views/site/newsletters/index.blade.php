@@ -10,7 +10,7 @@
 
 		{{-- ------------------------		LHS		------------------------ --}}
 		<div class="span5">
-			<table class=" table table-hover">
+			<table class=" table table-hover table-striped">
 				<thead>
 					<tr>
 						<th>title</th>

@@ -35,7 +35,8 @@
 
 return array(
 
-	'docs' => array('handles' => 'docs'),
-	'cloudfiles' => array( 'auto' => true )
+	'docs'       => array('handles' => 'docs'),
+	'cloudfiles' => array( 'auto' => true ),
+	'verify'     => array( 'auto' => true ),
 
 );

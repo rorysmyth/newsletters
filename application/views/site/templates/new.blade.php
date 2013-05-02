@@ -6,15 +6,7 @@
 
 @section('main')
 
-	@if( $errors->has() )
-	    @foreach($errors->all() as $message)
-		<div class="row-fluid">
-			<div class="span12 alert">
-		    	{{ $message }}
-			</div>
-		</div>
-	   @endforeach
-	@endif
+	@render('site.partials.alerts')
 	
 	<div class="row-fluid">
 

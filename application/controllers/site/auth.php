@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Newsletters Controller
- *
- * @package default
- * @author 
- *
- **/
 class Site_Auth_Controller extends Site_Controller
 {
 

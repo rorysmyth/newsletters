@@ -146,6 +146,28 @@ class Helpers {
 		return $date->format('M dS');
 	}
 
+	public static function bugClass($number)
+	{
+		switch ($number) {
+		
+			case 1:
+				return "badge badge-important";
+				break;
+
+			case 2:
+				return "badge badge-warning";
+				break;
+
+			case 3:
+				return "badge badge-success";
+				break;	
+			
+			default:
+				return "badge";
+				break;
+		}
+	}
+
 	/**
    * Add files and sub-directories in a folder to zip file.
    * @param string $folder

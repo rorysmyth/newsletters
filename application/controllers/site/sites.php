@@ -1,12 +1,6 @@
 <?php
 
-/**
- * Newsletters Controller
- *
- * @package default
- * @author 
- *
- **/
+
 class Site_Sites_Controller extends Site_Controller
 {
 

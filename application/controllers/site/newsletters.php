@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Newsletters Controller
- *
- * @package default
- * @author 
- *
- **/
 class Site_Newsletters_Controller extends Site_Controller
 {
 
@@ -53,9 +46,7 @@ class Site_Newsletters_Controller extends Site_Controller
     {
 
         Asset::container('footer')->add('custom', 'js/newsletterList.js');
-
         $per_page    = 20;
-        #$newsletters = DB::table('newsletters')->paginate($per_page, array('id', 'title', 'created_at'));
         
         $newsletters =  DB::table('sites')
                         ->join('newsletters', function($join){

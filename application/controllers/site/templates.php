@@ -1,15 +1,7 @@
 <?php
 
-/**
- * Newsletters Controller
- *
- * @package default
- * @author 
- *
- **/
 class Site_Templates_Controller extends Site_Controller
 {
-
 
     public function action_new()
     {
@@ -17,7 +9,6 @@ class Site_Templates_Controller extends Site_Controller
         return View::make('site.templates.new')
             ->with('sites', $sites);
     }
-
 
 	public function action_index()
     {

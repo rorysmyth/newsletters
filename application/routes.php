@@ -6,11 +6,72 @@
 |--------------------------------------------------------------------------
 */
 Route::get('/', function(){
+
     return Redirect::to_route('newsletters');
 });
 
 Route::group(array('before' => 'auth'), function()
 {
+
+    Route::get('admin/permissions/new', array(
+        'as'   => 'permission_new',
+        'uses' => 'site.permissions@new'
+    ));
+
+    Route::get('admin/permissions', array(
+        'as'   => 'permissions',
+        'uses' => 'site.permissions@index'
+    ));
+
+    Route::get('admin/permissions/(:num)', array(
+        'as'   => 'permission',
+        'uses' => 'site.permissions@edit'
+    ));
+
+    Route::get('admin/roles/new', array(
+        'as'   => 'role_new',
+        'uses' => 'site.roles@new'
+    ));
+
+    Route::get('admin/roles', array(
+        'as'   => 'roles',
+        'uses' => 'site.roles@index'
+    ));
+
+    Route::get('admin/roles/(:num)', array(
+        'as'   => 'role',
+        'uses' => 'site.roles@edit'
+    ));
+
+    Route::get('admin/users/new', array(
+        'as'   => 'user_new',
+        'uses' => 'site.users@new'
+    ));
+
+    Route::get('admin/users', array(
+        'as'   => 'users',
+        'uses' => 'site.users@index'
+    ));
+
+    Route::get('admin/users/(:num)', array(
+        'as'   => 'user',
+        'uses' => 'site.users@edit'
+    ));
+
+    Route::get('bugs', array(
+        'as'   => 'bugs',
+        'uses' => 'site.bugs@index'
+    ));
+
+    Route::get('bugs/(:num)', array(
+        'as'   => 'bug',
+        'uses' => 'site.bugs@index'
+    ));
+
+    Route::get('bugs/new', array(
+        'as'   => 'bug_new',
+        'uses' => 'site.bugs@new'
+    ));
 
     Route::get('newsletters', array(
         'as'   => 'newsletters_all',
@@ -179,6 +240,36 @@ Route::group(array('before' => 'auth'), function()
         'uses' => 'api.sections@group_update'
     ));
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bugs API
+    |--------------------------------------------------------------------------
+    */
+    Route::any('/api/bugs/(:num?)', array(
+        'as'   => 'api_bugs',
+        'uses' => 'api.bugs@index'
+    ));
+
+    /*
+    |--------------------------------------------------------------------------
+    | Users API
+    |--------------------------------------------------------------------------
+    */
+    Route::any('/api/admin/users/(:num?)', array(
+        'as'   => 'api_users',
+        'uses' => 'api.users@index'
+    ));
+
+    Route::any('/api/admin/roles/(:num?)', array(
+        'as'   => 'api_roles',
+        'uses' => 'api.roles@index'
+    ));
+
+    Route::any('/api/admin/permissions/(:num?)', array(
+        'as'   => 'api_permissions',
+        'uses' => 'api.permissions@index'
+    ));
 
     /*
     |--------------------------------------------------------------------------
