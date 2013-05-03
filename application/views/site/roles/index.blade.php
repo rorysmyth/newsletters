@@ -4,6 +4,12 @@
 	Roles
 @endsection
 
+@section('actions')
+	<div class="btn-group">
+	  <a href="{{URL::to_route('role_new')}}" class="btn btn-standard"><i class="icon-plus"></i> new</a>
+	</div>
+@endsection
+
 @section('main')
 
 	@render('site.partials.alerts')

@@ -28,7 +28,7 @@ class Newsletter extends Eloquent
             endif;
 
             if(Input::has('title')):
-                $newsletter->title = Input::get('title');
+                $newsletter->title = Str::slug(Input::get('title'), '_');
             endif;
 
             if(Input::has('template_override')):

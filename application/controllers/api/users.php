@@ -70,6 +70,7 @@ class Api_Users_Controller extends Base_Controller {
 			$user->username = $data['username'];
 			$user->email    = $data['email'];
 			$user->password = $data['password'];
+			$user->verified = $data['verified'];
 			
 			$user->save();
 
@@ -79,6 +80,15 @@ class Api_Users_Controller extends Base_Controller {
 				->with('alert', $user->username . ' was added!');
 		}
 
+	}
+
+	public function delete_index($id)
+	{
+		$user = \Verify\Models\User::find($id);
+		$user->roles()->delete();
+		$user->delete();
+		return Redirect::to_route('users')
+			->with('alert', 'User deleted!');
 	}
 
 }

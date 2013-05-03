@@ -28,12 +28,11 @@ class Api_Newsletters_Controller extends Base_Controller {
 
         $rules = array(
             'title'    => 'required',
-            // 'template' => 'required',
             'site_id'  => 'required'
         );
 
         $data = array(
-            'title'    => Input::get('title'),
+            'title'    => Str::slug(Input::get('title'), '_'),
             'template' => Input::get('template'),
             'site_id'  => Input::get('site_id')
         );
@@ -56,7 +55,7 @@ class Api_Newsletters_Controller extends Base_Controller {
     {
         $original = Newsletter::find($id);
         $blueprint = array(
-            'title'    => Input::get('title'),
+            'title'    => Str::slug(Input::get('title'), '_'),
             'template' => $original->template,
             'site_id'  => $original->site_id
         );

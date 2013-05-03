@@ -5,11 +5,9 @@
 @endsection
 
 @section('actions')
-
 	<div class="btn-group">
 	  <a href="{{URL::to_route('permission_new')}}" class="btn btn-standard"><i class="icon-plus"></i> new</a>
 	</div>
-
 @endsection
 
 @section('main')

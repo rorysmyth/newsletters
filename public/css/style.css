@@ -16,10 +16,6 @@ body {
   margin-bottom:20px;
 }
 
-#snippet_add_button {
-  margin-bottom:10px;
-}
-
 #newsletter_template_edit_modal {
   width: 900px;
   height: auto;
@@ -56,4 +52,8 @@ h2 {
 
 #snippet_new_modal .modal-body {
   min-height: 260px;
+}
+
+.fluid-container, .fluid-nav {
+  max-width: 1250px;
 }

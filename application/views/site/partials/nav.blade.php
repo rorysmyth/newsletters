@@ -39,6 +39,17 @@
           </ul>
         </a>
       </li>
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+          Admin
+          <b class="caret"></b>
+          <ul class="dropdown-menu">
+            <li><a href="{{URL::to_route('users')}}">Users</a></li>
+            <li><a href="{{URL::to_route('roles')}}">Roles</a></li>
+            <li><a href="{{URL::to_route('permissions')}}">Permissions</a></li>
+          </ul>
+        </a>
+      </li>
     </ul>
     {{-- ------------------------   Main Nav   ------------------------ --}}
     

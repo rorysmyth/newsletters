@@ -18,10 +18,9 @@ $(document).ready(function(){
 
     sidebar.config = {
         el                 : $('#snippets'),
-        list               : $('#snippets').find('ul'),
+        list               : $('#snippets'),
         getAllUrl          : common.config.dataContainer.data('template-snippets'),
         liTemplate         : $('#hb_sidebar_snippet_li').html(),
-        addNewButton       : $('#snippets > a.btn'),
         singleSnippetUrl   : common.config.dataContainer.data('single-snippet'),
         snippetEditTemplate: $('#snippet_edit_modal_template'),
     };
@@ -86,7 +85,7 @@ $(document).ready(function(){
 
     };
 
-    sidebar.createFromObject = function(title, data){
+    sidebar._createFromObject = function(title, data){
         // do the list
         var list = document.createDocumentFragment('div');
             $.each(data, function(title, id){
@@ -97,6 +96,22 @@ $(document).ready(function(){
 
         $(list).prepend('<li class="nav-header"><a href="#" data-action="edit-section-group">'+title+'</a></li>');
         $(list).append('<li class="divider"></li>');
+        
+        return list;
+
+    };
+
+
+    sidebar.createFromObject = function(title, data){
+        // do the list
+        var list = document.createDocumentFragment('div.test');
+            $.each(data, function(title, id){
+                var data = {title: title, id: id};
+                var li   = sidebar.createLi(data);
+                $(list).append(li);
+            });
+
+        $(list).prepend('<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#s_nippets" href=" ' + title + ' ">'+title+'</a></div></div>');
         
         return list;
 
@@ -123,7 +138,6 @@ $(document).ready(function(){
        sidebar.config.list.html(html);
        $.unblockUI();
     };
-
 
 
     /*=================================================

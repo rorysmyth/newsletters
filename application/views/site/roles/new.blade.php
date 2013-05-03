@@ -13,7 +13,7 @@
 		{{-- ------------------------		LHS		------------------------ --}}
 		<div class="span12">
 			
-			{{Form::open( URL::to_route('api_users') ) }}
+			{{Form::open( URL::to_route('api_roles') ) }}
 
 				<p>
 					{{Form::label('name', 'name')}}
@@ -21,7 +21,7 @@
 				</p>
 
 				<p>
-					{{Form::submit('Add Site', array('class' => 'btn btn-standard'))}}
+					{{Form::submit('Add Role', array('class' => 'btn btn-standard'))}}
 				</p>
 
 			{{Form::close()}}

@@ -4,6 +4,14 @@
 	Edit User
 @endsection
 
+@section('actions')
+	<div class="btn-group">
+		{{Form::open( URL::to_route('api_users', $user->id), 'DELETE' ) }}
+	  		<button class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i> delete</button>
+	  	{{Form::close()}}
+	</div>
+@endsection
+
 @section('main')
 
 	@render('site.partials.alerts')

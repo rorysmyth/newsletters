@@ -13,18 +13,20 @@ class Site_Newsletters_Controller extends Site_Controller
         $variation_list = Helpers::allVariations($id);
         $templates = Template::lists('title', 'id');
 
-        if(! Cache::has('cdn_images'))
-        {
-            $cloudfiles = Ioc::resolve('cloudfiles');
-            $cdn_images_db_115x71 = $cloudfiles->get_container("Images DataBase 115x71 - HC Main Newsletter")->list_objects();
-            $cdn_images_db_140x105 = $cloudfiles->get_container("Images DataBase 140x105 - HW Main Newsletter")->list_objects();
-            $cdn_images_db_70x50 = $cloudfiles->get_container("Images DataBase 70x50 - HW Main Newsletter")->list_objects();
-            $all_images = array_merge($cdn_images_db_70x50, $cdn_images_db_140x105, $cdn_images_db_115x71);
-            $cdn_images = htmlentities(json_encode($all_images));
-            Cache::put('cdn_images', $cdn_images, 60);
-        }
 
-        $cdn_images = Cache::get('cdn_images');
+        if (Config::get('cdn_discover') != false) {
+            if(! Cache::has('cdn_images'))
+            {
+                $cloudfiles = Ioc::resolve('cloudfiles');
+                $cdn_images_db_115x71 = $cloudfiles->get_container("Images DataBase 115x71 - HC Main Newsletter")->list_objects();
+                $cdn_images_db_140x105 = $cloudfiles->get_container("Images DataBase 140x105 - HW Main Newsletter")->list_objects();
+                $cdn_images_db_70x50 = $cloudfiles->get_container("Images DataBase 70x50 - HW Main Newsletter")->list_objects();
+                $all_images = array_merge($cdn_images_db_70x50, $cdn_images_db_140x105, $cdn_images_db_115x71);
+                $cdn_images = htmlentities(json_encode($all_images));
+                Cache::put('cdn_images', $cdn_images, 60);
+            }
+            $cdn_images = Cache::get('cdn_images');
+        }
 
         $newsletter = Newsletter::find($id);
         Asset::container('footer')->add('custom', 'js/newsletterEdit.js');

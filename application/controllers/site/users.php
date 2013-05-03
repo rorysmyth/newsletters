@@ -23,6 +23,7 @@ class Site_Users_Controller extends Site_Controller
 	{
 		$roles = \Verify\Models\Role::lists('name', 'id');
 		$user = \Verify\Models\User::find($id);
+		$permissions = \Verify\Models\Permission::all();
 		return View::make('site.users.edit')
 			->with('roles', $roles)
 			->with('user', $user);

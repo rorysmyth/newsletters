@@ -8,6 +8,7 @@
 
 @render('site.partials.nav')
 
+<!-- <div class="row-fluid fluid-container"> -->
 <div class="row-fluid fluid-container">
 	
 	<div class="row-fluid">
@@ -27,7 +28,6 @@
 {{ Asset::container('footer')->scripts() }}
 
 @yield('handlebars')
-
 
 </body>
 </html>

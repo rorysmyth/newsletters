@@ -116,7 +116,9 @@
 </script>
 
 <script type="text/x-handlebars-template" id="hb_sidebar_snippet_li">
-	<li class="single_snippet"><a data-id="{{id}}" href="#">{{title}}</a></li>
+	<li class="single_snippet">
+		<a data-id="{{id}}" href="#">{{title}}</a>
+	</li>
 </script>
 
 <script type="text/x-handlebars-template" id="alert_template">
