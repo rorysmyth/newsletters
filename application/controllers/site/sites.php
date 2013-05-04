@@ -7,8 +7,7 @@ class Site_Sites_Controller extends Site_Controller
 
     public function action_new()
     {
-        return View::make('site.sites.new')
-            ->with('cities', $cities);
+        return View::make('site.sites.new');
     }
 
 

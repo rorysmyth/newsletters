@@ -115,12 +115,6 @@
 
 </script>
 
-<script type="text/x-handlebars-template" id="hb_sidebar_snippet_li">
-	<li class="single_snippet">
-		<a data-id="{{id}}" href="#">{{title}}</a>
-	</li>
-</script>
-
 <script type="text/x-handlebars-template" id="alert_template">
 	<div class="alert">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -143,3 +137,38 @@
 	</div>
 </script>
 
+
+<script type="text/x-handlebars-template" id="snippets_accordian">
+<div class="accordion-group">
+	<div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#snippets" href="#snippet_{{groupTitle}}">{{groupTitle}}</a>
+		<div class="btn-group pull-right">
+			<a class="btn btn-mini" href="#" data-action="edit-section-group" data-group-name="{{groupTitle}}">
+				<i class="icon-edit icon"></i>
+			</a>
+			<a class="btn btn-mini" href="#">
+				<i class="icon-plus icon"></i>
+			</a>
+		</div>
+	</div>
+	<div id="snippet_{{groupTitle}}" class="accordion-body collapse">
+		<div class="accordion-inner">
+			<ul>
+			{{#each snippets}}
+				<li>
+					<a class="single_snippet" data-id="{{this.id}}" href="{{this.id}}">{{this.title}}</a>
+				</li>
+			{{/each}}
+			</ul>
+		</div>
+	</div>
+</div>	
+</script>
+
+<script type="text/x-handlebars-template" id="hb_sidebar_snippet_li">
+<div class="accordion-group">
+	<div class="accordion-heading">
+		<a class="accordion-toggle single_snippet" data-id="{{id}}">{{title}}</a>
+	</div>
+</div>	
+</script>

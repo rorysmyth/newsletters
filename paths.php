@@ -24,6 +24,7 @@
 $environments = array(
 
 	'local' => array('http://test.newsletters*', '*.dev'),
+  'home' => array('http://newsletters*', '*.local'),
 
 );
 

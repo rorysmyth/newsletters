@@ -19,6 +19,28 @@
 
 @section('main')
 
+
+{{-- ------------------------		Variations		------------------------ --}}
+<div id="variations" class="row-fluid">
+
+<ul class="nav nav-tabs">
+
+	@if(isset($variation_list))
+		@foreach($variation_list as $variant)
+			<li class="dropdown {{ URI::segment(3) == $variant ? 'active' : '' }}">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$variant}}<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">View</a></li>
+					<li class="divider"></li>
+					<li><a data-action="delete-variation" href="{{URL::to_route('api_variation_delete', array($newsletter->id, $variant))}}">delete</a></li>
+				</ul>
+			</li>
+		@endforeach
+	@endif
+
+</ul>
+</div>
+
 <div
         id="data_container"
         data-site-base = "{{URL::base()}}"
@@ -35,70 +57,20 @@
 
 >
 
-
-	{{-- ------------------------		Variations		------------------------ --}}
-	<div id="variations" class="span1">
-
-			@if(isset($variation_list))
-				@foreach($variation_list as $variant)
-				<div class="btn-group">
-					<a class="btn btn-mini dropdown-toggle {{ URI::segment(3) == $variant ? 'btn-primary' : '' }}" data-toggle="dropdown" href="#">
-					{{$variant}}
-					<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="{{URL::to_route('newsletters', array( $newsletter->id, $variant ) )}}">view</a></li>
-						<li class="divider"></li>
-						<li><a data-action="delete-variation" href="{{URL::to_route('api_variation_delete', array($newsletter->id, $variant))}}">delete</a></li>
-					</ul>
-				</div>
-				@endforeach
-			@endif
-
-
-	</div>
-
 	
 	{{-- ------------------------		EXPERIEMENT		------------------------ --}}
 
 	<div id="exp" class="span3">
 
-		<!-- <div class="well btn-group">
-			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary">new snippet</a>
-			<a href="#" class="btn">new group</a>
-		</div> -->
-
-		<!-- Start Accordian
-		<div class="accordion" id="s_nippets">
-		  
-			<div class="accordion-group">
-
-				// section start
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#s_nippets" href="#section_title">Header</a>
-				</div>
-
-				<div id="section_title" class="accordion-body collapse">
-					<div class="accordion-inner">
-						<a href="#">test</a>
-						<a href="#">test</a>
-						<a href="#">test</a>
-					</div>
-				</div>
-				// section end
-
+		<div class="well">
+			<div class="">
+				<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary">new snippet</a>
+				<a href="#" class="btn">new group</a>
 			</div>
-
-		</div>
-		End Accordian -->
-
-		<div class="well btn-group">
-			<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary">new snippet</a>
-			<a href="#" class="btn">new group</a>
 		</div>
 
 		<div class="accordian" id="snippets">
-
+			<!-- stuff will go here -->
 		</div>
 
 	</div>
@@ -107,7 +79,7 @@
 
 
 	{{-- ------------------------		RHS		------------------------ --}}
-	<div class="span8">
+	<div class="span9">
 	
 		<div class="row-fluid">
 			

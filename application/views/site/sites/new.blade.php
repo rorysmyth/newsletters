@@ -9,17 +9,6 @@
 	@render('site.partials.alerts')
 
 	<div class="row-fluid">
-		<select name="value" >
-			@foreach($cities as $container => $city)
-				<optgroup label="{{$container}}">
-				@foreach($city as $file)
-					<option value="{{$file}}">{{$file}}</option>
-				@endforeach
-			@endforeach
-		</select>
-	</div>
-
-	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}
 		<div class="span12">

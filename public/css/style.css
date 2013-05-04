@@ -57,3 +57,18 @@ h2 {
 .fluid-container, .fluid-nav {
   max-width: 1250px;
 }
+
+#snippets .accordion-heading .accordion-toggle{
+  display: inline-block;
+}
+#snippets .accordion-heading .btn-group {
+  margin:8px 8px 0 0;
+}
+.btn-group+.btn-group {
+  margin-top:0;
+}
+
+.actions .btn-group{
+  margin-top:10px;
+  float:right;
+}

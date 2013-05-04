@@ -85,35 +85,26 @@ $(document).ready(function(){
 
     };
 
-    sidebar._createFromObject = function(title, data){
+
+    sidebar.createFromObject = function(title, snippets){
         // do the list
-        var list = document.createDocumentFragment('div');
-            $.each(data, function(title, id){
-                var data = {title: title, id: id};
-                var li   = sidebar.createLi(data);
-                $(list).append(li);
-            });
+        var newSnippets = [];
 
-        $(list).prepend('<li class="nav-header"><a href="#" data-action="edit-section-group">'+title+'</a></li>');
-        $(list).append('<li class="divider"></li>');
-        
-        return list;
+        $.each(snippets, function(snippetTitle, snippetId){
+            var current = { title: snippetTitle, id: snippetId };
+            newSnippets.push(current);
+        });
 
-    };
+        var data  = {
+            groupTitle: title,
+            snippets: newSnippets
+        };
 
+        var src = $('#snippets_accordian').html();
+        var template = Handlebars.compile(src);
+        var html = template(data);        
 
-    sidebar.createFromObject = function(title, data){
-        // do the list
-        var list = document.createDocumentFragment('div.test');
-            $.each(data, function(title, id){
-                var data = {title: title, id: id};
-                var li   = sidebar.createLi(data);
-                $(list).append(li);
-            });
-
-        $(list).prepend('<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#s_nippets" href=" ' + title + ' ">'+title+'</a></div></div>');
-        
-        return list;
+        return html;
 
     };
 
@@ -185,7 +176,7 @@ $(document).ready(function(){
             e.preventDefault();
         });
         
-        $('body').on('click', '#snippets ul li.single_snippet a', function(e){
+        $('body').on('click', '#snippets a.single_snippet', function(e){
             $.blockUI();
             sidebar.snippet.edit(this);
             e.preventDefault();
@@ -250,7 +241,7 @@ $(document).ready(function(){
 
      sidebar.sectionGroup.request = function(ele){
         $.blockUI();
-        var sectionName = $(ele).html();
+        var sectionName = $(ele).data('groupName');
         var url         = sidebar.sectionGroup.config.baseUrl + '/api/snippets/section/' + common.config.templateId + '/' + sectionName + '/' + common.config.dataContainer.data('variation');
         $.get(url, function(data){
             sidebar.sectionGroup.createForm(data);

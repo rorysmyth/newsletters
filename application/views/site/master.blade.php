@@ -12,10 +12,12 @@
 <div class="row-fluid fluid-container">
 	
 	<div class="row-fluid">
-		<div class="span12">
+		<div class="span6">
 			<h4>@yield('title')</h4>
 		</div>
-		@yield('actions')
+		<div class="span6 actions">
+			@yield('actions')
+		</div>
 	</div>
 	<hr>
 
