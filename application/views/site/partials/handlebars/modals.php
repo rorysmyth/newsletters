@@ -172,10 +172,11 @@
 	</div>
 	<div id="snippet_{{groupTitle}}" class="accordion-body collapse">
 		<div class="accordion-inner">
-			<ul>
+			<ul class="snippet-section">
 			{{#each snippets}}
 				<li>
-					<a class="single_snippet" data-id="{{this.id}}" href="{{this.id}}">{{this.title}}</a>
+					<span class="snippet_value">[{{this.title}}]</span>
+					<a class="single_snippet" data-id="{{this.id}}" href="{{this.id}}">{{shortValue this.value}}</a>
 				</li>
 			{{/each}}
 			</ul>
@@ -188,6 +189,7 @@
 <div class="accordion-group">
 	<div class="accordion-heading">
 		<a class="accordion-toggle single_snippet" data-id="{{id}}">{{title}}</a>
+		<span class="snippet_value">{{value}}</span>
 	</div>
 </div>	
 </script>

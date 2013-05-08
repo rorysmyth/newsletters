@@ -94,7 +94,7 @@ body.permissions h4 {
   padding:10px;
   font-size: 11px;
   margin:20px;
-  position: absolute;
+  position: fixed;
   top:60px;
   left:10px;
 }
@@ -124,4 +124,24 @@ table.users .label {
 .typeaheadSite {
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.snippet_value {
+  color:rgb(105, 97, 97);
+  font-size: 11px;
+}
+
+ul.snippet-section {
+  list-style-type:none;
+  margin-left: 0;
+}
+ul.snippet-section li {
+  border-bottom: 1px dotted #ccc;
+  line-height: 200%;
+}
+ul.snippet-section li:last-child {
+  border-bottom:none;
+}
+ul.snippet-section a {
+  font-size: 12px;
 }

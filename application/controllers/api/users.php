@@ -17,7 +17,7 @@ class Api_Users_Controller extends Base_Controller {
 		);
 
 		$rules = array(
-			'username' => 'required|min:4|max:8',
+			'username' => 'required|min:4|max:12',
 			'email'    => 'required|email',
 			'verified' => 'required'
 		);
@@ -47,7 +47,7 @@ class Api_Users_Controller extends Base_Controller {
 			'verified' => Input::get('verified')
 		);
 		$rules = array(
-			'username' => 'required|min:4|max:8',
+			'username' => 'required|min:4|max:12',
 			'email'    => 'required|email',
 			'role'     => 'required',
 			'password' => 'required',

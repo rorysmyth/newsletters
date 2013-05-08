@@ -30,30 +30,16 @@ $(document).ready(function(){
         sidebar.fill();
     };
 
-    sidebar.fill = function(){
-        $.blockUI();
-        $.get(sidebar.config.getAllUrl, function(data){
-            var sorted = sidebar.sortData(data); // gets back object with all data
-            sidebar.createList(sorted);
-        });
-    };
-
     sidebar.sortData = function(data){
         var dataObject = new Object();
 
             $.each(data, function(index, snippet){
-
                 var title = snippet.title;
-                var value = snippet.value;
-                var id    = snippet.id
 
-                // if its a section
                 if(title.match(/^section_.*?_.*?$/) != null){
                     // get section mame
                     var section      = title.match(/^section_(.*?)_(.*?)$/)[1];
                     var sectionTitle = title.match(/^section_(.*?)_(.*?)$/)[2];
-
-                    // {{section_SECTION_SECTIONTITLE}}
 
                     // check it doesn't already exists
                     if (dataObject.hasOwnProperty(section) == false) {
@@ -61,19 +47,11 @@ $(document).ready(function(){
                         dataObject[section] = new Object();
                     };
 
-                    dataObject[section][sectionTitle] = {
-                        title: sectionTitle,
-                        id   : snippet.id,
-                        value: snippet.value
-                    };
+                    dataObject[section][sectionTitle] = snippet.id;
 
                 } else {
-                    // if its a single snippet
-                    dataObject[title] = {
-                        title: snippet.title,
-                        id   : snippet.id,
-                        value: snippet.value
-                    };
+                    // doesn't have section attached
+                    dataObject[title] = snippet.id;
                 }
 
             });
@@ -82,33 +60,25 @@ $(document).ready(function(){
 
     };
 
-    sidebar.createList = function(data){
+    sidebar.fill = function(){
+        $.blockUI();
+        $.get(sidebar.config.getAllUrl, function(data){
+            var sorted = sidebar.sortData(data); // gets back object with all data
+            sidebar.createList(sorted);
+        });
+    };
 
+    sidebar.createList = function(data){
         var list = document.createDocumentFragment();
 
-        $.each(data, function(snippetTitle, snippetObject ){
-
-            // if its part of a snippet group, the top level id will be null
-            // check it the top level id value exists
-            // if it does, treat it as a single snippet
-            // if it doesn't, it's a group. Iterate over the nested objects
-
-            if(snippetObject.id){
-
-                var snippet = sidebar.createSingleSnippet(snippetObject);
-                $(list).append(snippet);
-
+        $.each(data, function(title, value){
+            if(typeof value == "object"){
+                var ul = sidebar.createFromObject(title, value);
+                $(list).append(ul);
             } else {
-
-                var data  = {
-                    groupTitle: snippetTitle,
-                    snippets  : snippetObject
-                };
-                var section = sidebar.createSnippetSection(data);
-                $(list).append(section);
-
+                var li = sidebar.createFromString(title,value);
+                $(list).append(li);
             }
-
         });
 
         sidebar.attach(list);
@@ -116,22 +86,43 @@ $(document).ready(function(){
     };
 
 
-    sidebar.createSingleSnippet = function(snippet){
+    sidebar.createFromObject = function(title, snippets){
+        // do the list
+        console.log(snippets);
+        var newSnippets = [];
+
+        $.each(snippets, function(snippetTitle, snippetId){
+            var current = { title: snippetTitle, id: snippetId };
+            newSnippets.push(current);
+        });
+
+        var data  = {
+            groupTitle: title,
+            snippets: newSnippets
+        };
+
+        var src = $('#snippets_accordian').html();
+        var template = Handlebars.compile(src);
+        var html = template(data);        
+
+        return html;
+
+    };
+
+    sidebar.createFromString = function(title, value){
+        var data = {id: value, title: title};
+        var html = sidebar.createLi(data);
+        return html;
+    };
+
+    sidebar.createLi = function(snippet){
         var data = {
             id: snippet.id,
-            title: snippet.title.replace('_', ' '),
-            value: snippet.value
+            title: snippet.title.replace('_', ' ')
         }
         var src      = sidebar.config.liTemplate;
         var template = Handlebars.compile(src);
         var html     = template(data);
-        return html;
-    };
-
-    sidebar.createSnippetSection = function(section){
-        var src      = $('#snippets_accordian').html();
-        var template = Handlebars.compile(src);
-        var html     = template(section);
         return html;
     };
 
@@ -140,9 +131,6 @@ $(document).ready(function(){
        $.unblockUI();
     };
 
-    Handlebars.registerHelper('shortValue', function(value){
-        return value.substring(0,36) + "..."
-    });
 
     /*=================================================
 
@@ -447,7 +435,6 @@ $(document).ready(function(){
                     $('#snippet_edit_modal').modal('toggle');
                     code.request();
                     preview.refresh();
-                    sidebar.fill();
                 }
             }
         });
@@ -552,6 +539,8 @@ $(document).ready(function(){
         });
 
     };
+
+    quickTemplate
 
     quickTemplate.doForm = function(ele) {
         var data    = $(ele).serialize();
