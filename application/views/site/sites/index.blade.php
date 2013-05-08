@@ -12,7 +12,7 @@
 
 		{{-- ------------------------		LHS		------------------------ --}}
 		<div class="span12">
-			<table class=" table table-hover">
+			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
 						<th>title</th>

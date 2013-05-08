@@ -52,6 +52,41 @@
 	</div>
 </script>
 
+
+<script  id="snippet_new_from_group_modal_template" type="text/x-handlebars-template">
+	<div id="snippet_new_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">{{title}}</h3>
+		</div>
+		 		
+			<div class="modal-body">
+				
+				<div class="modal_error_container"></div>
+
+				<form id="snippet_new_form" method="POST" action="<?php echo URL::to_route('newsletters') ?>" accept-charset="UTF-8">
+					<input type="hidden" name="newsletter_id" value="{{id}}" />
+					<p>
+						<?php echo Form::label('title','Title'); ?>
+						<input type="text" value="section_{{group}}_" name="title" class="input-block-level" required />
+					</p>
+
+					<p>
+						<?php echo Form::label('value','Value'); ?>
+						<textarea name="value" class="input-block-level" data-provide="typeahead" data-items="3" data-source="<?php echo $cdn_images; ?>"></textarea>
+					</p>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<a class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+				<button id="snippet_new_submit" class="btn btn-primary">Add</button>
+			</div>
+	</div>
+</script>
+
+
 <script  id="template_edit_modal_template" type="text/x-handlebars-template">
 	<div id="template_edit_modal_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -122,22 +157,6 @@
 	</div>
 </script>
 
-<script type="text/x-handlebars-template" id="variations_li">
-	<div class="btn-group">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			{{title}}
-		<span class="caret"></span>
-		</a>
-
-		<ul class="dropdown-menu">
-		<li><a href="#">view</a></li>
-		<li class="divider"></li>
-		<li><a href="#">delete</a></li>
-		</ul>
-	</div>
-</script>
-
-
 <script type="text/x-handlebars-template" id="snippets_accordian">
 <div class="accordion-group">
 	<div class="accordion-heading">
@@ -146,7 +165,7 @@
 			<a class="btn btn-mini" href="#" data-action="edit-section-group" data-group-name="{{groupTitle}}">
 				<i class="icon-edit icon"></i>
 			</a>
-			<a class="btn btn-mini" href="#">
+			<a class="btn btn-mini" data-group-name="{{groupTitle}}" data-action="snippet-add-to-group" href="#">
 				<i class="icon-plus icon"></i>
 			</a>
 		</div>

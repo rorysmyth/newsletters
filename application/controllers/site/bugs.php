@@ -5,6 +5,12 @@ class Site_Bugs_Controller extends Site_Controller
 
 	public function action_index()
 	{
+		if(!Auth::can('view_bugs'))
+        {
+            return View::make('site.errors.permissions')
+                ->with('alert', "you aren't allowed to view bugs");
+        }
+
 		$per_page    = 20;
 
 		$bugs_p1 = Bug::where('status', '!=', 'resolved')
@@ -34,6 +40,11 @@ class Site_Bugs_Controller extends Site_Controller
 
 	public function action_new()
 	{
+		if(!Auth::can('create_bugs'))
+        {
+            return View::make('site.errors.permissions')
+                ->with('alert', "you aren't allowed to create bugs");
+        }
 		return View::make('site.bugs.new');
 	}
 

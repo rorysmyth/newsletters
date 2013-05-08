@@ -6,6 +6,22 @@
 
 @section('main')
 
+@render('site.partials.alerts')
+
+<div class="row-fluid">
+	{{Form::open( URL::to_route('newsletters_all') , 'POST', array('class' => 'form-inline')) }}
+
+		{{Form::text('keywords', Session::get('keywords'), array('placeholder' => 'keywords') )}}
+
+		{{Form::select('site', $sites, Session::get('site') )}}
+		{{Form::select('month', $months, Session::get('month'))}}
+
+		{{Form::button('search', array('class'=>'btn btn-primary'))}}
+
+	{{Form::close()}}
+<hr>
+</div>
+
 	<div class="row-fluid">
 
 		{{-- ------------------------		LHS		------------------------ --}}

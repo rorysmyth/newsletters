@@ -46,13 +46,13 @@ h2 {
   margin:10px 0 0 0; 
 }
 
-.modal-body {
+/*.modal-body {
   max-height:100%;
 }
 
 #snippet_new_modal .modal-body {
   min-height: 260px;
-}
+}*/
 
 .fluid-container, .fluid-nav {
   max-width: 1250px;
@@ -71,4 +71,57 @@ h2 {
 .actions .btn-group{
   margin-top:10px;
   float:right;
+}
+
+body.permissions {
+  background:black url('/img/dave.jpg') center 100px no-repeat;
+  height: 100%;
+}
+
+body.permissions hr {
+  display: none;
+}
+
+body.permissions h4 {
+  color:#eee;
+  text-align: center;
+  margin-top: 500px;
+}
+
+#dev {
+  background: #eee;
+  border:1px solid #ccc;
+  padding:10px;
+  font-size: 11px;
+  margin:20px;
+  position: absolute;
+  top:60px;
+  left:10px;
+}
+
+#pig {
+  display: block;
+  width: 140px;
+  height: 140px;
+  position: fixed;
+  bottom:0;
+  right: 0;
+  background: url('/img/pascal.png') top left no-repeat;
+}
+
+table.users .label {
+  margin-right: 5px
+}
+
+.typeaheadDate, .typeaheadSite {
+  font-size: 11px;
+  padding-right: 16px;
+}
+.typeaheadDate {
+  padding-left: 16px;
+}
+
+.typeaheadSite {
+  font-weight: bold;
+  text-transform: uppercase;
 }

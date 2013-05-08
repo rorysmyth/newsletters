@@ -34,16 +34,21 @@
 				</p>
 
 				<p>
-					{{Form::label('role', 'role')}}
-					{{Form::select('role', $roles)}}
+					<fieldset>
+						<legend>Roles</legend>
+						{{Form::label('role', 'role')}}
+						@foreach($roles as $role)
+							<p class="form-inline">
+							{{Form::checkbox('roles[]', $role->id, in_array($role->id, $user_roles) ? 'true' : '' )}}
+							{{Form::label($role->name, $role->name)}}
+							</p>
+						@endforeach
+					</fieldset>
 				</p>
 
 				<p>
 					<fieldset>
-						<legend>Change Password</legend>
-						{{Form::label('password', 'Old Password')}}
-						{{Form::password('old_password')}}
-
+						<legend>Password</legend>
 						{{Form::label('password', 'New Password')}}
 						{{Form::password('new_password')}}
 					</fieldset>

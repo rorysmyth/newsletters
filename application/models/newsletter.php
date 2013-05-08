@@ -70,8 +70,11 @@ class Newsletter extends Eloquent
 
 	public static function search_newsletters($query)
 	{
-		$search_results = Newsletter::where('title', 'LIKE', '%'.$query.'%')->get(array('title', 'id'));
-		return $search_results;
+		// $search_results = Newsletter::with('site')
+		// 	->where('title', 'LIKE', '%'.$query.'%')
+		// 	->get(array('title', 'id', 'site_title'));
+		// return $search_results;
+		// moved
 	}
 
 	public static function create_images_folder($id)

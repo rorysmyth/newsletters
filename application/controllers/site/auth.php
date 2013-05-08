@@ -14,12 +14,14 @@ class Site_Auth_Controller extends Site_Controller
 	{
 		$userdata = array(
 			'username' => Input::get('username'),
-			'password' => Input::get('password')
+			'password' => Input::get('password'),
+			'url'      => Input::get('url')
 		);
 
 		if ( Auth::attempt($userdata) )
 		{
-		    return Redirect::to(URL::to_route('newsletters'));
+		    // return Redirect::to(URL::to_route('newsletters'));
+		    return Redirect::to( $userdata['url'] );
 		}
 		else
 		{
@@ -28,7 +30,5 @@ class Site_Auth_Controller extends Site_Controller
 		}
 
 	}
-
-
 
 }

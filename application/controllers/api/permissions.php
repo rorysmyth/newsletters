@@ -13,7 +13,7 @@ class Api_Permissions_Controller extends Base_Controller {
         );
 
         $data = array(
-            'name' => Str::lower(Input::get('name'))
+            'name' => Str::slug(Str::lower(Input::get('name')), '_')
         );
 
         $validation = Validator::make($data, $rules);
@@ -26,7 +26,7 @@ class Api_Permissions_Controller extends Base_Controller {
 
         } else {
 
-            $permission->name = Input::get('name');
+            $permission->name = $data['name'];
             $permission->save();
             return Redirect::to_route('permissions')
                 ->with('alert','new permission added!');
@@ -41,7 +41,7 @@ class Api_Permissions_Controller extends Base_Controller {
         $permission = \Verify\Models\Permission::find($id);
 
         $data = array(
-            'name' => Str::lower(Input::get('name'))
+            'name' => Str::slug(Str::lower(Input::get('name')), '_')
         );
 
         $rules = array(

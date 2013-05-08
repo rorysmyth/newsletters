@@ -6,6 +6,11 @@ class Api_Bugs_Controller extends Base_Controller {
 
 	public function get_index($id)
 	{
+		if(!Auth::can('view_bugs'))
+        {
+            return View::make('site.errors.permissions')
+                ->with('alert', "you aren't allowed to view users");
+        }
 		return "getting bug";
 	}
 

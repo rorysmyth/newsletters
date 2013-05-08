@@ -53,6 +53,10 @@ class Api_Newsletters_Controller extends Base_Controller {
 
     public function post_duplicate($id)
     {
+        if ( !Auth::can('duplicate_newsletter') ) {
+            return Redirect::to_route('newsletters', $id)
+                ->with('alert', "You don't have permissions to do that");
+        }
         $original = Newsletter::find($id);
         $blueprint = array(
             'title'    => Str::slug(Input::get('title'), '_'),

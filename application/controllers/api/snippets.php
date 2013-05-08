@@ -12,6 +12,10 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function post_index()
     {
+        if(!Auth::can('add_snippets'))
+        {
+            return Response::json( array('status' => 'false'));
+        };
         
         $new = array(
             'title'         => Input::get('title'),
@@ -65,7 +69,10 @@ class Api_Snippets_Controller extends Base_Controller
 
     public function put_index($id)
     {
-        // $snippet = Snippet::find($id);
+        if(!Auth::can('edit_snippets'))
+        {
+            return Response::json(array('status' => 'false'));
+        };
         
         $new = array(
             'value' => Input::get('value')

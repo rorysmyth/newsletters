@@ -4,7 +4,7 @@
 	<title>@yield('title')</title>
 	{{ Asset::container('header')->styles() }}
 </head>
-<body>
+<body @yield('body_class') >
 
 @render('site.partials.nav')
 
@@ -25,7 +25,13 @@
 	@yield('main')
 	<!-- main content -->
 
+@if(Auth::user()->username == "Pascal")
+<div id="pig">Bonjour!</div>
+@endif
+
 </div>
+
+@render('site.dev.index')
 
 {{ Asset::container('footer')->scripts() }}
 

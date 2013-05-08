@@ -11,8 +11,7 @@ class Api_Users_Controller extends Base_Controller {
 		$data = array(
 			'username'     => Input::get('username'),
 			'email'        => Input::get('email'),
-			'role'         => Input::get('role'),
-			'old_password' => Input::get('old_password'),
+			'roles'        => Input::get('roles'),
 			'new_password' => Input::get('new_password'),
 			'verified'     => Input::get('verified')
 		);
@@ -20,13 +19,11 @@ class Api_Users_Controller extends Base_Controller {
 		$rules = array(
 			'username' => 'required|min:4|max:8',
 			'email'    => 'required|email',
-			'role'     => 'required',
 			'verified' => 'required'
 		);
 
 
 		$validation = Validator::make($data, $rules);
-
 
 		if($validation->fails())
 		{

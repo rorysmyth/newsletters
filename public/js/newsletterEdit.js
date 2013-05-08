@@ -181,6 +181,11 @@ $(document).ready(function(){
             sidebar.snippet.edit(this);
             e.preventDefault();
         });
+
+        $('body').on('click', 'a[data-action="snippet-add-to-group"]', function(e){
+            sidebar.snippet.new.addToGroup(this);
+            e.preventDefault();
+        });
         
         $('body').on('click', '#snippet_delete_submit', function(e){
             sidebar.snippet.delete(this);
@@ -344,6 +349,19 @@ $(document).ready(function(){
             }
         });
 
+    };
+
+    sidebar.snippet.new.addToGroup = function(ele){
+        var groupName = $(ele).data('groupName')
+        var src       = $('#snippet_new_from_group_modal_template').html();
+        var template  = Handlebars.compile(src);
+        var html      = template({
+            title: 'Add to ' + groupName,
+            id   : common.config.templateId,
+            group: groupName
+        });
+        common.config.modalContainer.html(html);
+        $('#snippet_new_modal').modal('toggle');
     };
 
     

@@ -19,6 +19,7 @@
 
 @section('main')
 
+@render('site.partials.alerts')
 
 {{-- ------------------------		Variations		------------------------ --}}
 <div id="variations" class="row-fluid">
@@ -63,7 +64,7 @@
 	<div id="exp" class="span3">
 
 		<div class="well">
-			<div class="">
+			<div class="btn-group">
 				<a id="snippet_add_button" data-action="add-new-snippet" class="btn btn-primary">new snippet</a>
 				<a href="#" class="btn">new group</a>
 			</div>

@@ -24,7 +24,9 @@
                         data.push(
                               results[i]['id']
                             + autosep
+                            + "<span class='typeaheadSite'>" + results[i]['site_title'] + "</span>"
                             + results[i]['title']
+                            + "<span class='typeaheadDate'>" + date.parseFromDb(results[i]['created_at']) + "</span>"
                         );
                     };
                     return process(data);
@@ -47,6 +49,35 @@
         }
 
     });
+
+
+
+    /*=================================================
+
+    date
+
+    =================================================*/
+    Date.prototype.monthNames = [
+        "January", "February", "March",
+        "April", "May", "June",
+        "July", "August", "September",
+        "October", "November", "December"
+    ];
+
+    Date.prototype.getMonthName = function() {
+        return this.monthNames[this.getMonth()];
+    };
+
+    Date.prototype.getShortMonthName = function () {
+        return this.getMonthName().substr(0, 3);
+    };
+
+    var date = date || {};
+
+    date.parseFromDb = function(date){
+        var dbDate    = new Date(date);
+        return dbDate.getUTCDate() + " " + dbDate.getMonthName() + " " + dbDate.getUTCFullYear() ;
+    }
 
     /*=================================================
 

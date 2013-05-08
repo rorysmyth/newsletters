@@ -78,6 +78,11 @@ Route::group(array('before' => 'auth'), function()
         'uses' => 'site.newsletters@index'
     ));
 
+    Route::post('newsletters', array(
+        'as'   => 'newsletters_all',
+        'uses' => 'site.newsletters@index'
+    ));
+
     Route::get('newsletters/(:num)/(:any?)', array(
         'as'   => 'newsletters',
         'uses' => 'site.newsletters@edit'
@@ -315,11 +320,6 @@ Event::listen('404', function()
 Event::listen('500', function()
 {
 	return Response::error('500');
-});
-
-Event::listen('test', function()
-{
-    return Redirect::to_route('newsletters');
 });
 
 /*
