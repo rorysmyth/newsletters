@@ -29,7 +29,7 @@ web1:
     - fileinfo
   before_deploy:
     - "php artisan --env=production migrate verify"
-    - "php artisan migrate"
+    - "php artisan --env=production migrate"
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*"
