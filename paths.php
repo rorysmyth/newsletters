@@ -23,8 +23,9 @@
 
 $environments = array(
 
-	'local' => array('http://test.newsletters*', '*.dev'),
+	'work' => array('http://test.newsletters*', '*.dev'),
   'home' => array('http://newsletters*', '*.local'),
+  'production' => array('http://newsletters.pagodabox*', '*.com')
 
 );
 

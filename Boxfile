@@ -28,7 +28,7 @@ web1:
     - mbstring
     - fileinfo
   before_deploy:
-    - "php artisan migrate verify"
+    - "php artisan --env=production migrate verify"
     - "php artisan migrate"
   after_deploy:
     - "rm -f storage/cache/*"
