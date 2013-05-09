@@ -7,6 +7,7 @@ class Site_Controller extends Base_Controller
     {
         Asset::container('footer')
             ->add('jquery','js/jquery.js')
+            ->add('yui','js/yui/build/yui/yui-min.js')
             ->add('bootstrap_js','js/bootstrap.min.js')
             ->add('bootstrap_switch_js','js/bootstrap-switch.js')
             ->add('handlebars','js/handlebars.js')
