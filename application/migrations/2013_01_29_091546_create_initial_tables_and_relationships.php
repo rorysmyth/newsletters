@@ -20,6 +20,8 @@ class Create_Initial_Tables_And_Relationships {
 				$table->engine = 'InnoDB';
 				$table->increments('id');
 					$table->string('title');
+					$table->text('code');
+					$table->site('site_id');
 				$table->timestamps();
 			});
 			/********************************************
@@ -36,7 +38,7 @@ class Create_Initial_Tables_And_Relationships {
 				$table->increments('id');
 					$table->string('title');
 					$table->blob('code');
-					$table->integer('site_id')->unsigned()->nullable();;
+					$table->integer('site_id')->unsigned()->nullable();
 					$table->foreign('site_id')->references('id')->on('sites');
 				$table->timestamps();
 			});

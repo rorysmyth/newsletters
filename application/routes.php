@@ -13,30 +13,87 @@ Route::get('/', function(){
 Route::group(array('before' => 'auth'), function()
 {
 
+    Route::get('template/make', array(
+        'as'   => 'template_make',
+        'uses' => 'site.templates@make'
+    ));
 
-    Route::get('template/make', function(){
+    Route::post('template/make', function(){
+        
+        // get all blocks
+        $block_ids = Input::get('values');
+        
+        // make a "complete" array with all the final block html
+        $final_html = array();
 
-        Asset::container('footer')
-            ->add('jquery','js/jquery.js')
-            ->add('yui','js/yui/build/yui/yui-min.js')
-            ->add('jqueryui','js/jqueryui/jqueryui.js')
-            ->add('bootstrap_js','js/bootstrap.min.js')
-            ->add('bootstrap_switch_js','js/bootstrap-switch.js')
-            ->add('handlebars','js/handlebars.js')
-            ->add('blockui','js/blockui.js')
-            ->add('scripts','js/scripts.js');
+        // blocks used
+        $used_blocks = array();
 
-        Asset::container('admin_footer')
-            ->add('jquery','js/jquery.js')
-            ->add('bootstrap_js','js/bootstrap.min.js');
+        // go through each block
+        foreach ($block_ids as $block) {
+            $block = Block::find($block);
+            
+            $id    = $block->id;
+            $code  = $block->code;
+            $title  = $block->title;
 
-        Asset::container('header')
-            ->add('prettify_css','css/prettify.css')
-            ->add('bootstrap_css','css/bootstrap.min.css')
-            ->add('bootstrap_switch_css','css/bootstrap-switch.css')
-            ->add('styles','css/style.css');
+            // if the block hasn't been processed before add it
+            if (!in_array($title, $used_blocks)) {
+                array_push($used_blocks, array($title => 1));
+            }
 
-        return View::make('site.templates.make');
+        }
+
+        return $used_blocks;
+
+        // if a block with that id HAS been processed before, append
+        // array of all the titles that have been used with a counter value
+            // $counter = array(  "header" => 1, article" => 4, );
+
+        // PROCESSING the blocks
+
+            // get the html
+            // get the title of the block
+                // e.g. "article"
+                // if $counter['article'] = 0  then called article
+                // if $counter['article'] > 1  then increment $counter['article'] and rename to article_$counter['article']_
+                // set that as the "working title"
+
+            // find the variables in it
+                // ['title', 'url', 'cta']
+
+            // replace the code with the variables prepended
+                // find "title" replace with "section_article_title"
+                // or 
+                // "section_article-1_title"
+            
+            // add this to the "complete" html array
+
+        // flatten the html array
+        // return that bitch
+
+        $html = array();
+        $sections = array();
+
+        foreach ($data as $item) {
+
+            $code = $item['code'];
+            $scan_variables = preg_match_all();
+            $single_match_array =  $matches[1];
+
+            $new_value_names = array();
+            foreach ($single_match_array as $key => $value) {
+                $name = "section_test_" . $value;
+                array_push($new_value_names, $name);
+            }
+
+            dd($new_value_names);
+               
+        }
+
+        dd($html);
+        return Response::json($html);
+
     });
 
     Route::get('admin/permissions/new', array(

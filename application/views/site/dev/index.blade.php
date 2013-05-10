@@ -1,4 +1,4 @@
-<div id="dev">
+<div id="dev" style="display:none">
 
 {{ Form::open('login') }}
 	<p style="display:none">{{ Form::text('username', 'copywriter')}}</p>

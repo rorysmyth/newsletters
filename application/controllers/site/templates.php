@@ -43,6 +43,19 @@ class Site_Templates_Controller extends Site_Controller
         Asset::container('footer')->add('custom', 'js/templateEdit.js');
     	return View::make('site.templates.edit')->with('template', $template);
     }
+
+    public function action_make()
+    {
+        if(!Auth::can('create_templates'))
+        {
+            return View::make('site.errors.permissions')
+                ->with('alert', "you aren't allowed to create templates");
+        }
+        Asset::container('footer')->add('jqueryui','js/jqueryui/jqueryui.js');
+        $blocks = Block::all();
+        return View::make('site.templates.make')
+            ->with('blocks', $blocks);
+    }
 	
 }
 
