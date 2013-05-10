@@ -18,10 +18,11 @@ Route::group(array('before' => 'auth'), function()
         'uses' => 'site.templates@make'
     ));
 
-    Route::post('template/make', function(){
+    Route::get('template/make', function(){
         
         // get all blocks
-        $block_ids = Input::get('values');
+        // $block_ids = Input::get('values');
+        $block_ids = array(1,2,2);
         
         // make a "complete" array with all the final block html
         $final_html = array();
@@ -38,13 +39,15 @@ Route::group(array('before' => 'auth'), function()
             $title  = $block->title;
 
             // if the block hasn't been processed before add it
-            if (!in_array($title, $used_blocks)) {
-                array_push($used_blocks, array($title => 1));
+            if (!array_key_exists($title, $used_blocks)) {
+                $used_blocks[$title] = 1;
+            } else {
+                $used_blocks[$title]++;
             }
 
         }
 
-        return $used_blocks;
+        dd($used_blocks);
 
         // if a block with that id HAS been processed before, append
         // array of all the titles that have been used with a counter value
