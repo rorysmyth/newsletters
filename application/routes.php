@@ -18,11 +18,11 @@ Route::group(array('before' => 'auth'), function()
         'uses' => 'site.templates@make'
     ));
 
-    Route::get('template/make', function(){
+    Route::post('template/make', function(){
         
         // get all blocks
-        // $block_ids = Input::get('values');
-        $block_ids = array(1,2,2);
+        $block_ids = Input::get('values');
+        // $block_ids = array(2,2,1);
         
         // make a "complete" array with all the final block html
         $final_html = array();
@@ -32,6 +32,7 @@ Route::group(array('before' => 'auth'), function()
 
         // go through each block
         foreach ($block_ids as $block) {
+
             $block = Block::find($block);
             
             $id    = $block->id;
@@ -39,63 +40,36 @@ Route::group(array('before' => 'auth'), function()
             $title  = $block->title;
 
             // if the block hasn't been processed before add it
+            // if a block with that id HAS been processed before, append
+            // array of all the titles that have been used with a counter value
+            // $counter = array(  "header" => 1, article" => 4, );
             if (!array_key_exists($title, $used_blocks)) {
                 $used_blocks[$title] = 1;
+                $working_title = "section_" . $title . "_";
             } else {
                 $used_blocks[$title]++;
+                $working_title = "section_" . $title . "-" . $used_blocks[$title] . "_";
             }
 
-        }
-
-        dd($used_blocks);
-
-        // if a block with that id HAS been processed before, append
-        // array of all the titles that have been used with a counter value
-            // $counter = array(  "header" => 1, article" => 4, );
-
-        // PROCESSING the blocks
-
-            // get the html
-            // get the title of the block
-                // e.g. "article"
-                // if $counter['article'] = 0  then called article
-                // if $counter['article'] > 1  then increment $counter['article'] and rename to article_$counter['article']_
-                // set that as the "working title"
-
             // find the variables in it
-                // ['title', 'url', 'cta']
+            $scan = preg_match_all('/\{\{(.+?)\}\}/', $code, $matches);
+            $matched_snippets = $matches[1];
+            $unique_snippets = array_unique($matched_snippets);
 
             // replace the code with the variables prepended
+            foreach ($unique_snippets as $snippet) {
                 // find "title" replace with "section_article_title"
                 // or 
                 // "section_article-1_title"
-            
-            // add this to the "complete" html array
-
-        // flatten the html array
-        // return that bitch
-
-        $html = array();
-        $sections = array();
-
-        foreach ($data as $item) {
-
-            $code = $item['code'];
-            $scan_variables = preg_match_all();
-            $single_match_array =  $matches[1];
-
-            $new_value_names = array();
-            foreach ($single_match_array as $key => $value) {
-                $name = "section_test_" . $value;
-                array_push($new_value_names, $name);
+                $code = str_replace($snippet, $working_title . $snippet, $code);
             }
 
-            dd($new_value_names);
-               
+            array_push($final_html, $code);
+
         }
 
-        dd($html);
-        return Response::json($html);
+        $generated_html = implode("\n", $final_html);
+        return $generated_html;
 
     });
 

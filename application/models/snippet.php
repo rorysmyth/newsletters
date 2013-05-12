@@ -14,11 +14,14 @@ class Snippet extends Eloquent
 
 	public static function snippet_by_section($newsletter_id, $section_title, $variation)
 	{
-		$snippets =  Newsletter::find($newsletter_id)
-			->snippet()
+		$title = "section_". $section_title . "_";
+
+		$snippets = DB::table('snippets')
+			->where('newsletter_id', '=', $newsletter_id)
 			->where('variation', 'like', $variation)
-			->where('title', 'like', '%'.$section_title.'%')
+			->where( 'title', DB::raw('rlike') , $title )
 			->get(array('id','title', 'value'));
+
 		return $snippets;
 	}
 

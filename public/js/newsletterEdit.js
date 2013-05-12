@@ -262,6 +262,7 @@ $(document).ready(function(){
         var sectionName = $(ele).data('groupName');
         var url         = sidebar.sectionGroup.config.baseUrl + '/api/snippets/section/' + common.config.templateId + '/' + sectionName + '/' + common.config.dataContainer.data('variation');
         $.get(url, function(data){
+            console.log(data);
             sidebar.sectionGroup.createForm(data);
         });
      }

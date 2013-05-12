@@ -45,12 +45,12 @@
 
 		{{-- ------------------------		Preview		------------------------ --}}
 		<div class="span6">
-			<h4>generated</h4>
-			<div id="query"></div>
+			
 			<div class="btn-group">
-				<a data-action="generate-template" class="btn btn-primary">do</a>
+				<a data-action="generate-template" class="btn">generate</a>
 			</div>
-			<textarea id="output" cols="30" rows="10"></textarea>
+			
+			<textarea class="input-block-level" id="output" cols="30" rows="10"></textarea>
 		</div>
 		
 
