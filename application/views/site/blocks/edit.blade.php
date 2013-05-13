@@ -1,0 +1,1 @@
+This is the C:\xampp\htdocs\newsletters-dev\application\views/site/blocks/edit.blade.php view

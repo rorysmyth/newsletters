@@ -29,7 +29,7 @@
 
 			<p>
 				{{Form::label('template', 'Template Code')}}
-				{{Form::textarea('template', '', array('class' => 'input-block-level'))}}
+				{{Form::textarea('template', $code, array('class' => 'input-block-level'))}}
 			</p>
 
 			<p>{{Form::submit('Add Newsletter', array('class' => 'btn btn-standard'))}}</p>

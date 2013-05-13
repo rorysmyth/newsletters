@@ -25,6 +25,7 @@
             <li><a href="/templates">View All</a></li>
             <li class="divider"></li>
             <li><a href="/templates/new">Add New</a></li>
+            <li><a href="{{URL::to_route('template_make')}}">Make</a></li>
           </ul>
         </a>
       </li>

@@ -169,10 +169,19 @@ class Site_Newsletters_Controller extends Site_Controller
                 ->with('alert', "you aren't allowed to create newslettter");
         }
 
+
         $sites     = Site::lists('title', 'id');
         $templates = array( '' => 'Choose Template') + Template::lists('title', 'id');
+        
+        if(Request::method('post')){
+            $code = Input::get('code');
+        } else {
+            $code = "";
+        }
+
         return View::make('site.newsletters.new')
             ->with('templates', $templates)
+            ->with('code', $code)
             ->with('sites', $sites);
     }
 	

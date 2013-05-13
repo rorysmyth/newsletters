@@ -56,6 +56,16 @@ class Site_Templates_Controller extends Site_Controller
         return View::make('site.templates.make')
             ->with('blocks', $blocks);
     }
+
+    public function action_preview()
+    {
+        if(!Auth::can('preview_templates'))
+        {
+            return View::make('site.errors.permissions')
+                ->with('alert', "you aren't allowed to preview templates");
+        }
+        return Input::get('html');
+    }
 	
 }
 

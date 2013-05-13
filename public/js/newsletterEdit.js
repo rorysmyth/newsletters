@@ -277,6 +277,7 @@ $(document).ready(function(){
             sidebar.sectionGroup.update(data);
         });
         $(sidebar.sectionGroup.config.tempalteSectionModal).modal('toggle');
+        sidebar.fill();
         code.request();
         preview.refresh();
      }

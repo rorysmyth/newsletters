@@ -13,65 +13,19 @@ Route::get('/', function(){
 Route::group(array('before' => 'auth'), function()
 {
 
-    Route::get('template/make', array(
+    Route::get('templates/make', array(
         'as'   => 'template_make',
         'uses' => 'site.templates@make'
     ));
 
-    Route::post('template/make', function(){
-        
-        // get all blocks
-        $block_ids = Input::get('values');
-        // $block_ids = array(2,2,1);
-        
-        // make a "complete" array with all the final block html
-        $final_html = array();
+    Route::get('/wrapper', function(){
+        return '<div id="wrapper"></div>';
+    }); 
 
-        // blocks used
-        $used_blocks = array();
-
-        // go through each block
-        foreach ($block_ids as $block) {
-
-            $block = Block::find($block);
-            
-            $id    = $block->id;
-            $code  = $block->code;
-            $title  = $block->title;
-
-            // if the block hasn't been processed before add it
-            // if a block with that id HAS been processed before, append
-            // array of all the titles that have been used with a counter value
-            // $counter = array(  "header" => 1, article" => 4, );
-            if (!array_key_exists($title, $used_blocks)) {
-                $used_blocks[$title] = 1;
-                $working_title = "section_" . $title . "_";
-            } else {
-                $used_blocks[$title]++;
-                $working_title = "section_" . $title . "-" . $used_blocks[$title] . "_";
-            }
-
-            // find the variables in it
-            $scan = preg_match_all('/\{\{(.+?)\}\}/', $code, $matches);
-            $matched_snippets = $matches[1];
-            $unique_snippets = array_unique($matched_snippets);
-
-            // replace the code with the variables prepended
-            foreach ($unique_snippets as $snippet) {
-                // find "title" replace with "section_article_title"
-                // or 
-                // "section_article-1_title"
-                $code = str_replace($snippet, $working_title . $snippet, $code);
-            }
-
-            array_push($final_html, $code);
-
-        }
-
-        $generated_html = implode("\n", $final_html);
-        return $generated_html;
-
-    });
+    Route::get('/template/preview', array(
+        'as' => 'template_preview',
+        'uses' => 'site.templates@preview'
+    ));
 
     Route::get('admin/permissions/new', array(
         'as'   => 'permission_new',
@@ -166,6 +120,21 @@ Route::group(array('before' => 'auth'), function()
     Route::get('newsletters/new', array(
         'as'   => 'newsletters_new',
         'uses' => 'site.newsletters@new'
+    ));
+
+    Route::post('newsletters/new', array(
+        'as'   => 'newsletters_new',
+        'uses' => 'site.newsletters@new'
+    ));
+
+    Route::get('blocks/new', array(
+        'as' => 'blocks_new',
+        'uses' => 'site.blocks@new'
+    ));
+
+    Route::get('blocks', array(
+        'as' => 'blocks_all',
+        'uses' => 'site.blocks@index'
     ));
 
     Route::get('templates/new', array(
@@ -344,6 +313,21 @@ Route::group(array('before' => 'auth'), function()
     Route::any('/api/sites/(:num?)', array(
         'as'   => 'api_site',
         'uses' => 'api.sites@index'
+    ));
+
+    Route::any('/api/template/make', array(
+        'as'   => 'api_template_make',
+        'uses' => 'api.templates@make'
+    ));
+
+    /*
+    |--------------------------------------------------------------------------
+    | Blocks API
+    |--------------------------------------------------------------------------
+    */
+    Route::any('/api/blocks/(:num?)', array(
+        'as'   => 'api_blocks',
+        'uses' => 'api.blocks@index'
     ));
 
 });
